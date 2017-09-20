@@ -12,7 +12,7 @@ Option Explicit On
 
 
 Partial Public Class Login
-
+    
     '''<summary>
     '''ErrorMessage control.
     '''</summary>
@@ -21,7 +21,7 @@ Partial Public Class Login
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents ErrorMessage As Global.System.Web.UI.WebControls.PlaceHolder
-
+    
     '''<summary>
     '''FailureText control.
     '''</summary>
@@ -30,7 +30,7 @@ Partial Public Class Login
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents FailureText As Global.System.Web.UI.WebControls.Literal
-
+    
     '''<summary>
     '''Email control.
     '''</summary>
@@ -39,7 +39,7 @@ Partial Public Class Login
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents Email As Global.System.Web.UI.WebControls.TextBox
-
+    
     '''<summary>
     '''Password control.
     '''</summary>
@@ -48,31 +48,13 @@ Partial Public Class Login
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents Password As Global.System.Web.UI.WebControls.TextBox
-
+    
     '''<summary>
-    '''RememberMe control.
+    '''RubiXLogo control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents RememberMe As Global.System.Web.UI.WebControls.CheckBox
-
-    '''<summary>
-    '''RegisterHyperLink control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents RegisterHyperLink As Global.System.Web.UI.WebControls.HyperLink
-
-    '''<summary>
-    '''OpenAuthLogin control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents OpenAuthLogin As Global.ShantaraProduction.OpenAuthProviders
+    Protected WithEvents RubiXLogo As Global.System.Web.UI.WebControls.Image
 End Class

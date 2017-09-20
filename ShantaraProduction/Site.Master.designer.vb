@@ -12,7 +12,88 @@ Option Explicit On
 
 
 Partial Public Class SiteMaster
-
+    
+    '''<summary>
+    '''MainMenu control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents MainMenu As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
+    '''adminDashboard control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents adminDashboard As Global.System.Web.UI.HtmlControls.HtmlAnchor
+    
+    '''<summary>
+    '''manageUsers control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents manageUsers As Global.System.Web.UI.HtmlControls.HtmlAnchor
+    
+    '''<summary>
+    '''manageTickets control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents manageTickets As Global.System.Web.UI.HtmlControls.HtmlAnchor
+    
+    '''<summary>
+    '''Reports control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Reports As Global.System.Web.UI.HtmlControls.HtmlAnchor
+    
+    '''<summary>
+    '''manager control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents manager As Global.System.Web.UI.HtmlControls.HtmlAnchor
+    
+    '''<summary>
+    '''UserOverview control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents UserOverview As Global.System.Web.UI.HtmlControls.HtmlAnchor
+    
+    '''<summary>
+    '''Tickets control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Tickets As Global.System.Web.UI.HtmlControls.HtmlAnchor
+    
+    '''<summary>
+    '''LoginView1 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents LoginView1 As Global.System.Web.UI.WebControls.LoginView
+    
     '''<summary>
     '''MainContent control.
     '''</summary>

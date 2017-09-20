@@ -114,7 +114,13 @@ C:\Users\Deepak Vallabh\source\repos\ShantaraProduction\ShantaraProduction\bin\M
 C:\Users\Deepak Vallabh\source\repos\ShantaraProduction\ShantaraProduction\obj\Debug\ShantaraProduction.vbprojResolveAssemblyReference.cache
 C:\Users\Deepak Vallabh\source\repos\ShantaraProduction\ShantaraProduction\obj\Debug\ShantaraProduction.Resources.resources
 C:\Users\Deepak Vallabh\source\repos\ShantaraProduction\ShantaraProduction\obj\Debug\ShantaraProduction.vbproj.GenerateResource.Cache
-C:\Users\Deepak Vallabh\source\repos\ShantaraProduction\ShantaraProduction\obj\Debug\ShantaraProduction.vbproj.CoreCompileInputs.cache
 C:\Users\Deepak Vallabh\source\repos\ShantaraProduction\ShantaraProduction\obj\Debug\ShantaraProduction.dll
 C:\Users\Deepak Vallabh\source\repos\ShantaraProduction\ShantaraProduction\obj\Debug\WebForms_Basic.xml
 C:\Users\Deepak Vallabh\source\repos\ShantaraProduction\ShantaraProduction\obj\Debug\ShantaraProduction.pdb
+C:\Users\Deepak Vallabh\source\repos\ShantaraProduction\ShantaraProduction\bin\System.Net.Http.Formatting.dll
+C:\Users\Deepak Vallabh\source\repos\ShantaraProduction\ShantaraProduction\bin\System.Web.Http.dll
+C:\Users\Deepak Vallabh\source\repos\ShantaraProduction\ShantaraProduction\bin\System.Web.Http.WebHost.dll
+C:\Users\Deepak Vallabh\source\repos\ShantaraProduction\ShantaraProduction\bin\System.Net.Http.Formatting.xml
+C:\Users\Deepak Vallabh\source\repos\ShantaraProduction\ShantaraProduction\bin\System.Web.Http.xml
+C:\Users\Deepak Vallabh\source\repos\ShantaraProduction\ShantaraProduction\bin\System.Web.Http.WebHost.xml
+C:\Users\Deepak Vallabh\source\repos\ShantaraProduction\ShantaraProduction\obj\Debug\ShantaraProduction.vbproj.CoreCompileInputs.cache

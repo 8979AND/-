@@ -163,27 +163,9 @@ Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
 </member>
-<member name="F:ShantaraProduction.Login._RememberMe">
+<member name="F:ShantaraProduction.Login._RubiXLogo">
 <summary>
-RememberMe control.
-</summary>
-<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member>
-<member name="F:ShantaraProduction.Login._RegisterHyperLink">
-<summary>
-RegisterHyperLink control.
-</summary>
-<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member>
-<member name="F:ShantaraProduction.Login._OpenAuthLogin">
-<summary>
-OpenAuthLogin control.
+RubiXLogo control.
 </summary>
 <remarks>
 Auto-generated field.
@@ -535,6 +517,87 @@ To modify move field declaration from designer file to code-behind file.
 <member name="F:ShantaraProduction.VerifyPhoneNumber._Code">
 <summary>
 Code control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:ShantaraProduction.SiteMaster._MainMenu">
+<summary>
+MainMenu control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:ShantaraProduction.SiteMaster._adminDashboard">
+<summary>
+adminDashboard control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:ShantaraProduction.SiteMaster._manageUsers">
+<summary>
+manageUsers control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:ShantaraProduction.SiteMaster._manageTickets">
+<summary>
+manageTickets control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:ShantaraProduction.SiteMaster._Reports">
+<summary>
+Reports control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:ShantaraProduction.SiteMaster._manager">
+<summary>
+manager control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:ShantaraProduction.SiteMaster._UserOverview">
+<summary>
+UserOverview control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:ShantaraProduction.SiteMaster._Tickets">
+<summary>
+Tickets control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:ShantaraProduction.SiteMaster._LoginView1">
+<summary>
+LoginView1 control.
 </summary>
 <remarks>
 Auto-generated field.
