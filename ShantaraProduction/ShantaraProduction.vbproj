@@ -212,7 +212,6 @@
   <ItemGroup>
     <Content Include="About.aspx" />
     <Content Include="Account\AddPhoneNumber.aspx" />
-    <Content Include="App_Data\DBShantara.mdf" />
     <Content Include="CMT\Dashboard.aspx" />
     <Content Include="Account\Confirm.aspx" />
     <Content Include="Account\Forgot.aspx" />
@@ -233,6 +232,8 @@
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\chosen\chosen-sprite.png" />
+    <Content Include="Content\chosen\chosen.min.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
@@ -250,9 +251,11 @@
     <Content Include="Knitt\TicketOverview.aspx" />
     <Content Include="Management\Dashboard.aspx" />
     <Content Include="Management\ManageTickets.aspx" />
+    <Content Include="Management\Recieve yarn.aspx" />
     <Content Include="Management\Reports.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\chosen.jquery.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
@@ -466,6 +469,13 @@
       <DependentUpon>ManageTickets.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
+    <Compile Include="Management\Recieve yarn.aspx.designer.vb">
+      <DependentUpon>Recieve yarn.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Management\Recieve yarn.aspx.vb">
+      <DependentUpon>Recieve yarn.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
     <Compile Include="Management\Reports.aspx.designer.vb">
       <DependentUpon>Reports.aspx</DependentUpon>
     </Compile>
@@ -547,7 +557,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

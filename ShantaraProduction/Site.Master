@@ -35,7 +35,8 @@
                 <asp:ScriptReference Name="DetailsView.js" Assembly="System.Web" Path="~/Scripts/WebForms/DetailsView.js" />
                 <asp:ScriptReference Name="TreeView.js" Assembly="System.Web" Path="~/Scripts/WebForms/TreeView.js" />
                 <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
-                <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
+                <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />				
+				<asp:ScriptReference Path="~Scripts/chosen.jquery.min.js" />
                 <asp:ScriptReference Name="WebFormsBundle" />
                 <%--Site Scripts--%>
             </Scripts>
@@ -43,7 +44,7 @@
 
        
         <div class="navbar navbar-fixed-top" id="MainMenu" runat="server">
-            <a class="navbar-brand navbar-left" runat="server" href="~/">RubiX</a>
+            <a class="navbar-brand navbar-left" runat="server" href="~/">Shantara</a>
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" style="border: 1px solid #428bca;" data-toggle="collapse" data-target=".navbar-collapse">
