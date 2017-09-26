@@ -523,6 +523,60 @@ Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
 </member>
+<member name="F:ShantaraProduction.Edit_Yarn_Stock._lblYarn">
+<summary>
+lblYarn control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:ShantaraProduction.Edit_Yarn_Stock._txteYdyelot">
+<summary>
+txteYdyelot control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:ShantaraProduction.Edit_Yarn_Stock._ddleYcolour">
+<summary>
+ddleYcolour control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:ShantaraProduction.Edit_Yarn_Stock._txteYweight">
+<summary>
+txteYweight control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:ShantaraProduction.Edit_Yarn_Stock._txteYcartons">
+<summary>
+txteYcartons control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:ShantaraProduction.Edit_Yarn_Stock._btnEdit">
+<summary>
+btnEdit control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
 <member name="F:ShantaraProduction.Recieve_yarn._ddlSupplier">
 <summary>
 ddlSupplier control.
@@ -550,9 +604,9 @@ Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
 </member>
-<member name="F:ShantaraProduction.Recieve_yarn._txtYtype">
+<member name="F:ShantaraProduction.Recieve_yarn._ddlYtype">
 <summary>
-txtYtype control.
+ddlYtype control.
 </summary>
 <remarks>
 Auto-generated field.
@@ -604,15 +658,6 @@ Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
 </member>
-<member name="F:ShantaraProduction.Recieve_yarn._sqlYcolour">
-<summary>
-sqlYcolour control.
-</summary>
-<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member>
 <member name="F:ShantaraProduction.Recieve_yarn._txtYweight">
 <summary>
 txtYweight control.
@@ -625,24 +670,6 @@ To modify move field declaration from designer file to code-behind file.
 <member name="F:ShantaraProduction.Recieve_yarn._txtYcartons">
 <summary>
 txtYcartons control.
-</summary>
-<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member>
-<member name="F:ShantaraProduction.Recieve_yarn._txtYCweight">
-<summary>
-txtYCweight control.
-</summary>
-<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member>
-<member name="F:ShantaraProduction.Recieve_yarn._txtYCcartons">
-<summary>
-txtYCcartons control.
 </summary>
 <remarks>
 Auto-generated field.
@@ -679,6 +706,15 @@ To modify move field declaration from designer file to code-behind file.
 <member name="F:ShantaraProduction.Recieve_yarn._grdvInvoiceDyelots">
 <summary>
 grdvInvoiceDyelots control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:ShantaraProduction.Recieve_yarn._btnyarninvcaptur">
+<summary>
+btnyarninvcaptur control.
 </summary>
 <remarks>
 Auto-generated field.

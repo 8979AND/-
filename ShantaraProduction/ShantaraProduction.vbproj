@@ -250,6 +250,7 @@
     <Content Include="Knitt\Dashboard.aspx" />
     <Content Include="Knitt\TicketOverview.aspx" />
     <Content Include="Management\Dashboard.aspx" />
+    <Content Include="Management\Edit_Yarn_Invoice.aspx" />
     <Content Include="Management\ManageTickets.aspx" />
     <Content Include="Management\Recieve yarn.aspx" />
     <Content Include="Management\Reports.aspx" />
@@ -460,6 +461,13 @@
     </Compile>
     <Compile Include="Management\Dashboard.aspx.vb">
       <DependentUpon>Dashboard.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Management\Edit_Yarn_Invoice.aspx.designer.vb">
+      <DependentUpon>Edit_Yarn_Invoice.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Management\Edit_Yarn_Invoice.aspx.vb">
+      <DependentUpon>Edit_Yarn_Invoice.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="Management\ManageTickets.aspx.designer.vb">

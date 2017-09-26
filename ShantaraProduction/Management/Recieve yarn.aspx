@@ -1,30 +1,35 @@
 ﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/Site.Master" CodeBehind="Recieve yarn.aspx.vb" Inherits="ShantaraProduction.Recieve_yarn" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+
 	<div class="container-fluid">
 		<h1>Recieve Yarn Stock</h1>
-        <br />
+		<br />
 		<div class="row">
 			<div class="col-sm-4">
 				<label for="ddlSupplier">Supplier </label>
-<asp:DropDownList ID="ddlSupplier" CssClass="form-control" style="height:34px; width:100%; max-width:none" runat="server" AutoPostBack = "true"
-             OnSelectedIndexChanged="ddlSupplier_SelectedIndexChanged">
-<asp:ListItem Text = "--Select Supplier--" Value = ""></asp:ListItem>
-</asp:DropDownList>			</div>
-			
+				<asp:DropDownList ID="ddlSupplier" CssClass="form-control" Style="height: 34px; width: 100%; max-width: none" runat="server" AutoPostBack="true"
+					OnSelectedIndexChanged="ddlSupplier_SelectedIndexChanged" AppendDataBoundItems="True">
+					<asp:ListItem Text="--Select Supplier--" Value=""></asp:ListItem>
+				</asp:DropDownList>
+			</div>
+
 		</div>
 		<br />
 		<div class="row">
 			<div class="col-sm-4">
 				<label for="txtdate">Purchase Date</label>
-                <asp:TextBox runat="server" ID="txtdate" cssClass="form-control" style="height:34px; width:100%; max-width:none" Enabled="False" />
+                <asp:TextBox runat="server" ID="txtdate" cssClass="form-control" style="height:34px; width:100%; max-width:none" Enabled="False" AutoPostBack="True" />
 			</div>
 			<div class="col-sm-4">
 				<label for="txtInvoice">Invoice Number</label>
                 <asp:TextBox runat="server" ID="txtInvoice" cssClass="form-control" style="height:34px; width:100%; max-width:none" Enabled="False" />
 			</div>
 			<div class="col-sm-4">
-				<label for="txtYtype">Yarn Type</label>
-                <asp:TextBox runat="server" ID="txtYtype" cssClass="form-control" style="height:34px; width:100%; max-width:none" Enabled="False" />
+				<label for="ddlYtype">Yarn Type</label>
+				<asp:DropDownList ID="ddlYtype" CssClass="form-control" Style="height: 34px; width: 100%; max-width: none" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlYtype_SelectedIndexChanged" Enabled="False" AppendDataBoundItems="True">
+					<asp:ListItem Text="--Select Yarn Type--" Value=""></asp:ListItem>
+				</asp:DropDownList>
 			</div>
 			<div class="col-sm-4">
 				<label for="txtTtweight">Total Transaction weight </label>
@@ -49,8 +54,10 @@
 			</div>
 			<div class="col-sm-4">
 				<label for="ddlYcolour">Yarn Colour</label>
-				<asp:DropDownList ID="ddlYcolour" CssClass="form-control" runat="server" DataSourceID="sqlYcolour" DataTextField="YarnColour" DataValueField="YarnColour" Enabled="False"></asp:DropDownList>
-				<asp:SqlDataSource ID="sqlYcolour" runat="server" ConnectionString="<%$ ConnectionStrings:ShantaraDBConnection %>" SelectCommand="SELECT [YarnColour] FROM [YN - Yarn Colour Defns]"></asp:SqlDataSource>
+				<asp:DropDownList ID="ddlYcolour" CssClass="form-control" Style="height: 34px; width: 100%; max-width: none" runat="server" AutoPostBack="true"
+					OnSelectedIndexChanged="ddlYcolour_SelectedIndexChanged" Enabled="False" AppendDataBoundItems="True">
+					<asp:ListItem Text="--Select Yarn Colour--" Value=""></asp:ListItem>
+				</asp:DropDownList>
 			</div>
 			<div class="col-sm-4">
 				<label for="txtYweight">Yarn Weight</label>
@@ -59,21 +66,13 @@
 			<div class="col-sm-4">
 				<label for="txtYcartons">Yarn Cartons</label>
 				<asp:TextBox runat="server" ID="txtYcartons" CssClass="form-control" Style="height: 34px; width: 100%; max-width: none" Enabled="False" />
-			</div>
-			<div class="col-sm-4">
-				<label for="txtYCweight">Current Weight</label>
-				<asp:TextBox runat="server" ID="txtYCweight" CssClass="form-control" Style="height: 34px; width: 100%; max-width: none" Enabled="False" />
-			</div>
-			<div class="col-sm-4">
-				<label for="txtYCcartons">Current Cartons</label>
-				<asp:TextBox runat="server" ID="txtYCcartons" CssClass="form-control" Style="height: 34px; width: 100%; max-width: none" Enabled="False" />
 			</div>					
 		</div>
 		<br />
 		<div class="row">
 			<div class="col-sm-4">
 				<asp:LinkButton runat="server" ID="btnCapture" CssClass="btn btn-default btn-lg">
-                    <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                     Capture Dyelot
 				</asp:LinkButton>
 			</div>
@@ -86,9 +85,9 @@
                      <asp:GridView ID="grdvInvoiceDyelots" runat="server" Visible="False" CellPadding="5" ForeColor="#333333" GridLines="None" HorizontalAlign="Center" CellSpacing="1" PageSize="15">
                           <AlternatingRowStyle BackColor="White" />
                          <Columns>
-                             <%--<asp:HyperLinkField Text="Select" 
-                            DataNavigateUrlFields="Id"
-                            DataNavigateUrlFormatString="~\Ticketing\TicketDetails.aspx?ID={0}" />--%>
+                             <asp:HyperLinkField Text="Select" 
+                            DataNavigateUrlFields="YarnID"
+                            DataNavigateUrlFormatString="~\Management\Edit_Yarn_Invoice.aspx?ID={0}" />
                          </Columns>
                           <EditRowStyle BackColor="#7C6F57" />
                           <FooterStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
@@ -103,14 +102,23 @@
                      </asp:GridView>
                  </div>
 		</div>
+		<br />
+		<div class="row">
+			<div class="col-sm-4">
+				<asp:LinkButton runat="server" ID="btnyarninvcaptur" CssClass="btn btn-default btn-lg">
+                    <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
+                    Capture Invoice
+				</asp:LinkButton>
+		</div>
 	</div>
 
  <script> 
 	 {
-		$("#ddlYcolour").chosen
+		 $("#ddlYcolour").chosen(function () { });
 	 }
 	 	
 	</script>
  
 	
+	</div>
 </asp:Content>

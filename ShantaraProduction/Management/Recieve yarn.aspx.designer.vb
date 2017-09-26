@@ -41,13 +41,13 @@ Partial Public Class Recieve_yarn
     Protected WithEvents txtInvoice As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
-    '''txtYtype control.
+    '''ddlYtype control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtYtype As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents ddlYtype As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
     '''txtTtweight control.
@@ -95,15 +95,6 @@ Partial Public Class Recieve_yarn
     Protected WithEvents ddlYcolour As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
-    '''sqlYcolour control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents sqlYcolour As Global.System.Web.UI.WebControls.SqlDataSource
-    
-    '''<summary>
     '''txtYweight control.
     '''</summary>
     '''<remarks>
@@ -120,24 +111,6 @@ Partial Public Class Recieve_yarn
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents txtYcartons As Global.System.Web.UI.WebControls.TextBox
-    
-    '''<summary>
-    '''txtYCweight control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents txtYCweight As Global.System.Web.UI.WebControls.TextBox
-    
-    '''<summary>
-    '''txtYCcartons control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents txtYCcartons As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
     '''btnCapture control.
@@ -174,4 +147,13 @@ Partial Public Class Recieve_yarn
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents grdvInvoiceDyelots As Global.System.Web.UI.WebControls.GridView
+    
+    '''<summary>
+    '''btnyarninvcaptur control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnyarninvcaptur As Global.System.Web.UI.WebControls.LinkButton
 End Class
