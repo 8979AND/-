@@ -11,16 +11,16 @@ Option Strict On
 Option Explicit On
 
 
-Partial Public Class Recieve_yarn
+Partial Public Class KnittDataCapture
     
     '''<summary>
-    '''ddlSupplier control.
+    '''ddlBatchNo control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents ddlSupplier As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents ddlBatchNo As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
     '''txtdate control.

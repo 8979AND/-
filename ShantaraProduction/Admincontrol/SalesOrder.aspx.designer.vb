@@ -11,68 +11,59 @@ Option Strict On
 Option Explicit On
 
 
-Partial Public Class Edit_Yarn_Stock
+Partial Public Class SalesOrder
     
     '''<summary>
-    '''lblYarn control.
+    '''ddlCustomer control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblYarn As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents ddlCustomer As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
-    '''txteYdyelot control.
+    '''txtdate control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txteYdyelot As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtdate As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
-    '''ddleYcolour control.
+    '''ddlSize control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents ddleYcolour As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents ddlSize As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
-    '''txteYweight control.
+    '''ddlYtype control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txteYweight As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents ddlYtype As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
-    '''txteYcartons control.
+    '''txtQuantity control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txteYcartons As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtQuantity As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
-    '''btnEdit control.
+    '''btnCapture control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnEdit As Global.System.Web.UI.WebControls.LinkButton
-    
-    '''<summary>
-    '''btnBack control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents btnBack As Global.System.Web.UI.WebControls.LinkButton
+    Protected WithEvents btnCapture As Global.System.Web.UI.WebControls.LinkButton
 End Class

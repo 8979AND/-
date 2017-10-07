@@ -11,32 +11,41 @@ Option Strict On
 Option Explicit On
 
 
-Partial Public Class Dashboard2
+Partial Public Class CreateBatch
     
     '''<summary>
-    '''grdvInvoiceDyelots control.
+    '''ddlBProduct control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents grdvInvoiceDyelots As Global.System.Web.UI.WebControls.GridView
+    Protected WithEvents ddlBProduct As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
-    '''GridView1 control.
+    '''DisplayProductionOrders control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents GridView1 As Global.System.Web.UI.WebControls.GridView
+    Protected WithEvents DisplayProductionOrders As Global.System.Web.UI.HtmlControls.HtmlGenericControl
     
     '''<summary>
-    '''GridView2 control.
+    '''lblProductionOrders control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents GridView2 As Global.System.Web.UI.WebControls.GridView
+    Protected WithEvents lblProductionOrders As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''grdvProductionOrders control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents grdvProductionOrders As Global.System.Web.UI.WebControls.GridView
 End Class

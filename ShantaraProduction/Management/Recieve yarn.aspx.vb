@@ -9,6 +9,22 @@ Public Class Recieve_yarn
 			getSupplier()
 			getYtype()
 			getColour()
+			If Session("editYarn") = 1 Then
+				txtInvoice.Text = Session("Invoice_number")
+				txtdate.Text = Session("YI_date")
+				txtkgprice.Text = Session("YI_price")
+				ddlSupplier.SelectedItem.Text = Session("YI_Supplier")
+				ddlYtype.SelectedItem.Text = Session("YI_Ytype")
+				grdvInvoiceDyelotsPopulate()
+				txtYdyelot.Enabled = True
+				ddlYcolour.Enabled = True
+				txtYweight.Enabled = True
+				txtYcartons.Enabled = True
+			Else
+
+			End If
+			'		testsessionforgridview()
+
 		End If
 	End Sub
 
@@ -100,8 +116,6 @@ Public Class Recieve_yarn
 		txtdate.Enabled = True
 		txtInvoice.Enabled = True
 		ddlYtype.Enabled = True
-		txtTtweight.Enabled = True
-		txtTtcartons.Enabled = True
 		txtkgprice.Enabled = True
 	End Sub
 	Private Sub InvoiceDBPopulate()
@@ -131,11 +145,15 @@ Public Class Recieve_yarn
 
 		grdvInvoiceDyelots.Visible = True
 		'btnBack.Visible = False
-		'btnAddUser.Visible = True		
+		'btnAddUser.Visible = True	
+		Session("Invoice_number") = txtInvoice.Text
 		SQL = "SELECT YM.YarnID, YM.YarnDyelot, YC.YarnColour, YM.YarnPurchaceWeight, YM.YarnPurchaseCartons
         FROM [YN - Yarn Master] YM JOIN [YN - Yarn Colour Defns] YC
         On YM.YarnColourID = YC.YarnColourID 
-        WHERE YM.SupplierInvoiceNo = '" & txtInvoice.Text & "';"
+		WHERE YM.SupplierInvoiceNo = '" & Session("Invoice_number") & "';"
+
+
+		'	cmd.Parameters.AddWithValue("@invoice", )
 		con.Open()
 		cmd.Connection = con
 		cmd.CommandText = SQL
@@ -147,27 +165,54 @@ Public Class Recieve_yarn
 		grdvInvoiceDyelots.DataBind()
 
 	End Sub
+	Private Sub testsessionforgridview()
+		Dim Command As SqlCommand
+		Dim Reader As SqlDataReader
+
+		Dim connection As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
+		Dim CommandString As String
+
+		CommandString = "SELECT YM.YarnID, YM.YarnDyelot, YM.SupplierInvoiceNo, YC.YarnColour, YM.YarnPurchaceWeight, YM.YarnPurchaseCartons
+        FROM [YN - Yarn Master] YM JOIN [YN - Yarn Colour Defns] YC
+        On YM.YarnColourID = YC.YarnColourID;"
+
+		Command = New SqlCommand(CommandString)
+		Command.CommandType = CommandType.Text
+		Command.Connection = connection
+
+		Command.Connection.Open()
+
+		Command.ExecuteNonQuery()
+
+		Reader = Command.ExecuteReader(CommandBehavior.CloseConnection)
+
+		If Reader.HasRows = True Then
+			While Reader.Read()
+				Session.Add("Invoice_number", Reader("SupplierInvoiceNo"))
+			End While
+		End If
+	End Sub
 
 	Private Sub InvoiceDBAuditTrail()
 		Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
 
 		Dim cmdstring As String = "INSERT INTO [YN - YarnTransactionHeader] (TransactionTypeID, TransactionDate, EntityID, YarnDocumentNo, Processed) " &
 		"VALUES (1, '" & DateTime.Now & "', " & ddlSupplier.SelectedValue & ", '" & txtInvoice.Text & "', 1);"
-		'SELECT CAST(scope_identity() AS int);"
 		Dim cmd As New SqlCommand(cmdstring)
 		cmd.CommandType = CommandType.Text
 		cmd.Connection = con
 		cmd.Connection.Open()
 		cmd.ExecuteNonQuery()
-		'Dim TicketID As Int32 = 0
-		'TicketID = Convert.ToInt32(cmd.ExecuteScalar())
-		'Dim notification As New CustomerComms
-		'notification.NotifyNewTicket(TicketID)
-
 		cmd.Connection.Close()
 	End Sub
 
 	Protected Sub btnCapture_Click(sender As Object, e As EventArgs) Handles btnCapture.Click
+		Session("YI_date") = txtdate.Text
+		Session("YI_price") = txtkgprice.Text
+		Session("YI_Supplier") = ddlSupplier.SelectedItem.Text
+		Session("YI_Ytype") = ddlYtype.SelectedItem.Text
+
+		Session("editYarn") = 0
 		InvoiceDBPopulate()
 		grdvInvoiceDyelotsPopulate()
 		ddlYcolour.ClearSelection()
@@ -195,6 +240,10 @@ Public Class Recieve_yarn
 		InvoiceDBAuditTrail()
 		MsgBox("invoice Captured")
 		btnyarninvcaptur.Enabled = False
+	End Sub
+
+	Protected Sub Back(sender As Object, e As EventArgs) Handles btnBack.Click
+
 	End Sub
 End Class
 

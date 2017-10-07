@@ -212,6 +212,7 @@
   <ItemGroup>
     <Content Include="About.aspx" />
     <Content Include="Account\AddPhoneNumber.aspx" />
+    <Content Include="Admincontrol\SalesOrder.aspx" />
     <Content Include="CMT\Dashboard.aspx" />
     <Content Include="Account\Confirm.aspx" />
     <Content Include="Account\Forgot.aspx" />
@@ -247,13 +248,19 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Knitt\CreateBatch.aspx" />
+    <Content Include="Knitt\CreateTicket.aspx" />
     <Content Include="Knitt\Dashboard.aspx" />
+    <Content Include="Knitt\ComponentDetails.aspx" />
+    <Content Include="Knitt\KnittDataCapture.aspx" />
     <Content Include="Knitt\TicketOverview.aspx" />
+    <Content Include="Management\Adjust_Yarn_Stock.aspx" />
     <Content Include="Management\Dashboard.aspx" />
     <Content Include="Management\Edit_Yarn_Invoice.aspx" />
     <Content Include="Management\ManageTickets.aspx" />
     <Content Include="Management\Recieve yarn.aspx" />
     <Content Include="Management\Reports.aspx" />
+    <Content Include="ProdnOrdSummaryQRY.sql" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\chosen.jquery.min.js" />
@@ -293,6 +300,13 @@
     <Compile Include="Account\AddPhoneNumber.aspx.vb">
       <DependentUpon>AddPhoneNumber.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admincontrol\SalesOrder.aspx.designer.vb">
+      <DependentUpon>SalesOrder.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admincontrol\SalesOrder.aspx.vb">
+      <DependentUpon>SalesOrder.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="CMT\Dashboard.aspx.designer.vb">
       <DependentUpon>Dashboard.aspx</DependentUpon>
@@ -442,6 +456,20 @@
     <Compile Include="Global.asax.vb">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Knitt\CreateBatch.aspx.designer.vb">
+      <DependentUpon>CreateBatch.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Knitt\CreateBatch.aspx.vb">
+      <DependentUpon>CreateBatch.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Knitt\CreateTicket.aspx.designer.vb">
+      <DependentUpon>CreateTicket.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Knitt\CreateTicket.aspx.vb">
+      <DependentUpon>CreateTicket.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
     <Compile Include="Knitt\Dashboard.aspx.designer.vb">
       <DependentUpon>Dashboard.aspx</DependentUpon>
     </Compile>
@@ -449,11 +477,32 @@
       <DependentUpon>Dashboard.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
+    <Compile Include="Knitt\ComponentDetails.aspx.designer.vb">
+      <DependentUpon>ComponentDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Knitt\ComponentDetails.aspx.vb">
+      <DependentUpon>ComponentDetails.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Knitt\KnittDataCapture.aspx.designer.vb">
+      <DependentUpon>KnittDataCapture.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Knitt\KnittDataCapture.aspx.vb">
+      <DependentUpon>KnittDataCapture.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
     <Compile Include="Knitt\TicketOverview.aspx.designer.vb">
       <DependentUpon>TicketOverview.aspx</DependentUpon>
     </Compile>
     <Compile Include="Knitt\TicketOverview.aspx.vb">
       <DependentUpon>TicketOverview.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Management\Adjust_Yarn_Stock.aspx.designer.vb">
+      <DependentUpon>Adjust_Yarn_Stock.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Management\Adjust_Yarn_Stock.aspx.vb">
+      <DependentUpon>Adjust_Yarn_Stock.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="Management\Dashboard.aspx.designer.vb">

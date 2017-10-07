@@ -1,15 +1,13 @@
-﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/Site.Master" CodeBehind="Recieve yarn.aspx.vb" Inherits="ShantaraProduction.Recieve_yarn" %>
-
+﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/Site.Master" CodeBehind="KnittDataCapture.aspx.vb" Inherits="ShantaraProduction.KnittDataCapture" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-
 	<div class="container-fluid">
-		<h1>Recieve Yarn Stock</h1>
+		<h1>Knitt Data Capture</h1>
 		<br />
 		<div class="row">
 			<div class="col-sm-4">
-				<label for="ddlSupplier">Supplier </label>
-				<asp:DropDownList ID="ddlSupplier" CssClass="form-control" Style="height: 34px; width: 100%; max-width: none" runat="server" AutoPostBack="true"
-					OnSelectedIndexChanged="ddlSupplier_SelectedIndexChanged" AppendDataBoundItems="True">
+				<label for="ddlBatchNo">Batch Number </label>
+				<asp:DropDownList ID="ddlBatchNo" CssClass="form-control" Style="height: 34px; width: 100%; max-width: none" runat="server" AutoPostBack="true"
+					OnSelectedIndexChanged="ddlBatchNo_SelectedIndexChanged" AppendDataBoundItems="True">
 					<asp:ListItem Text="--Select Supplier--" Value=""></asp:ListItem>
 				</asp:DropDownList>
 			</div>
@@ -109,15 +107,6 @@
                     <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Back
 				</asp:LinkButton>
 			</div>
-		</div>
-
- <script> 
-	 {
-		 $("#ddlYcolour").chosen(function () { });
-	 }
-	 	
-	</script>
- 
-	
+		</div>	
 	</div>
 </asp:Content>

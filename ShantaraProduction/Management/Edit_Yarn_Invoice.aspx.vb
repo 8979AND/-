@@ -4,11 +4,13 @@ Public Class Edit_Yarn_Stock
 	Inherits System.Web.UI.Page
 
 	Private YarnID As Integer
-
+	Private w, h As Decimal
 	Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+
+
 		getColour()
 		Readdyelotfromdb()
-
+		'	h = CDbl(txteYweight.Text)
 	End Sub
 	Private Sub Readdyelotfromdb()
 		If Not Page.IsPostBack Then
@@ -16,7 +18,6 @@ Public Class Edit_Yarn_Stock
 			YarnID = CInt(Request.QueryString("ID").ToString())
 
 			Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
-
 			Dim cmdstring = "SELECT YM.YarnID, YM.YarnDyelot, YC.YarnColourID, YC.YarnColour, YM.YarnPurchaceWeight, YM.YarnPurchaseCartons
         FROM [YN - Yarn Master] YM JOIN [YN - Yarn Colour Defns] YC
         On YM.YarnColourID = YC.YarnColourID 
@@ -27,9 +28,7 @@ Public Class Edit_Yarn_Stock
 			cmd.Connection = con
 			cmd.Connection.Open()
 			cmd.ExecuteNonQuery()
-
 			reader = cmd.ExecuteReader(CommandBehavior.CloseConnection)
-
 			While reader.Read
 				lblYarn.Text = "YarnID: " & reader("YarnID")
 				txteYdyelot.Text = reader("YarnDyelot")
@@ -42,8 +41,6 @@ Public Class Edit_Yarn_Stock
 	End Sub
 
 	Private Sub getColour()
-
-
 		Dim strQuery As String = "SELECT YarnColourID, YarnColour from [YN - Yarn Colour Defns]"
 		Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
 		Dim cmd As New SqlCommand()
@@ -71,28 +68,34 @@ Public Class Edit_Yarn_Stock
 	Private Sub InvoiceDyelotUpdate()
 		Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
 		YarnID = CInt(Request.QueryString("ID").ToString())
-		Dim cmdstring As String = "UPDATE [YN - Yarn Master] SET YarnDyelot='" & txteYdyelot.Text & "',YarnColourID='" & ddleYcolour.SelectedValue & "',YarnPurchaceWeight='" & txteYweight.Text & "',YarnPurchaseCartons='" & txteYcartons.Text & "' WHERE YarnID=" & YarnID
-		'SELECT CAST(scope_identity() AS int);"
+
+		'If CDbl(txteYweight.Text) = h Then
+		'	w = CDbl(txteYweight.Text) / 1000
+		'Else
+		'	w = txteYweight.Text
+		'End If
+		Dim cmdstring As String = "UPDATE [YN - Yarn Master] SET YarnDyelot='" & txteYdyelot.Text & "',YarnColourID=" & ddleYcolour.SelectedValue & ",YarnPurchaceWeight=" & txteYweight.Text & ",YarnPurchaseCartons=" & txteYcartons.Text & ",CurrentWeight=" & txteYweight.Text & ",CurrentCartons=" & txteYcartons.Text & " WHERE YarnID=" & YarnID
 		Dim cmd As New SqlCommand(cmdstring)
 		cmd.CommandType = CommandType.Text
 		cmd.Connection = con
 		cmd.Connection.Open()
 		cmd.ExecuteNonQuery()
-		'Dim TicketID As Int32 = 0
-		'TicketID = Convert.ToInt32(cmd.ExecuteScalar())
-		'Dim notification As New CustomerComms
-		'notification.NotifyNewTicket(TicketID)
-
 		cmd.Connection.Close()
 	End Sub
 
 	Protected Sub btnEdit_Click(sender As Object, e As EventArgs) Handles btnEdit.Click
-		InvoiceDyelotUpdate()
 		'If Session("Auth_Level") = 1 Or Session("Auth_Level") = 2 Then
+		InvoiceDyelotUpdate()
+		Session("editYarn") = 1
 		Response.Redirect("~/Management/Recieve yarn.aspx")
 		'Else
-		'Response.Redirect("~/Management/ManageTickets.aspx")
+		'Response.Redirect("~/Management/Dashboard.aspx")
 		'End If
+	End Sub
+
+	Protected Sub Back(sender As Object, e As EventArgs) Handles btnBack.Click
+		Session("editYarn") = 1
+		Response.Redirect("~/Management/Recieve yarn.aspx")
 	End Sub
 
 	Protected Sub ddleYcolour_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddleYcolour.SelectedIndexChanged

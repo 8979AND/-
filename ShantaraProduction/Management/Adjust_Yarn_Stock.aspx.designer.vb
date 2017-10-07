@@ -11,16 +11,34 @@ Option Strict On
 Option Explicit On
 
 
-Partial Public Class Edit_Yarn_Stock
+Partial Public Class Adjust_Yarn_Stock
     
     '''<summary>
-    '''lblYarn control.
+    '''lblYarnID control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblYarn As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents lblYarnID As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''lblYarnPurchaceWeight control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblYarnPurchaceWeight As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''lblYarnPurchaseCartons control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblYarnPurchaseCartons As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
     '''txteYdyelot control.
@@ -30,6 +48,15 @@ Partial Public Class Edit_Yarn_Stock
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents txteYdyelot As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''btnView control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnView As Global.System.Web.UI.WebControls.LinkButton
     
     '''<summary>
     '''ddleYcolour control.
