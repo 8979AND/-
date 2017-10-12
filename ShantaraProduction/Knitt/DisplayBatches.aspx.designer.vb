@@ -11,16 +11,16 @@ Option Strict On
 Option Explicit On
 
 
-Partial Public Class DisplayBatchs
+Partial Public Class DisplayBatchBundles
     
     '''<summary>
-    '''displaybatchprodnBundle control.
+    '''displaybatchprodn control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents displaybatchprodnBundle As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    Protected WithEvents displaybatchprodn As Global.System.Web.UI.HtmlControls.HtmlGenericControl
     
     '''<summary>
     '''lblyarninvoice control.
@@ -32,11 +32,11 @@ Partial Public Class DisplayBatchs
     Protected WithEvents lblyarninvoice As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
-    '''grdvbatchprodnBundle control.
+    '''grdvbatchprodn control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents grdvbatchprodnBundle As Global.System.Web.UI.WebControls.GridView
+    Protected WithEvents grdvbatchprodn As Global.System.Web.UI.WebControls.GridView
 End Class

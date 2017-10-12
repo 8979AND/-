@@ -14,130 +14,220 @@ Option Explicit On
 Partial Public Class KnittDataCapture
     
     '''<summary>
-    '''ddlBatchNo control.
+    '''lblBundleNo control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents ddlBatchNo As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents lblBundleNo As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
-    '''txtdate control.
+    '''btnStart control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtdate As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents btnStart As Global.System.Web.UI.WebControls.LinkButton
     
     '''<summary>
-    '''txtInvoice control.
+    '''txtorderNo control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtInvoice As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtorderNo As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
-    '''ddlYtype control.
+    '''txtBatchNo control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents ddlYtype As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents txtBatchNo As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
-    '''txtkgprice control.
+    '''txtProdcode control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtkgprice As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtProdcode As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
-    '''txtYdyelot control.
+    '''txtProdDescr control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtYdyelot As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtProdDescr As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
-    '''ddlYcolour control.
+    '''txtPToMake control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents ddlYcolour As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents txtPToMake As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
-    '''txtYweight control.
+    '''txtPattern control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtYweight As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtPattern As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
-    '''txtYcartons control.
+    '''txtPatternDescr control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtYcartons As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtPatternDescr As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
-    '''btnCapture control.
+    '''txtSize control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnCapture As Global.System.Web.UI.WebControls.LinkButton
+    Protected WithEvents txtSize As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
-    '''displayInvoiceDyelots control.
+    '''txtSInstruction control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents displayInvoiceDyelots As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    Protected WithEvents txtSInstruction As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
-    '''lblyarninvoice control.
+    '''txtComponent control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblyarninvoice As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents txtComponent As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
-    '''grdvInvoiceDyelots control.
+    '''txtQPpanel control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents grdvInvoiceDyelots As Global.System.Web.UI.WebControls.GridView
+    Protected WithEvents txtQPpanel As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
-    '''btnyarninvcaptur control.
+    '''txtMachineNo control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnyarninvcaptur As Global.System.Web.UI.WebControls.LinkButton
+    Protected WithEvents txtMachineNo As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''txtKwidth control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtKwidth As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''txtkLength control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtkLength As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''txtNeedles control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtNeedles As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''txtCycles control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtCycles As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''txtYarnColour control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtYarnColour As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''txtYarnDyelot control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtYarnDyelot As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''ddlOperator control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlOperator As Global.System.Web.UI.WebControls.DropDownList
+    
+    '''<summary>
+    '''ddlShift control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlShift As Global.System.Web.UI.WebControls.DropDownList
+    
+    '''<summary>
+    '''txtPanelsMade control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtPanelsMade As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''BtnCaptureBundle control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents BtnCaptureBundle As Global.System.Web.UI.WebControls.LinkButton
     
     '''<summary>
     '''btnBack control.

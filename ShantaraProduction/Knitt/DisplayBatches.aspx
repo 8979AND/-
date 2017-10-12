@@ -1,17 +1,17 @@
-﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/Site.Master" CodeBehind="DisplayBatchBundles.aspx.vb" Inherits="ShantaraProduction.DisplayBatchs" %>
+﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/Site.Master" CodeBehind="DisplayBatches.aspx.vb" Inherits="ShantaraProduction.DisplayBatchBundles" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 	<div class="container-fluid">
-		<h1>Batch Bundles for Production</h1>
+		<h1>Batch's for Production</h1>
 		<br />
 		<div class="row">
-			<div id="displaybatchprodnBundle" runat="server">
-				<asp:Label runat="server" AssociatedControlID="grdvbatchprodnBundle" Visible="false" ID="lblyarninvoice" CssClass="h2">Dyelots Captured for this Invoice</asp:Label>
-				<asp:GridView ID="grdvbatchprodnBundle" runat="server" Visible="False" CellPadding="5" ForeColor="#333333" GridLines="None" HorizontalAlign="Center" CellSpacing="1" PageSize="15">
+			<div id="displaybatchprodn" runat="server">
+				<asp:Label runat="server" AssociatedControlID="grdvbatchprodn" Visible="false" ID="lblyarninvoice" CssClass="h2">Dyelots Captured for this Invoice</asp:Label>
+				<asp:GridView ID="grdvbatchprodn" runat="server" Visible="False" CellPadding="5" ForeColor="#333333" GridLines="None" HorizontalAlign="Center" CellSpacing="1" PageSize="15">
 					<AlternatingRowStyle BackColor="White" />
 					<Columns>
 						<asp:HyperLinkField Text="Select"
-							DataNavigateUrlFields="BundleNo"
-							DataNavigateUrlFormatString="~\Knitt\KnittDataCapture.aspx?ID={0}" />
+							DataNavigateUrlFields="BatchNo"
+							DataNavigateUrlFormatString="~\Knitt\DisplayBatchBundles.aspx?ID={0}" />
 					</Columns>
 					<EditRowStyle BackColor="#7C6F57" />
 					<FooterStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />

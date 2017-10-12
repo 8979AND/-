@@ -748,18 +748,279 @@ Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
 </member>
-<member name="F:ShantaraProduction.SelectMachine._lblComponent">
+<member name="F:ShantaraProduction.DisplayBatchBundles._displaybatchprodn">
 <summary>
-lblComponent control.
+displaybatchprodn control.
 </summary>
 <remarks>
 Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
 </member>
-<member name="F:ShantaraProduction.SelectMachine._ddlMachine">
+<member name="F:ShantaraProduction.DisplayBatchBundles._lblyarninvoice">
 <summary>
-ddlMachine control.
+lblyarninvoice control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:ShantaraProduction.DisplayBatchBundles._grdvbatchprodn">
+<summary>
+grdvbatchprodn control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:ShantaraProduction.DisplayBatchs._displaybatchprodnBundle">
+<summary>
+displaybatchprodnBundle control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:ShantaraProduction.DisplayBatchs._lblyarninvoice">
+<summary>
+lblyarninvoice control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:ShantaraProduction.DisplayBatchs._grdvbatchprodnBundle">
+<summary>
+grdvbatchprodnBundle control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:ShantaraProduction.KnittDataCapture._lblBundleNo">
+<summary>
+lblBundleNo control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:ShantaraProduction.KnittDataCapture._btnStart">
+<summary>
+btnStart control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:ShantaraProduction.KnittDataCapture._txtorderNo">
+<summary>
+txtorderNo control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:ShantaraProduction.KnittDataCapture._txtBatchNo">
+<summary>
+txtBatchNo control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:ShantaraProduction.KnittDataCapture._txtProdcode">
+<summary>
+txtProdcode control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:ShantaraProduction.KnittDataCapture._txtProdDescr">
+<summary>
+txtProdDescr control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:ShantaraProduction.KnittDataCapture._txtPToMake">
+<summary>
+txtPToMake control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:ShantaraProduction.KnittDataCapture._txtPattern">
+<summary>
+txtPattern control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:ShantaraProduction.KnittDataCapture._txtPatternDescr">
+<summary>
+txtPatternDescr control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:ShantaraProduction.KnittDataCapture._txtSize">
+<summary>
+txtSize control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:ShantaraProduction.KnittDataCapture._txtSInstruction">
+<summary>
+txtSInstruction control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:ShantaraProduction.KnittDataCapture._txtComponent">
+<summary>
+txtComponent control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:ShantaraProduction.KnittDataCapture._txtQPpanel">
+<summary>
+txtQPpanel control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:ShantaraProduction.KnittDataCapture._txtMachineNo">
+<summary>
+txtMachineNo control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:ShantaraProduction.KnittDataCapture._txtKwidth">
+<summary>
+txtKwidth control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:ShantaraProduction.KnittDataCapture._txtkLength">
+<summary>
+txtkLength control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:ShantaraProduction.KnittDataCapture._txtNeedles">
+<summary>
+txtNeedles control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:ShantaraProduction.KnittDataCapture._txtCycles">
+<summary>
+txtCycles control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:ShantaraProduction.KnittDataCapture._txtYarnColour">
+<summary>
+txtYarnColour control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:ShantaraProduction.KnittDataCapture._txtYarnDyelot">
+<summary>
+txtYarnDyelot control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:ShantaraProduction.KnittDataCapture._ddlOperator">
+<summary>
+ddlOperator control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:ShantaraProduction.KnittDataCapture._ddlShift">
+<summary>
+ddlShift control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:ShantaraProduction.KnittDataCapture._txtPanelsMade">
+<summary>
+txtPanelsMade control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:ShantaraProduction.KnittDataCapture._BtnCaptureBundle">
+<summary>
+BtnCaptureBundle control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:ShantaraProduction.KnittDataCapture._btnBack">
+<summary>
+btnBack control.
 </summary>
 <remarks>
 Auto-generated field.
@@ -787,6 +1048,33 @@ To modify move field declaration from designer file to code-behind file.
 <member name="F:ShantaraProduction.Adjust_Yarn_Stock._lblYarnPurchaseCartons">
 <summary>
 lblYarnPurchaseCartons control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:ShantaraProduction.Adjust_Yarn_Stock._lblYarnCurrentWeight">
+<summary>
+lblYarnCurrentWeight control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:ShantaraProduction.Adjust_Yarn_Stock._lblYarnCurrentCartons">
+<summary>
+lblYarnCurrentCartons control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:ShantaraProduction.Adjust_Yarn_Stock._ddltranstype">
+<summary>
+ddltranstype control.
 </summary>
 <remarks>
 Auto-generated field.

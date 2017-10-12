@@ -4,19 +4,45 @@ Public Class Adjust_Yarn_Stock
 	Private SupplierID As Integer = 0
 	Private YarnID As Integer = 0
 	Private CurrentCartons As Integer = 0
+	Private NewCartons As Integer = 0
 	Private CartonDiff As Integer = 0
 	Private YarnTransactionID As Integer = 0
 	Private CurrentWeight As Decimal = 0
+	Private NewWeight As Decimal = 0
 	Private WeightDiff As Decimal = 0
 	Private DocNo As String
 	Private ALNU As Integer ' adjustment Last number used
 	Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 		getColour()
+		getTransactiontype()
+	End Sub
+
+	Private Sub getTransactiontype()
+		Dim strQuery As String = "SELECT TransactionTypeID, TransactionType FROM [YN - Yarn Transaction Type]"
+		Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
+		Dim cmd As New SqlCommand()
+		If IsPostBack = False Then
+			ddltranstype.AppendDataBoundItems = True
+			cmd.CommandType = CommandType.Text
+			cmd.CommandText = strQuery
+			cmd.Connection = con
+			Try
+				con.Open()
+				ddltranstype.DataSource = cmd.ExecuteReader()
+				ddltranstype.DataTextField = "TransactionType"
+				ddltranstype.DataValueField = "TransactionTypeID"
+				ddltranstype.DataBind()
+			Catch ex As Exception
+				Throw ex
+			Finally
+				con.Close()
+				cmd.Dispose()
+				con.Dispose()
+			End Try
+		End If
 	End Sub
 
 	Private Sub getColour()
-
-
 		Dim strQuery As String = "SELECT YarnColourID, YarnColour from [YN - Yarn Colour Defns]"
 		Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
 		Dim cmd As New SqlCommand()
@@ -46,7 +72,7 @@ Public Class Adjust_Yarn_Stock
 
 		Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
 
-		Dim cmdstring = "SELECT YM.YarnID, YM.YarnDyelot, YM.YarnColourID, EM.EntityName, YM.YarnPurchaceWeight, YM.YarnSupplier, YM.YarnPurchaseCartons, YM.CurrentWeight, YM.CurrentCartons
+		Dim cmdstring As String = "SELECT YM.YarnID, YM.YarnDyelot, YM.YarnColourID, EM.EntityName, YM.YarnPurchaceWeight, YM.YarnSupplier, YM.YarnPurchaseCartons, YM.CurrentWeight, YM.CurrentCartons
         FROM [YN - Yarn Master] YM JOIN [GN - EntityMaster] EM
         On EM.EntityID = YM.YarnSupplier
         WHERE YM.YarnDyelot = '" & txteYdyelot.Text & "';"
@@ -66,9 +92,9 @@ Public Class Adjust_Yarn_Stock
 				lblYarnPurchaseCartons.Text = "Yarn Purchase Cartons: " & reader("YarnPurchaseCartons")
 				ddleYcolour.SelectedValue = reader("YarnColourID")
 				Session("CurrentWeight") = reader("CurrentWeight")
-				txteYweight.Text = Session("CurrentWeight")
+				lblYarnCurrentWeight.Text = "Yarn Current Weight: " & Session("CurrentWeight")
 				Session("CurrentCartons") = reader("CurrentCartons")
-				txteYcartons.Text = Session("CurrentCartons")
+				lblYarnCurrentCartons.Text = "Yarn Current Cartons: " & Session("CurrentCartons")
 				Session("SupplierID") = reader("YarnSupplier")
 			End While
 		Else
@@ -77,9 +103,6 @@ Public Class Adjust_Yarn_Stock
 	End Sub
 
 	Private Sub Newyarndocnumber()
-
-		'YarnID = CInt(Request.QueryString("ID").ToString())
-
 		Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
 
 		'"SELECT YTH.TransactionTypeID, YTT.RangePrefix, YTT.LastNumberUsed
@@ -87,9 +110,9 @@ Public Class Adjust_Yarn_Stock
 		'      On YTT.TransactionTypeID = YTH.TransactionTypeID
 		'      WHERE YTH.EntityID = 5 AND YTT.TransactionTypeID = 7;"
 
-		Dim cmdstring = "SELECT YTT.RangePrefix, YTT.LastNumberUsed
+		Dim cmdstring As String = "SELECT YTT.RangePrefix, YTT.LastNumberUsed
         FROM [YN - Yarn Transaction Type] YTT
-        WHERE YTT.TransactionTypeID = 7;"
+        WHERE YTT.TransactionTypeID = " & ddltranstype.SelectedValue & ";"
 		Dim cmd As New SqlCommand(cmdstring)
 		Dim reader As SqlDataReader
 		cmd.CommandType = CommandType.Text
@@ -104,7 +127,7 @@ Public Class Adjust_Yarn_Stock
 				DocNo = reader("RangePrefix") & CStr(ALNU)
 			End While
 		Else
-			MsgBox("Supplier does not match")
+			MsgBox("problem with new doc number")
 		End If
 	End Sub
 
@@ -117,7 +140,9 @@ Public Class Adjust_Yarn_Stock
 		'Else
 		'	w = txteYweight.Text
 		'End If
-		Dim cmdstring As String = "UPDATE [YN - Yarn Master] SET YarnColourID=" & ddleYcolour.SelectedValue & " ,CurrentWeight=(" & txteYweight.Text & ") ,CurrentCartons=" & txteYcartons.Text & " WHERE YarnDyelot='" & txteYdyelot.Text & "'"
+		Dim cmdstring As String = "UPDATE [YN - Yarn Master] 
+								   SET YarnColourID=" & ddleYcolour.SelectedValue & " ,CurrentWeight=(" & NewWeight & ") ,CurrentCartons=" & NewCartons & " 
+								   WHERE YarnDyelot='" & txteYdyelot.Text & "'"
 		Dim cmd As New SqlCommand(cmdstring)
 		cmd.CommandType = CommandType.Text
 		cmd.Connection = con
@@ -128,7 +153,7 @@ Public Class Adjust_Yarn_Stock
 
 	Private Sub UpdateAdjustLastNumberUsed()
 		Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
-		Dim cmdstring As String = "UPDATE [YN - Yarn Transaction Type] SET LastNumberUsed = " & ALNU & "WHERE TransactionTypeID = 7"
+		Dim cmdstring As String = "UPDATE [YN - Yarn Transaction Type] SET LastNumberUsed = " & ALNU & "WHERE TransactionTypeID = " & ddltranstype.SelectedValue
 		Dim cmd As New SqlCommand(cmdstring)
 		cmd.CommandType = CommandType.Text
 		cmd.Connection = con
@@ -138,8 +163,6 @@ Public Class Adjust_Yarn_Stock
 	End Sub
 
 	Private Sub AdjustDBAuditTrailLines()
-		WeightDiff = txteYweight.Text - Session("CurrentWeight")
-		CartonDiff = txteYcartons.Text - Session("CurrentCartons")
 		Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
 		Dim cmdstring As String = "INSERT INTO [YN - YarnTransactionLines] (YarnTransactionID, YarnID, TransactionWeight, TransactionCartons, Processed) " &
 		"VALUES (" & YarnTransactionID & ", " & Session("YarnID") & ", " & WeightDiff & " ," & CartonDiff & " ,1);"
@@ -153,7 +176,7 @@ Public Class Adjust_Yarn_Stock
 
 	Private Sub GetYarnTransactionID()
 		Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
-		Dim cmdstring = "SELECT YTH.YarnTransactionID
+		Dim cmdstring As String = "SELECT YTH.YarnTransactionID
         FROM [YN - YarnTransactionHeader] YTH
         WHERE YTH.YarnDocumentNo = '" & DocNo & "';"
 		Dim cmd As New SqlCommand(cmdstring)
@@ -176,7 +199,7 @@ Public Class Adjust_Yarn_Stock
 	Private Sub AdjustDBAuditTrail()
 		Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
 		Dim cmdstring As String = "INSERT INTO [YN - YarnTransactionHeader] (TransactionTypeID, TransactionDate, EntityID, YarnDocumentNo, Processed) " &
-		"VALUES (7, '" & DateTime.Now & "' ,5 ,'" & DocNo & "' ,1);"
+		"VALUES (" & ddltranstype.SelectedValue & ", '" & DateTime.Now & "' ,5 ,'" & DocNo & "' ,1);"
 		Dim cmd As New SqlCommand(cmdstring)
 		cmd.CommandType = CommandType.Text
 		cmd.Connection = con
@@ -195,6 +218,21 @@ Public Class Adjust_Yarn_Stock
 	End Sub
 
 	Protected Sub btnEdit_Click(sender As Object, e As EventArgs) Handles btnEdit.Click
+		Select Case ddltranstype.SelectedValue
+			Case 1, 5
+				NewWeight = Session("CurrentWeight") + txteYweight.Text
+				WeightDiff = txteYweight.Text
+				NewCartons = Session("CurrentCartons") + txteYcartons.Text
+				CartonDiff = txteYcartons.Text
+		' The following is the only Case clause that evaluates to True.
+			Case 2, 3, 4, 6, 7, 8
+				NewWeight = Session("CurrentWeight") - txteYweight.Text
+				WeightDiff = 0 - txteYweight.Text
+				NewCartons = Session("CurrentCartons") - txteYcartons.Text
+				CartonDiff = 0 - txteYcartons.Text
+			Case Else
+				MsgBox("transaction type out of range")
+		End Select
 		Newyarndocnumber()
 		AdjustDBAuditTrail()
 		GetYarnTransactionID()
@@ -206,5 +244,14 @@ Public Class Adjust_Yarn_Stock
 
 	Protected Sub Back(sender As Object, e As EventArgs) Handles btnBack.Click
 
+	End Sub
+
+	Protected Sub ddltranstype_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddltranstype.SelectedIndexChanged
+		txteYdyelot.Enabled = True
+		btnView.Enabled = True
+		ddleYcolour.Enabled = True
+		txteYweight.Enabled = True
+		txteYcartons.Enabled = True
+		btnEdit.Enabled = True
 	End Sub
 End Class

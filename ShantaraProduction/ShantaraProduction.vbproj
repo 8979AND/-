@@ -251,7 +251,8 @@
     <Content Include="Knitt\CreateBatch.aspx" />
     <Content Include="Knitt\CreateTicket.aspx" />
     <Content Include="Knitt\Dashboard.aspx" />
-    <Content Include="Knitt\ComponentDetails.aspx" />
+    <Content Include="Knitt\DisplayBatches.aspx" />
+    <Content Include="Knitt\DisplayBatchBundles.aspx" />
     <Content Include="Knitt\KnittDataCapture.aspx" />
     <Content Include="Knitt\TicketOverview.aspx" />
     <Content Include="Management\Adjust_Yarn_Stock.aspx" />
@@ -477,12 +478,19 @@
       <DependentUpon>Dashboard.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
-    <Compile Include="Knitt\ComponentDetails.aspx.designer.vb">
-      <DependentUpon>ComponentDetails.aspx</DependentUpon>
+    <Compile Include="Knitt\DisplayBatches.aspx.designer.vb">
+      <DependentUpon>DisplayBatches.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Knitt\ComponentDetails.aspx.vb">
-      <DependentUpon>ComponentDetails.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
+    <Compile Include="Knitt\DisplayBatches.aspx.vb">
+      <DependentUpon>DisplayBatches.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Knitt\DisplayBatchBundles.aspx.designer.vb">
+      <DependentUpon>DisplayBatchBundles.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Knitt\DisplayBatchBundles.aspx.vb">
+      <DependentUpon>DisplayBatchBundles.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Knitt\KnittDataCapture.aspx.designer.vb">
       <DependentUpon>KnittDataCapture.aspx</DependentUpon>
