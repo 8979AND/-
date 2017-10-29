@@ -23,13 +23,13 @@ Partial Public Class DisplayBatchBundles
     Protected WithEvents displaybatchprodn As Global.System.Web.UI.HtmlControls.HtmlGenericControl
     
     '''<summary>
-    '''lblyarninvoice control.
+    '''lblgrdbatch control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblyarninvoice As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents lblgrdbatch As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
     '''grdvbatchprodn control.

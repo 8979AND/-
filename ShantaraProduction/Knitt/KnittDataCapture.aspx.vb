@@ -1,98 +1,108 @@
 ﻿Imports System.Data.SqlClient
-
+Imports System.Data.OleDb
 Public Class KnittDataCapture
 	Inherits System.Web.UI.Page
 	Private BundleNo As String
-	Private Pmadeday As Integer
-	Private Pmadenight As Integer
+	Shared Pmadeday As Integer
+	Shared Pmadenight As Integer
+	Private Result As String
+	Shared Startdate As String
+	Private compID As Integer
 
 	Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-		GetknittDatadb()
-		getOperator()
-	End Sub
-
-	Private Sub CheckMachineAllocation()
-		Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
-		Dim cmdstring = "WITH POSqry AS (
-SELECT DISTINCT [KN - ProductionOrderHeader].BatchNo, 
-				[KN - ProductionOrderHeader].ProductID, 
-				[KN - ProductionOrderDetails].ProductionQty, 
-				[KN - ProductionMachineAllocation].ComponentID, 
-				[KN - ProductionOrderDetails].KnittingOrderID, 
-				[KN - ProductionOrderDetails].SizeID, 
-				[FG - Component Master].ComponentName, 
-				([ProductionQty]*[NoOfComponents]) AS CompTot, 
-				[FG - Style Size Comp Def Details].PanelDependency, 
-				[FG - Pattern Component Details].KnitCombination, 
-				[KN - ProductionMachineAllocation].MachineNumber,
-				[KN - Knitting Machine Data].SettlingAllowance,
-				[KN - Knitting Machine Data].MaxKnitWidth,
-				[KN - Knitting Machine Data].CombinedComponents,
-				[KN - Knitting Machine Data].ForceOneCompPerPnl,
-				IIf([ForceOneCompPerPnl]=1,1,IIf([PanelDependency]='None',0,IIf([PanelDependency]='Width',([MaxKnitWidth]-[SettlingAllowance])/[ComponentWidth],([MaxKnitWidth]-[SettlingAllowance])/[ComponentLength]))) AS CompPerPnl, 
-				[FG - Style Size Comp Def Details].ComponentWidth,
-				[FG - Style Size Comp Def Details].ComponentLength,
-				[KN - ProductionOrderHeader].TicketsPrinted, 
-				[FG - End Product Codes].NoCMTReq, 
-				[FG - End Product Codes].StyleID, 
-				[FG - Component Master].SplitAcrossSizes,
-				[FG - Style Size Comp Def Details].NoOfComponents
-FROM [KN - Knitting Machine Data] 
-INNER JOIN [KN - ProductionOrderHeader] 
-INNER JOIN [FG - End Product Codes] 
-	ON [KN - ProductionOrderHeader].ProductID = [FG - End Product Codes].ProductID 
-INNER JOIN [KN - ProductionOrderDetails]
-INNER JOIN [KN - ProductionMachineAllocation] 
-INNER JOIN [FG - Style Size Comp Def Details] 
-	ON [KN - ProductionMachineAllocation].ComponentID = [FG - Style Size Comp Def Details].ComponentID 
-	ON [KN - ProductionOrderDetails].SizeID = [FG - Style Size Comp Def Details].SizeID 
-	ON [KN - ProductionOrderHeader].BatchNo = [KN - ProductionOrderDetails].BatchNo 
-		AND [KN - ProductionOrderHeader].BatchNo = [KN - ProductionMachineAllocation].BatchNo 
-		AND [FG - End Product Codes].StyleID = [FG - Style Size Comp Def Details].StyleID 
-INNER JOIN [FG - Pattern Component Details] ON [FG - End Product Codes].PatternID = [FG - Pattern Component Details].PatternID 
-INNER JOIN [FG - Component Master] 
-	ON [FG - Component Master].ComponentID = [FG - Style Size Comp Def Details].ComponentID 
-		AND [KN - ProductionMachineAllocation].ComponentID = [FG - Component Master].ComponentID
-	ON [KN - Knitting Machine Data].MachineNumber = [KN - ProductionMachineAllocation].MachineNumber 
-INNER JOIN [KN - ProductionYarnAllocation] 
-	ON [KN - ProductionOrderHeader].BatchNo = [KN - ProductionYarnAllocation].BatchNo
-)
-SELECT DISTINCT BatchNo, 
-				ProductID, 
-				ComponentID, 
-				KnitCombination, 
-				MachineNumber, 
-				NoOfComponents
-FROM POSqry
-ORDER BY BatchNo, ComponentID;"
-		Dim cmd As New SqlCommand(cmdstring)
-		Dim reader As SqlDataReader
-		cmd.CommandType = CommandType.Text
-		cmd.Connection = con
-		cmd.Connection.Open()
-		cmd.ExecuteNonQuery()
-
-		reader = cmd.ExecuteReader(CommandBehavior.CloseConnection)
-		If reader.HasRows = True Then
-			While reader.Read()
-				Session.Add("MachineNo", reader("MachineNumber"))
-			End While
-			If Session("MachineNo") = 0 Then
-				MsgBox("Machine Numbers not allocated to all Components")
-			Else
-				MsgBox("Machines allocated")
-			End If
-
+		If Not IsPostBack Then
+			getOperator()
 		End If
-
+		BundleNo = Request.QueryString("ID").ToString()
 	End Sub
+
+	'	Private Sub CheckMachineAllocation()
+	'		Dim cmdstring = "WITH POSqry AS (
+	'SELECT DISTINCT [KN - ProductionOrderHeader].BatchNo, 
+	'				[KN - ProductionOrderHeader].ProductID, 
+	'				[KN - ProductionOrderDetails].ProductionQty, 
+	'				[KN - ProductionMachineAllocation].ComponentID, 
+	'				[KN - ProductionOrderDetails].KnittingOrderID, 
+	'				[KN - ProductionOrderDetails].SizeID, 
+	'				[FG - Component Master].ComponentName, 
+	'				([ProductionQty]*[NoOfComponents]) AS CompTot, 
+	'				[FG - Style Size Comp Def Details].PanelDependency, 
+	'				[FG - Pattern Component Details].KnitCombination, 
+	'				[KN - ProductionMachineAllocation].MachineNumber,
+	'				[KN - Knitting Machine Data].SettlingAllowance,
+	'				[KN - Knitting Machine Data].MaxKnitWidth,
+	'				[KN - Knitting Machine Data].CombinedComponents,
+	'				[KN - Knitting Machine Data].ForceOneCompPerPnl,
+	'				IIf([ForceOneCompPerPnl]=1,1,IIf([PanelDependency]='None',0,IIf([PanelDependency]='Width',([MaxKnitWidth]-[SettlingAllowance])/[ComponentWidth],([MaxKnitWidth]-[SettlingAllowance])/[ComponentLength]))) AS CompPerPnl, 
+	'				[FG - Style Size Comp Def Details].ComponentWidth,
+	'				[FG - Style Size Comp Def Details].ComponentLength,
+	'				[KN - ProductionOrderHeader].TicketsPrinted, 
+	'				[FG - End Product Codes].NoCMTReq, 
+	'				[FG - End Product Codes].StyleID, 
+	'				[FG - Component Master].SplitAcrossSizes,
+	'				[FG - Style Size Comp Def Details].NoOfComponents
+	'FROM [KN - Knitting Machine Data] 
+	'INNER JOIN [KN - ProductionOrderHeader] 
+	'INNER JOIN [FG - End Product Codes] 
+	'	ON [KN - ProductionOrderHeader].ProductID = [FG - End Product Codes].ProductID 
+	'INNER JOIN [KN - ProductionOrderDetails]
+	'INNER JOIN [KN - ProductionMachineAllocation] 
+	'INNER JOIN [FG - Style Size Comp Def Details] 
+	'	ON [KN - ProductionMachineAllocation].ComponentID = [FG - Style Size Comp Def Details].ComponentID 
+	'	ON [KN - ProductionOrderDetails].SizeID = [FG - Style Size Comp Def Details].SizeID 
+	'	ON [KN - ProductionOrderHeader].BatchNo = [KN - ProductionOrderDetails].BatchNo 
+	'		AND [KN - ProductionOrderHeader].BatchNo = [KN - ProductionMachineAllocation].BatchNo 
+	'		AND [FG - End Product Codes].StyleID = [FG - Style Size Comp Def Details].StyleID 
+	'INNER JOIN [FG - Pattern Component Details] ON [FG - End Product Codes].PatternID = [FG - Pattern Component Details].PatternID 
+	'INNER JOIN [FG - Component Master] 
+	'	ON [FG - Component Master].ComponentID = [FG - Style Size Comp Def Details].ComponentID 
+	'		AND [KN - ProductionMachineAllocation].ComponentID = [FG - Component Master].ComponentID
+	'	ON [KN - Knitting Machine Data].MachineNumber = [KN - ProductionMachineAllocation].MachineNumber 
+	'INNER JOIN [KN - ProductionYarnAllocation] 
+	'	ON [KN - ProductionOrderHeader].BatchNo = [KN - ProductionYarnAllocation].BatchNo
+	')
+	'SELECT DISTINCT BatchNo, 
+	'				ProductID, 
+	'				ComponentID, 
+	'				KnitCombination, 
+	'				MachineNumber, 
+	'				NoOfComponents
+	'FROM POSqry
+	'ORDER BY BatchNo, ComponentID;"
+	'		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\Deepak Vallabh\Documents\shantara\ShantaraProduction\ShantaraProduction\App_Data\Shantara Production IT.mdb")
+	'		'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
+	'		Dim cmd As New OleDbCommand(cmdstring)
+	'		'Dim cmd As New SqlCommand(cmdstring)
+	'		Dim reader As OleDbDataReader
+	'		'Dim reader As SqlDataReader
+	'		cmd.CommandType = CommandType.Text
+	'		cmd.Connection = con
+	'		cmd.Connection.Open()
+	'		cmd.ExecuteNonQuery()
+
+	'		reader = cmd.ExecuteReader(CommandBehavior.CloseConnection)
+	'		If reader.HasRows = True Then
+	'			While reader.Read()
+	'				Session.Add("MachineNo", reader("MachineNumber"))
+	'			End While
+	'			If Session("MachineNo") = 0 Then
+	'				MsgBox("Machine Numbers not allocated to all Components")
+	'			Else
+	'				MsgBox("Machines allocated")
+	'			End If
+
+	'		End If
+
+	'	End Sub
 	Private Sub Startdatedtime()
-		Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
 		Dim cmdstring As String
 		cmdstring = "UPDATE [KN - KnittingDetailsHeader]
 					 SET DateStarted ='" & DateTime.Now &
 					"' WHERE BundleNo = '" & BundleNo & "'"
-		Dim cmd As New SqlCommand(cmdstring)
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
+		Dim cmd As New OleDbCommand(cmdstring)
+		'Dim cmd As New SqlCommand()
 		cmd.CommandType = CommandType.Text
 		cmd.Connection = con
 		cmd.Connection.Open()
@@ -101,39 +111,57 @@ ORDER BY BatchNo, ComponentID;"
 	End Sub
 
 	Private Sub GetknittDatadb()
-		Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
-		BundleNo = Request.QueryString("ID").ToString()
-		Dim cmdstring = "SELECT KDH.BatchNo, KDH.PanelsToMake, KDH.BundleNo, KDH.PanelsMadeDay, KDH.PanelsMadeNight, KO.OrderNo, EPC.ProductCode, EPC.ProdDescription, 
-						  PM.PatternName, PM.Description, SM.Size, CM.ComponentName, 
-						 (SIM.SpecialInstructionDetail) AS [Special Instructions], PMA.MachineNumber, 
-						 SSCDD.ComponentWidth, SSCDD.ComponentLength, KDH.QtyPerPanel, YM.YarnDyelot,
-						 YCD.YarnColour
-        FROM [KN - KnittingDetailsHeader] KDH INNER JOIN [KN - KnittingOrder] KO
-			On KDH.KnittingOrderID = KO.KnittingOrderID 
-		INNER JOIN [KN - ProductionMachineAllocation] PMA
-		INNER JOIN [FG - Style Size Comp Def Details] SSCDD
-			ON PMA.ComponentID = SSCDD.ComponentID 
-			ON KDH.SizeID = SSCDD.SizeID  
-		AND KDH.BatchNo = PMA.BatchNo
-		INNER JOIN [FG - Component Master] CM 
-			ON KDH.ComponentID = CM.ComponentID
-		INNER JOIN [FG- Size Master] SM
-			ON KDH.SizeID = SM.SizeID
-		INNER JOIN [FG - End Product Codes] EPC
-			ON KO.ProductID = EPC.ProductID
-		INNER JOIN [FG - Pattern Master] PM
-			ON EPC.PatternID = PM.PatternID
-		INNER JOIN [KN -Special Instructions Master] SIM
-			ON KO.SpecialInstructionID = SIM.SpecialInstructionID
-		INNER JOIN [KN - ProductionYarnAllocation] PYA
-			ON KDH.BatchNo = PYA.BatchNo
-		INNER JOIN [YN - Yarn Master] YM 
-			ON PYA.YarnID = YM.YarnID
-		INNER JOIN [YN - Yarn Colour Defns] YCD
-			ON YM.YarnColourID = YCD.YarnColourID
+		Dim cmdstring = "SELECT KDH.BatchNo, 
+								KDH.PanelsToMake, 
+								KDH.BundleNo, 
+								KDH.PanelsMadeDay, 
+								KDH.PanelsMadeNight,
+								KDH.QtyPerPanel,
+								KDH.DateStarted,
+								KDH.ComponentID,
+								KO.OrderNo, 
+								EPC.ProductCode, 
+								EPC.ProdDescription, 
+								PM.PatternName, 
+								PM.Description, 
+								(SM.[Size Abbreviation]) AS [Size], 
+								CM.ComponentName, 							
+								(SIM.SpecialInstructionDetail) AS [Special Instructions],
+								PMA.MachineNumber, 
+							    SSCDD.ComponentWidth, 
+								SSCDD.ComponentLength, 					 
+								YM.YarnDyelot,
+								YCD.YarnColour
+        FROM ((((((((((([KN - KnittingDetailsHeader] AS KDH 
+		INNER JOIN [KN - KnittingOrder] AS KO
+			On KDH.KnittingOrderID = KO.KnittingOrderID )
+		INNER JOIN [FG - Style Size Comp Def Details] AS SSCDD
+			ON  SSCDD.SizeID = KDH.SizeID)
+		INNER JOIN [KN - ProductionMachineAllocation] AS PMA
+			ON (PMA.ComponentID = SSCDD.ComponentID) AND (KDH.BatchNo = PMA.BatchNo))
+		INNER JOIN [FG - Component Master] AS CM 
+			ON KDH.ComponentID = CM.ComponentID)
+		INNER JOIN [FG- Size Master] AS SM
+			ON KDH.SizeID = SM.SizeID)
+		INNER JOIN [FG - End Product Codes] AS EPC
+			ON KO.ProductID = EPC.ProductID)
+		INNER JOIN [FG - Pattern Master] AS PM
+			ON EPC.PatternID = PM.PatternID)
+		INNER JOIN [KN -Special Instructions Master] AS SIM
+			ON KO.SpecialInstructionID = SIM.SpecialInstructionID)
+		INNER JOIN [KN - ProductionYarnAllocation] AS PYA
+			ON KDH.BatchNo = PYA.BatchNo)
+		INNER JOIN [YN - Yarn Master] AS YM 
+			ON PYA.YarnID = YM.YarnID)
+		INNER JOIN [YN - Yarn Colour Defns] AS YCD
+			ON YM.YarnColourID = YCD.YarnColourID)
 		WHERE KDH.BundleNo = '" & BundleNo & "';"
-		Dim cmd As New SqlCommand(cmdstring)
-		Dim reader As SqlDataReader
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
+		Dim cmd As New OleDbCommand(cmdstring)
+		'Dim cmd As New SqlCommand(cmdstring)
+		Dim reader As OleDbDataReader
+		'Dim reader As SqlDataReader
 		cmd.CommandType = CommandType.Text
 		cmd.Connection = con
 		cmd.Connection.Open()
@@ -146,13 +174,18 @@ ORDER BY BatchNo, ComponentID;"
 				lblBundleNo.Text = "BundleNo: " & reader("BundleNo")
 				txtBatchNo.Text = reader("BatchNo")
 				txtProdcode.Text = reader("ProductCode")
-				txtProdDescr.Text = reader("ProdDescription")
+				If reader.IsDBNull(10) Then
+					txtProdDescr.Text = ""
+				Else
+					txtProdDescr.Text = reader("ProdDescription")
+				End If
 				txtPToMake.Text = reader("PanelsToMake")
 				txtPattern.Text = reader("PatternName")
 				txtPatternDescr.Text = reader("Description")
 				txtSize.Text = reader("Size")
 				txtSInstruction.Text = reader("Special Instructions")
 				txtComponent.Text = reader("ComponentName")
+				Session("compID") = reader("ComponentID")
 				txtQPpanel.Text = reader("QtyPerPanel")
 				txtMachineNo.Text = reader("MachineNumber")
 				txtKwidth.Text = reader("ComponentWidth")
@@ -163,10 +196,10 @@ ORDER BY BatchNo, ComponentID;"
 				txtYarnDyelot.Text = reader("YarnDyelot")
 				Pmadeday = reader("PanelsMadeDay")
 				Pmadenight = reader("PanelsMadeNight")
-
+				Startdate = reader("DateStarted")
 			End While
 		Else
-			MsgBox("db not accesible")
+		MsgBox("problem with displaying info from database into boxes")
 		End If
 
 	End Sub
@@ -183,8 +216,10 @@ ORDER BY BatchNo, ComponentID;"
 
 	Private Sub getOperator()
 		Dim strQuery As String = "SELECT EmployeeID, (EmployeeFirstName + ' ' + EmployeeLastName) AS [FullName] from [GN - EmployeeDetails] WHERE JobDescription = 'MC-Operator'"
-		Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
-		Dim cmd As New SqlCommand()
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
+		Dim cmd As New OleDbCommand()
+		'Dim cmd As New SqlCommand()
 		If IsPostBack = False Then
 			ddlOperator.AppendDataBoundItems = True
 			cmd.CommandType = CommandType.Text
@@ -205,72 +240,227 @@ ORDER BY BatchNo, ComponentID;"
 			End Try
 		End If
 	End Sub
+	Private Sub KnittBundleCompleteCheck()
+		Dim pmadecurrent As String
+		pmadecurrent = txtPanelsMade.Text
+		Dim cmdstring = "SELECT KDH.BatchNo, PanelsMadeDay, PanelsMadeNight, PanelsToMake
+						 FROM [KN - KnittingDetailsHeader] AS KDH
+						 WHERE KDH.BundleNo ='" & BundleNo & "'"
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
+		Dim cmd As New OleDbCommand(cmdstring)
+		'Dim cmd As New SqlCommand(cmdstring)
+		Dim reader As OleDbDataReader
+		'Dim reader As SqlDataReader
+		Dim totalPMade As Integer
+		Dim PanelsToMake As Integer
+
+		cmd.CommandType = CommandType.Text
+		cmd.Connection = con
+		cmd.Connection.Open()
+		cmd.ExecuteNonQuery()
+		reader = cmd.ExecuteReader(CommandBehavior.CloseConnection)
+		If reader.HasRows = True Then
+			While reader.Read
+				totalPMade = reader("PanelsMadeDay") + reader("PanelsMadeNight")
+				PanelsToMake = reader("PanelsToMake")
+			End While
+			If ((totalPMade + CInt(pmadecurrent)) >= PanelsToMake) And ((totalPMade + CInt(pmadecurrent)) <= (PanelsToMake + 8)) Then
+				Result = 1 'bundle complete
+				MsgBox("Bundle complete")
+			ElseIf (totalPMade + CInt(pmadecurrent)) < PanelsToMake Then
+				Result = 2 'bundle incomplete
+				MsgBox("Bundle Incomplete")
+			Else
+				Result = 3
+				MsgBox("Please check number of bundles entered")
+			End If
+		Else
+			Result = 3
+			MsgBox("error with Sub KnittBundleCompleteCheck()")
+		End If
+	End Sub
+	Private Sub grdvprevpnlsPopulate()
+		Dim Adapter As New OleDbDataAdapter
+		'Dim Adapter As New SqlDataAdapter
+		Dim Data As New DataTable
+		Dim SQL As String
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
+		Dim cmd As New OleDbCommand()
+		'Dim cmd As New SqlCommand()
+		grdvprevpnls.Visible = True
+		SQL = "SELECT kdh.BundleNo, kdh.PanelsMadeDay, kdh.PanelsMadeNight, (kdh.PanelsToMake - (kdh.PanelsMadeDay + kdh.PanelsMadeNight)) AS [panels outstanding]
+        FROM [KN - KnittingDetailsHeader] AS kdh
+		WHERE kdh.BundleNo = '" & BundleNo & "';"
+
+		con.Open()
+		cmd.Connection = con
+		cmd.CommandText = SQL
+
+		Adapter.SelectCommand = cmd
+		Adapter.Fill(Data)
+
+		grdvprevpnls.DataSource = Data
+		grdvprevpnls.DataBind()
+
+	End Sub
+
+	Private Sub Machineupdate()
+		Dim cmdstring As String
+		cmdstring = "UPDATE [KN - ProductionMachineAllocation]
+					 SET MachineNumber =" & txtMachineNo.Text &
+					" WHERE (BatchNo = '" & txtBatchNo.Text & "') AND (ComponentID = " & Session("compID") & ")"
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
+		Dim cmd As New OleDbCommand(cmdstring)
+		'Dim cmd As New SqlCommand()
+		cmd.CommandType = CommandType.Text
+		cmd.Connection = con
+		cmd.Connection.Open()
+		cmd.ExecuteNonQuery()
+		cmd.Connection.Close()
+	End Sub
 
 	Private Sub kdcUpdateRecord()
-		Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
+		Dim pmadecurrent As String
+		pmadecurrent = txtPanelsMade.Text
 		Dim cmdstring As String
-		Dim result As String = MsgBox("Is This Bundle complete", MsgBoxStyle.YesNoCancel, "Bundle Check")
 		If ddlShift.SelectedIndex = 1 Then
-			If result = vbYes Then
+			If Result = 1 Then
 				If Pmadeday = 0 Then
 					cmdstring = "UPDATE [KN - KnittingDetailsHeader]
-						     SET OperatorDay =" & ddlOperator.SelectedValue & ", PanelsMadeDay =" & txtPanelsMade.Text & ", DateCompleted ='" & DateTime.Now & "', BundleComplete = 1" &
+						     SET OperatorDay =" & ddlOperator.SelectedValue & ", PanelsMadeDay =" & txtPanelsMade.Text & ", DateCompleted ='" & DateTime.Now & "', KnittComplete = yes" &
 								" WHERE BundleNo = '" & BundleNo & "'"
 				Else
-					cmdstring = "UPDATE [KN - KnittingDetailsHeader]
-						     SET PanelsMadeDay =" & (Pmadeday + txtPanelsMade.Text) & ", DateCompleted ='" & DateTime.Now & "', BundleComplete = 1" &
+					If CInt(pmadecurrent) > Pmadeday Then
+						cmdstring = "UPDATE [KN - KnittingDetailsHeader]
+						     SET OperatorDay =" & ddlOperator.SelectedValue & ",PanelsMadeDay =" & (Pmadeday + CInt(txtPanelsMade.Text)) & ", DateCompleted ='" & DateTime.Now & "', KnittComplete = yes" &
 							" WHERE BundleNo = '" & BundleNo & "'"
+					Else
+						cmdstring = "UPDATE [KN - KnittingDetailsHeader]
+						     SET PanelsMadeDay =" & (Pmadeday + CInt(txtPanelsMade.Text)) & ", DateCompleted ='" & DateTime.Now & "', KnittComplete = yes" &
+							" WHERE BundleNo = '" & BundleNo & "'"
+					End If
 				End If
-			ElseIf result = vbNo Then
+			ElseIf Result = 2 Then
 				If Pmadeday = 0 Then
 					cmdstring = "UPDATE [KN - KnittingDetailsHeader]
-						     SET OperatorDay =" & ddlOperator.SelectedValue & ", PanelsMadeDay =" & txtPanelsMade.Text & ", BundleComplete = 0" &
+						     SET OperatorDay =" & ddlOperator.SelectedValue & ", PanelsMadeDay =" & CInt(txtPanelsMade.Text) & ", KnittComplete = no" &
 								" WHERE BundleNo = '" & BundleNo & "'"
 				Else
-					cmdstring = "UPDATE [KN - KnittingDetailsHeader]
-						     SET PanelsMadeDay =" & (Pmadeday + txtPanelsMade.Text) & ", BundleComplete = 0" &
+					If CInt(pmadecurrent) > Pmadeday Then
+						cmdstring = "UPDATE [KN - KnittingDetailsHeader]
+						     SET OperatorDay =" & ddlOperator.SelectedValue & ", PanelsMadeDay =" & (Pmadeday + CInt(txtPanelsMade.Text)) & ", KnittComplete = no" &
 							" WHERE BundleNo = '" & BundleNo & "'"
+					Else
+						cmdstring = "UPDATE [KN - KnittingDetailsHeader]
+						     SET PanelsMadeDay =" & (Pmadeday + CInt(txtPanelsMade.Text)) & ", KnittComplete = no" &
+							" WHERE BundleNo = '" & BundleNo & "'"
+					End If
+
 				End If
-			ElseIf result = vbCancel Then
+			ElseIf Result = 3 Then
 				Exit Sub
 			End If
 
 		ElseIf ddlShift.SelectedIndex = 2 Then
-			If result = vbYes Then
+			If Result = 1 Then
 				If Pmadenight = 0 Then
 					cmdstring = "UPDATE [KN - KnittingDetailsHeader]
-							 SET OperatorNight =" & ddlOperator.SelectedValue & ", PanelsMadeNight =" & txtPanelsMade.Text & ", DateCompleted ='" & DateTime.Now & "', BundleComplete = 1" &
+							 SET OperatorNight =" & ddlOperator.SelectedValue & ", PanelsMadeNight =" & CInt(txtPanelsMade.Text) & ", DateCompleted ='" & DateTime.Now & "', KnittComplete = yes" &
 							" WHERE BundleNo = '" & BundleNo & "'"
 				Else
-					cmdstring = "UPDATE [KN - KnittingDetailsHeader]
-							 SET PanelsMadeNight =" & (Pmadenight + txtPanelsMade.Text) & ", DateCompleted ='" & DateTime.Now & "', BundleComplete = 1" &
+					If CInt(pmadecurrent) > Pmadenight Then
+						cmdstring = "UPDATE [KN - KnittingDetailsHeader]
+							 SET OperatorNight =" & ddlOperator.SelectedValue & ",PanelsMadeNight =" & (Pmadenight + CInt(txtPanelsMade.Text)) & ", DateCompleted ='" & DateTime.Now & "', KnittComplete = yes" &
 							" WHERE BundleNo = '" & BundleNo & "'"
+					Else
+						cmdstring = "UPDATE [KN - KnittingDetailsHeader]
+							 SET PanelsMadeNight =" & (Pmadenight + CInt(txtPanelsMade.Text)) & ", DateCompleted ='" & DateTime.Now & "', KnittComplete = yes" &
+							" WHERE BundleNo = '" & BundleNo & "'"
+					End If
 				End If
-			ElseIf result = vbNo Then
+			ElseIf Result = 2 Then
 				If Pmadenight = 0 Then
 					cmdstring = "UPDATE [KN - KnittingDetailsHeader]
-							 SET OperatorNight =" & ddlOperator.SelectedValue & ", PanelsMadeNight =" & txtPanelsMade.Text & ", BundleComplete = 0" &
+							 SET OperatorNight =" & ddlOperator.SelectedValue & ", PanelsMadeNight =" & CInt(txtPanelsMade.Text) & ", KnittComplete = no" &
 							" WHERE BundleNo = '" & BundleNo & "'"
 				Else
-					cmdstring = "UPDATE [KN - KnittingDetailsHeader]
-							 SET PanelsMadeNight =" & (Pmadenight + txtPanelsMade.Text) & ", BundleComplete = 0" &
+					If CInt(pmadecurrent) > Pmadenight Then
+						cmdstring = "UPDATE [KN - KnittingDetailsHeader]
+							 SET OperatorNight =" & ddlOperator.SelectedValue & ", PanelsMadeNight =" & (Pmadenight + CInt(txtPanelsMade.Text)) & ", KnittComplete = no" &
 							" WHERE BundleNo = '" & BundleNo & "'"
+					Else
+						cmdstring = "UPDATE [KN - KnittingDetailsHeader]
+							 SET PanelsMadeNight =" & (Pmadenight + CInt(txtPanelsMade.Text)) & ", KnittComplete = no" &
+							" WHERE BundleNo = '" & BundleNo & "'"
+					End If
 				End If
-			ElseIf result = vbCancel Then
+			ElseIf Result = 3 Then
 				Exit Sub
 			End If
 		End If
-
-		Dim cmd As New SqlCommand(cmdstring)
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
+		Dim cmd As New OleDbCommand(cmdstring)
+		'Dim cmd As New SqlCommand(cmdstring)
 		cmd.CommandType = CommandType.Text
 		cmd.Connection = con
 		cmd.Connection.Open()
 		cmd.ExecuteNonQuery()
 		cmd.Connection.Close()
 		Session("pagechange") = 1
-		'Session("BatchNo") = txtBatchNo.Text
-		Response.Redirect("~\Knitt\DisplayBatchBundles.aspx?ID=" & txtBatchNo.Text)
 
+	End Sub
+
+	Public Sub UpdateKnittbatchComplete()
+		Dim cmdstring As String = "UPDATE [KN - ProductionOrderHeader] SET KnittBatchComplete = yes WHERE BatchNo =  '" & txtBatchNo.Text & "'"
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
+		Dim cmd As New OleDbCommand(cmdstring)
+		'Dim cmd As New SqlCommand(cmdstring)
+		cmd.CommandType = CommandType.Text
+		cmd.Connection = con
+		cmd.Connection.Open()
+		cmd.ExecuteNonQuery()
+		cmd.Connection.Close()
+	End Sub
+	Public Sub KnittbatchCompleteCheck()
+		BundleNo = Request.QueryString("ID").ToString()
+		Dim cmdstring = "SELECT POD.BatchNo, KDH.BundleNo, KDH.KnittComplete, POH.KnittBatchComplete
+		FROM ((([KN - ProductionOrderDetails] POD 
+		INNER JOIN [KN - KnittingOrder] KO
+			On POD.KnittingOrderID = KO.KnittingOrderID )
+		INNER JOIN [KN - ProductionOrderHeader] POH
+			ON POD.BatchNo = POH.BatchNo)
+		INNER JOIN [KN - KnittingDetailsHeader] KDH
+			ON POD.BatchNo = KDH.BatchNo)
+		WHERE (KDH.KnittComplete = no) AND (POH.KnittBatchComplete = no) AND (KDH.BatchNo = '" & txtBatchNo.Text & "')"
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\Deepak Vallabh\Documents\shantara\ShantaraProduction\ShantaraProduction\App_Data\Shantara Production IT.mdb")
+		'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
+		Dim cmd As New OleDbCommand(cmdstring)
+		'Dim cmd As New SqlCommand(cmdstring)
+		Dim reader As OleDbDataReader
+		'Dim reader As SqlDataReader
+		cmd.CommandType = CommandType.Text
+		cmd.Connection = con
+		cmd.Connection.Open()
+		cmd.ExecuteNonQuery()
+
+		reader = cmd.ExecuteReader(CommandBehavior.CloseConnection)
+		If Result = 1 Then
+			If reader.HasRows = False Then
+				UpdateKnittbatchComplete()
+				Response.Redirect("~\Knitt\DisplayBatches.aspx")
+			Else
+				Response.Redirect("~\Knitt\DisplayBatchBundles.aspx?ID=" & txtBatchNo.Text)
+			End If
+		ElseIf Result = 2 Then
+			Response.Redirect("~\Knitt\DisplayBatchBundles.aspx?ID=" & txtBatchNo.Text)
+		ElseIf Result = 3 Then
+			Exit Sub
+		End If
 	End Sub
 
 	Protected Sub btnStart_Click(sender As Object, e As EventArgs) Handles btnStart.Click
@@ -285,7 +475,6 @@ ORDER BY BatchNo, ComponentID;"
 		txtSInstruction.Visible = True
 		txtComponent.Visible = True
 		txtQPpanel.Visible = True
-		txtMachineNo.Visible = True
 		txtKwidth.Visible = True
 		txtkLength.Visible = True
 		txtNeedles.Visible = True
@@ -294,12 +483,43 @@ ORDER BY BatchNo, ComponentID;"
 		txtYarnDyelot.Visible = True
 		ddlShift.Visible = True
 		ddlOperator.Visible = True
+		txtMachineNo.Visible = True
 		txtPanelsMade.Visible = True
 		BtnCaptureBundle.Visible = True
-		Startdatedtime()
+		GetknittDatadb()
+		If Startdate = "" Then
+			Startdatedtime()
+		End If
+		grdvprevpnlsPopulate()
+		'KnittBundleCompleteCheck()
+		'UpdateAllRecordscompletes()
+	End Sub
+
+	Private Sub UpdateAllRecordscompletes()
+		Dim cmdstring As String
+		cmdstring = "UPDATE [KN - ProductionOrderHeader]
+					 SET KnittBatchComplete = yes, CheckBatchComplete = yes"
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
+		Dim cmd As New OleDbCommand(cmdstring)
+		'Dim cmd As New SqlCommand()
+		cmd.CommandType = CommandType.Text
+		cmd.Connection = con
+		cmd.Connection.Open()
+		cmd.ExecuteNonQuery()
+		cmd.Connection.Close()
+		MsgBox("all records batch complete checkbox checked")
 	End Sub
 
 	Protected Sub BtnCaptureBundle_Click(sender As Object, e As EventArgs) Handles BtnCaptureBundle.Click
-		kdcUpdateRecord()
+		KnittBundleCompleteCheck()
+		If Result = 1 Or Result = 2 Then
+			Machineupdate()
+			kdcUpdateRecord()
+			KnittbatchCompleteCheck()
+		Else
+			Exit Sub
+		End If
+
 	End Sub
 End Class

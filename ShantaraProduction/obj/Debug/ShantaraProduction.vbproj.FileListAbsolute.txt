@@ -250,3 +250,9 @@ C:\Users\Deepak Vallabh\Documents\shantara\ShantaraProduction\ShantaraProduction
 C:\Users\Deepak Vallabh\Documents\shantara\ShantaraProduction\ShantaraProduction\obj\Debug\ShantaraProduction.dll
 C:\Users\Deepak Vallabh\Documents\shantara\ShantaraProduction\ShantaraProduction\obj\Debug\WebForms_Basic.xml
 C:\Users\Deepak Vallabh\Documents\shantara\ShantaraProduction\ShantaraProduction\obj\Debug\ShantaraProduction.pdb
+C:\Users\Deepak Vallabh\Documents\shantara\ShantaraProduction\ShantaraProduction\bin\zxing.dll
+C:\Users\Deepak Vallabh\Documents\shantara\ShantaraProduction\ShantaraProduction\bin\zxing.presentation.dll
+C:\Users\Deepak Vallabh\Documents\shantara\ShantaraProduction\ShantaraProduction\bin\zxing.pdb
+C:\Users\Deepak Vallabh\Documents\shantara\ShantaraProduction\ShantaraProduction\bin\zxing.xml
+C:\Users\Deepak Vallabh\Documents\shantara\ShantaraProduction\ShantaraProduction\bin\zxing.presentation.pdb
+C:\Users\Deepak Vallabh\Documents\shantara\ShantaraProduction\ShantaraProduction\bin\zxing.presentation.xml

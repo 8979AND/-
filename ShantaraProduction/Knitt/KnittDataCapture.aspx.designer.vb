@@ -131,15 +131,6 @@ Partial Public Class KnittDataCapture
     Protected WithEvents txtQPpanel As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
-    '''txtMachineNo control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents txtMachineNo As Global.System.Web.UI.WebControls.TextBox
-    
-    '''<summary>
     '''txtKwidth control.
     '''</summary>
     '''<remarks>
@@ -194,6 +185,33 @@ Partial Public Class KnittDataCapture
     Protected WithEvents txtYarnDyelot As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
+    '''displaygrdvprevpnls control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents displaygrdvprevpnls As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
+    '''lblyarninvoice control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblyarninvoice As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''grdvprevpnls control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents grdvprevpnls As Global.System.Web.UI.WebControls.GridView
+    
+    '''<summary>
     '''ddlOperator control.
     '''</summary>
     '''<remarks>
@@ -210,6 +228,15 @@ Partial Public Class KnittDataCapture
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents ddlShift As Global.System.Web.UI.WebControls.DropDownList
+    
+    '''<summary>
+    '''txtMachineNo control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtMachineNo As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
     '''txtPanelsMade control.

@@ -58,10 +58,6 @@
 				<asp:TextBox runat="server" ID="txtQPpanel" CssClass="form-control" Style="height: 34px; width: 100%; max-width: none" Enabled="False" Visible="False" />
 			</div>
 			<div class="col-sm-4">
-				<label for="txtMachineNo">Machine Number</label>
-				<asp:TextBox runat="server" ID="txtMachineNo" CssClass="form-control" Style="height: 34px; width: 100%; max-width: none" Enabled="False" Visible="False" />
-			</div>
-			<div class="col-sm-4">
 				<label for="txtKwidth">Knitt Width</label>
 				<asp:TextBox runat="server" ID="txtKwidth" CssClass="form-control" Style="height: 34px; width: 100%; max-width: none" Enabled="False" Visible="False" />
 			</div>
@@ -90,6 +86,25 @@
 			</div>
 		</div>
 		<br />
+		<div class="row">
+			<div id="displaygrdvprevpnls" runat="server">
+				<asp:Label runat="server" AssociatedControlID="grdvprevpnls" Visible="false" ID="lblyarninvoice" CssClass="h2">Dyelots Captured for this Invoice</asp:Label>
+				<asp:GridView ID="grdvprevpnls" runat="server" Visible="False" CellPadding="5" ForeColor="#333333" GridLines="None" HorizontalAlign="Center" CellSpacing="1" PageSize="15">
+					<AlternatingRowStyle BackColor="White" />
+					<EditRowStyle BackColor="#7C6F57" />
+					<FooterStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
+					<HeaderStyle BackColor="#03A5D1" Font-Bold="False" ForeColor="White" />
+					<PagerStyle BackColor="#666666" ForeColor="White" HorizontalAlign="Center" />
+					<RowStyle BackColor="#E3EAEB" />
+					<SelectedRowStyle BackColor="#C5BBAF" Font-Bold="True" ForeColor="#333333" />
+					<SortedAscendingCellStyle BackColor="#F8FAFA" />
+					<SortedAscendingHeaderStyle BackColor="#246B61" />
+					<SortedDescendingCellStyle BackColor="#D4DFE1" />
+					<SortedDescendingHeaderStyle BackColor="#15524A" />
+				</asp:GridView>
+			</div>
+		</div>
+		<br />
 		<hr style="height:1px;border:none;color:#333;background-color:#333;" />
 		<h4>Capture</h4>
 		<div class="row">
@@ -101,7 +116,7 @@
 				</asp:DropDownList>
 			</div>
 			<div class="col-sm-4">
-				<label for="ddlOperator">Operator Name </label>
+				<label for="ddlShift">Shift </label>
 				<asp:DropDownList ID="ddlShift" CssClass="form-control" Style="height: 34px; width: 100%; max-width: none" runat="server" AutoPostBack="true"
 					OnSelectedIndexChanged="ddlShift_SelectedIndexChanged" AppendDataBoundItems="True" Visible="False">
 					<asp:ListItem Text="--Select Shift--" Value=""></asp:ListItem>
@@ -109,10 +124,13 @@
 					<asp:ListItem>Night</asp:ListItem>
 				</asp:DropDownList>
 			</div>
-
+			<div class="col-sm-4">
+				<label for="txtMachineNo">Machine Number</label>
+				<asp:TextBox runat="server" ID="txtMachineNo" CssClass="form-control" Style="height: 34px; width: 100%; max-width: none" Visible="False" />
+			</div>
 			<div class="col-sm-4">
 				<label for="txtPanelsMade">Panels Made</label>
-				<asp:TextBox runat="server" ID="txtPanelsMade" CssClass="form-control" Style="height: 34px; width: 100%; max-width: none" Visible="False" />
+				<asp:TextBox runat="server" ID="txtPanelsMade" CssClass="form-control" Style="height: 34px; width: 100%; max-width: none" Visible="False" >0</asp:TextBox>
 			</div>
 		</div>
 		<br />

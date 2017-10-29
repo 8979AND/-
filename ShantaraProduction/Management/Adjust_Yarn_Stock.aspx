@@ -43,11 +43,11 @@
 				</div>
 				<div class="col-sm-4">
 					<label for="txteYweight">Transaction Yarn Weight</label>
-					<asp:TextBox runat="server" ID="txteYweight" CssClass="form-control" Style="height: 34px; width: 100%; max-width: none" Enabled="False" />
+					<asp:TextBox runat="server" ID="txteYweight" CssClass="form-control" Style="height: 34px; width: 100%; max-width: none" Enabled="False" TextMode="Number" >0</asp:TextBox>
 				</div>
 				<div class="col-sm-4">
 					<label for="txteYcartons">Transaction Yarn Cartons</label>
-					<asp:TextBox runat="server" ID="txteYcartons" CssClass="form-control" Style="height: 34px; width: 100%; max-width: none" Enabled="False" />
+					<asp:TextBox runat="server" ID="txteYcartons" CssClass="form-control" Style="height: 34px; width: 100%; max-width: none" Enabled="False" TextMode="Number" >0</asp:TextBox>
 				</div>
 			</div>
 			<br />

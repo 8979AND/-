@@ -1,4 +1,5 @@
 ﻿Imports System.Data.SqlClient
+Imports System.Data.OleDb
 Public Class DisplayBatchs
 	Inherits System.Web.UI.Page
 	Private BatchNo As String
@@ -7,25 +8,29 @@ Public Class DisplayBatchs
 	End Sub
 
 	Private Sub grdvbatchprodnBundlePopulate()
-		Dim cmd As New SqlCommand
-		Dim Adapter As New SqlDataAdapter
+		Dim Adapter As New OleDbDataAdapter
+		'Dim Adapter As New SqlDataAdapter
 		Dim Data As New DataTable
 		Dim SQL As String
-		Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
+		Dim cmd As New OleDbCommand()
+		'Dim cmd As New SqlCommand()
 		grdvbatchprodnBundle.Visible = True
 		Session("BatchNo") = Request.QueryString("ID").ToString()
-		SQL = "SELECT KDH.BatchNo, KDH.BundleNo, SM.Size, CM.ComponentName, KDH.PanelsToMake, (SIM.SpecialInstructionDetail) AS [Special Instructions]
-        FROM [KN - KnittingDetailsHeader] KDH INNER JOIN [KN - KnittingOrder] KO
-			On KDH.KnittingOrderID = KO.KnittingOrderID 
-		INNER JOIN [FG - Component Master] CM 
-			ON KDH.ComponentID = CM.ComponentID
-		INNER JOIN [FG- Size Master] SM
-			ON KDH.SizeID = SM.SizeID
-		INNER JOIN [FG - End Product Codes] EPC
-			ON KO.ProductID = EPC.ProductID
-		INNER JOIN [KN -Special Instructions Master] SIM
-			ON KO.SpecialInstructionID = SIM.SpecialInstructionID
-		WHERE KDH.BatchNo = '" & Session("BatchNo") & "' AND BundleComplete = 0;"
+		SQL = "SELECT kdh.BatchNo, kdh.BundleNo, (sm.[Size Abbreviation]) AS [Size], (cm.ComponentName) AS [Component], kdh.PanelsToMake, (SIM.SpecialInstructionDetail) AS [Special Instructions]
+        FROM ((((([KN - KnittingDetailsHeader] AS kdh
+		INNER JOIN [KN - KnittingOrder] AS ko
+			On kdh.KnittingOrderID = ko.KnittingOrderID )
+		INNER JOIN [FG - Component Master] AS cm
+			ON  cm.ComponentID = kdh.ComponentID)
+		INNER JOIN [FG- Size Master] AS sm
+			ON  sm.SizeID = kdh.SizeID )
+		INNER JOIN [FG - End Product Codes] AS epc
+			ON ko.ProductID = epc.ProductID)
+		INNER JOIN [KN -Special Instructions Master] AS SIM
+			ON ko.SpecialInstructionID = SIM.SpecialInstructionID)
+		WHERE (kdh.BatchNo = '" & Session("BatchNo") & "') AND (kdh.KnittComplete = 0);"
 
 		con.Open()
 		cmd.Connection = con

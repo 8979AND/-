@@ -1,4 +1,6 @@
 ﻿Imports System.Data.SqlClient
+Imports System.Data.OleDb
+Imports System.Data.Odbc
 Public Class DisplayBatchBundles
 	Inherits System.Web.UI.Page
 
@@ -7,28 +9,37 @@ Public Class DisplayBatchBundles
 	End Sub
 
 	Private Sub grdvbatchprodnPopulate()
-		Dim cmd As New SqlCommand
-		Dim Adapter As New SqlDataAdapter
+		Dim Adapter As New OleDbDataAdapter
+		'Dim Adapter As New SqlDataAdapter
 		Dim Data As New DataTable
 		Dim SQL As String
-		Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
+		Dim cmd As New OleDbCommand()
+		'Dim cmd As New SqlCommand()
 		grdvbatchprodn.Visible = True
-		SQL = "SELECT POD.BatchNo, EM.EntityName, EPC.ProductCode, SUM(POD.ProductionQty) AS [Batch Total Panels], SIM.SpecialInstructionDetail, POH.BatchComplete
-        FROM [KN - ProductionOrderDetails] POD INNER JOIN [KN - KnittingOrder] KO
-			On POD.KnittingOrderID = KO.KnittingOrderID 
-		INNER JOIN [GN - EntityMaster] EM 
-			ON KO.EntityID = EM.EntityID
-		INNER JOIN [FG - End Product Codes] EPC
-			ON KO.ProductID = EPC.ProductID
-		INNER JOIN [KN -Special Instructions Master] SIM
-			ON KO.SpecialInstructionID = SIM.SpecialInstructionID
-		INNER JOIN [KN - ProductionOrderHeader] POH
-			ON POD.BatchNo = POH.BatchNo
-		INNER JOIN [KN - KnittingDetailsHeader] KDH
-			ON POD.BatchNo = KDH.BatchNo
-		WHERE KDH.BundleComplete = 0 	
-		GROUP BY POD.BatchNo, EntityName, EPC.ProductCode, SIM.SpecialInstructionDetail, POH.BatchComplete
-		ORDER BY POD.BatchNo, EM.EntityName;"
+		SQL = "SELECT [KN - ProductionOrderDetails].BatchNo, 
+					  [GN - EntityMaster].EntityName, 
+					  [FG - End Product Codes].ProductCode,
+					  SUM([KN - ProductionOrderDetails].ProductionQty) AS [Batch Total Panels],
+					  [KN -Special Instructions Master].SpecialInstructionDetail,
+					  [KN - ProductionOrderHeader].KnittBatchComplete 
+		      FROM (((((([KN - ProductionOrderDetails] 
+		INNER JOIN [KN - KnittingOrder]		
+			ON  [KN - ProductionOrderDetails].KnittingOrderID = [KN - KnittingOrder].KnittingOrderID)
+		INNER JOIN [GN - EntityMaster] 
+			ON [GN - EntityMaster].EntityID = [KN - KnittingOrder].EntityID)
+		INNER JOIN [KN -Special Instructions Master] 
+			ON [KN -Special Instructions Master].SpecialInstructionID = [KN - KnittingOrder].SpecialInstructionID)
+		INNER JOIN [KN - ProductionOrderHeader] 
+			ON [KN - ProductionOrderHeader].BatchNo = [KN - ProductionOrderDetails].BatchNo)
+		INNER JOIN [FG - End Product Codes] 
+			ON [FG - End Product Codes].ProductID = [KN - ProductionOrderHeader].ProductID)
+		INNER JOIN [KN - KnittingDetailsHeader] 
+			ON [KN - KnittingDetailsHeader].BatchNo = [KN - ProductionOrderDetails].BatchNo)
+		WHERE [KN - ProductionOrderHeader].KnittBatchComplete = no
+		GROUP BY [KN - ProductionOrderDetails].BatchNo, [GN - EntityMaster].EntityName, [FG - End Product Codes].ProductCode, [KN -Special Instructions Master].SpecialInstructionDetail, [KN - ProductionOrderHeader].KnittBatchComplete
+		ORDER BY [KN - ProductionOrderDetails].BatchNo, [GN - EntityMaster].EntityName;"
 		con.Open()
 		cmd.Connection = con
 		cmd.CommandText = SQL
@@ -40,5 +51,7 @@ Public Class DisplayBatchBundles
 		grdvbatchprodn.DataBind()
 
 	End Sub
+
+
 
 End Class

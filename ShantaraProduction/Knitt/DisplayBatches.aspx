@@ -5,7 +5,7 @@
 		<br />
 		<div class="row">
 			<div id="displaybatchprodn" runat="server">
-				<asp:Label runat="server" AssociatedControlID="grdvbatchprodn" Visible="false" ID="lblyarninvoice" CssClass="h2">Dyelots Captured for this Invoice</asp:Label>
+				<asp:Label runat="server" AssociatedControlID="grdvbatchprodn" Visible="false" ID="lblgrdbatch" CssClass="h2">Dyelots Captured for this Invoice</asp:Label>
 				<asp:GridView ID="grdvbatchprodn" runat="server" Visible="False" CellPadding="5" ForeColor="#333333" GridLines="None" HorizontalAlign="Center" CellSpacing="1" PageSize="15">
 					<AlternatingRowStyle BackColor="White" />
 					<Columns>

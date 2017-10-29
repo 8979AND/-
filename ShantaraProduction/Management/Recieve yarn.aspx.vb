@@ -1,5 +1,5 @@
 ﻿Imports System.Data.SqlClient
-
+Imports System.Data.OleDb
 Public Class Recieve_yarn
 	Inherits System.Web.UI.Page
 
@@ -22,15 +22,16 @@ Public Class Recieve_yarn
 			Else
 
 			End If
-			'		testsessionforgridview()
-
+			Session("editYarn") = 0
 		End If
 	End Sub
 
 	Private Sub getSupplier()
 		Dim strQuery As String = "SELECT DISTINCT EntityID, EntityName from [GN - EntityMaster] WHERE EntityTypeID = 1"
-		Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
-		Dim cmd As New SqlCommand()
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
+		Dim cmd As New OleDbCommand()
+		'Dim cmd As New SqlCommand()
 
 		If IsPostBack = False Then
 			ddlSupplier.AppendDataBoundItems = True
@@ -60,8 +61,10 @@ Public Class Recieve_yarn
 
 
 		Dim strQuery As String = "SELECT YarnColourID, YarnColour from [YN - Yarn Colour Defns]"
-		Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
-		Dim cmd As New SqlCommand()
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
+		Dim cmd As New OleDbCommand()
+		'Dim cmd As New SqlCommand()
 		If IsPostBack = False Then
 			ddlYcolour.AppendDataBoundItems = True
 			cmd.CommandType = CommandType.Text
@@ -85,9 +88,12 @@ Public Class Recieve_yarn
 
 	Private Sub getYtype()
 
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
+		Dim cmd As New OleDbCommand()
+		'Dim cmd As New SqlCommand()		
 		Dim strQuery As String = "SELECT DISTINCT YarnTypeID, YarnType from [YN - Yarn Type] "
-		Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
-		Dim cmd As New SqlCommand()
+
 		If IsPostBack = False Then
 			ddlYtype.AppendDataBoundItems = True
 			'	ddlYtype.Items.Clear()
@@ -118,41 +124,31 @@ Public Class Recieve_yarn
 		txtkgprice.Enabled = True
 	End Sub
 	Private Sub InvoiceDBPopulate()
-		Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
-
 		Dim cmdstring As String = "INSERT INTO [YN - Yarn Master] (YarnDyelot, YarnColourID, YarnTypeID, YarnSupplier, SupplierInvoiceNo, YarnPurchaceWeight, YarnPurchaseCartons, YarnKgPrice, YarnPurchaseDate, CurrentWeight, CurrentCartons) " &
 		"VALUES ('" & txtYdyelot.Text & "', " & ddlYcolour.SelectedValue & ", " & ddlYtype.SelectedValue & ", " & ddlSupplier.SelectedValue & ", '" & txtInvoice.Text & "', " & txtYweight.Text & ", " & txtYcartons.Text & ", " & txtkgprice.Text & ", '" & txtdate.Text & "', " & txtYweight.Text & ", " & txtYcartons.Text & ");"
-		'SELECT CAST(scope_identity() AS int);"
-		Dim cmd As New SqlCommand(cmdstring)
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
+		Dim cmd As New OleDbCommand(cmdstring)
+		'Dim cmd As New SqlCommand(cmdstring)	
 		cmd.CommandType = CommandType.Text
 		cmd.Connection = con
 		cmd.Connection.Open()
 		cmd.ExecuteNonQuery()
-		'Dim TicketID As Int32 = 0
-		'TicketID = Convert.ToInt32(cmd.ExecuteScalar())
-		'Dim notification As New CustomerComms
-		'notification.NotifyNewTicket(TicketID)
-
 		cmd.Connection.Close()
 	End Sub
 	Private Sub grdvInvoiceDyelotsPopulate()
-		Dim cmd As New SqlCommand
-		Dim Adapter As New SqlDataAdapter
+		Dim Adapter As New OleDbDataAdapter
+		'Dim Adapter As New SqlDataAdapter
 		Dim Data As New DataTable
 		Dim SQL As String
-		Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
-
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
+		Dim cmd As New OleDbCommand()
+		'Dim cmd As New SqlCommand()
 		grdvInvoiceDyelots.Visible = True
-		'btnBack.Visible = False
-		'btnAddUser.Visible = True	
 		Session("Invoice_number") = txtInvoice.Text
-		SQL = "SELECT YM.YarnID, YM.YarnDyelot, YC.YarnColour, YM.YarnPurchaceWeight, YM.YarnPurchaseCartons
-        FROM [YN - Yarn Master] YM JOIN [YN - Yarn Colour Defns] YC
-        On YM.YarnColourID = YC.YarnColourID 
-		WHERE YM.SupplierInvoiceNo = '" & Session("Invoice_number") & "';"
+		SQL = "SELECT [YN - Yarn Master].YarnID, [YN - Yarn Master].YarnDyelot, [YN - Yarn Colour Defns].YarnColour, [YN - Yarn Master].YarnPurchaceWeight, [YN - Yarn Master].YarnPurchaseCartons from [YN - Yarn Master] INNER JOIN [YN - Yarn Colour Defns] On [YN - Yarn Master].YarnColourID = [YN - Yarn Colour Defns].YarnColourID WHERE [YN - Yarn Master].SupplierInvoiceNo = '" & Session("Invoice_number") & "'"
 
-
-		'	cmd.Parameters.AddWithValue("@invoice", )
 		con.Open()
 		cmd.Connection = con
 		cmd.CommandText = SQL
@@ -164,40 +160,14 @@ Public Class Recieve_yarn
 		grdvInvoiceDyelots.DataBind()
 
 	End Sub
-	Private Sub testsessionforgridview()
-		Dim Command As SqlCommand
-		Dim Reader As SqlDataReader
-
-		Dim connection As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
-		Dim CommandString As String
-
-		CommandString = "SELECT YM.YarnID, YM.YarnDyelot, YM.SupplierInvoiceNo, YC.YarnColour, YM.YarnPurchaceWeight, YM.YarnPurchaseCartons
-        FROM [YN - Yarn Master] YM JOIN [YN - Yarn Colour Defns] YC
-        On YM.YarnColourID = YC.YarnColourID;"
-
-		Command = New SqlCommand(CommandString)
-		Command.CommandType = CommandType.Text
-		Command.Connection = connection
-
-		Command.Connection.Open()
-
-		Command.ExecuteNonQuery()
-
-		Reader = Command.ExecuteReader(CommandBehavior.CloseConnection)
-
-		If Reader.HasRows = True Then
-			While Reader.Read()
-				Session.Add("Invoice_number", Reader("SupplierInvoiceNo"))
-			End While
-		End If
-	End Sub
 
 	Private Sub InvoiceDBAuditTrail()
-		Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
-
 		Dim cmdstring As String = "INSERT INTO [YN - YarnTransactionHeader] (TransactionTypeID, TransactionDate, EntityID, YarnDocumentNo, Processed) " &
-		"VALUES (1, '" & DateTime.Now & "', " & ddlSupplier.SelectedValue & ", '" & txtInvoice.Text & "', 1);"
-		Dim cmd As New SqlCommand(cmdstring)
+		"VALUES (1, '" & Date.Now & "', " & ddlSupplier.SelectedValue & ", '" & txtInvoice.Text & "', 1);"
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+
+
+		Dim cmd As New OleDbCommand(cmdstring)
 		cmd.CommandType = CommandType.Text
 		cmd.Connection = con
 		cmd.Connection.Open()
@@ -205,16 +175,47 @@ Public Class Recieve_yarn
 		cmd.Connection.Close()
 	End Sub
 
+	Public Sub grdvInvoiceSummaryPopulate()
+		Dim Adapter As New OleDbDataAdapter
+		'Dim Adapter As New SqlDataAdapter
+		Dim Data As New DataTable
+		Dim SQL As String
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
+		Dim cmd As New OleDbCommand()
+		'Dim cmd As New SqlCommand()	
+		grdvInvoiceSummary.Visible = True
+		'btnBack.Visible = False
+		'btnAddUser.Visible = True	
+		Session("Invoice_number") = txtInvoice.Text
+		', (YM.YarnKgPrice*YM.YarnPurchaceWeight) AS [Total Price(R)]
+		SQL = "SELECT YM.SupplierInvoiceNo, SUM(YM.YarnPurchaceWeight) AS [Total Weight], SUM(YM.YarnPurchaseCartons) AS [Total Cartons]
+        FROM [YN - Yarn Master] YM
+		WHERE YM.SupplierInvoiceNo = '" & Session("Invoice_number") & "'
+		GROUP BY YM.SupplierInvoiceNo
+		ORDER BY YM.SupplierInvoiceNo, SUM(YM.YarnPurchaceWeight), SUM(YM.YarnPurchaseCartons)"
+		con.Open()
+		cmd.Connection = con
+		cmd.CommandText = SQL
+
+		Adapter.SelectCommand = cmd
+		Adapter.Fill(Data)
+
+		grdvInvoiceSummary.DataSource = Data
+		grdvInvoiceSummary.DataBind()
+	End Sub
+
 	Protected Sub btnCapture_Click(sender As Object, e As EventArgs) Handles btnCapture.Click
 		Session("YI_date") = txtdate.Text
 		Session("YI_price") = txtkgprice.Text
 		Session("YI_Supplier") = ddlSupplier.SelectedItem.Text
 		Session("YI_Ytype") = ddlYtype.SelectedItem.Text
-
-		Session("editYarn") = 0
 		InvoiceDBPopulate()
 		grdvInvoiceDyelotsPopulate()
 		ddlYcolour.ClearSelection()
+		txtYdyelot.Text = ""
+		txtYweight.Text = ""
+		txtYcartons.Text = ""
 	End Sub
 
 	Protected Sub txtkgprice_TextChanged(sender As Object, e As EventArgs) Handles txtkgprice.TextChanged
@@ -237,11 +238,15 @@ Public Class Recieve_yarn
 
 	Protected Sub btnyarninvcaptur_Click(sender As Object, e As EventArgs) Handles btnyarninvcaptur.Click
 		InvoiceDBAuditTrail()
+		grdvInvoiceSummaryPopulate()
 		MsgBox("invoice Captured")
 		btnyarninvcaptur.Enabled = False
 	End Sub
 
 	Protected Sub Back(sender As Object, e As EventArgs) Handles btnBack.Click
+
+
+
 
 	End Sub
 End Class
