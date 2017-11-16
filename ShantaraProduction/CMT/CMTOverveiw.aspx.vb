@@ -104,8 +104,8 @@ Public Class CMTOverveiw
 		GROUP BY CDH.BatchNo, EM.EntityName, EPC.ProductCode, CSIM.CMTSpecialInstructionDetail
 		ORDER BY CDH.BatchNo, EM.EntityName;"
 		End Select
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
-		Dim cmd As New OleDbCommand(Sql)
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;OLE DB Services=-4;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim cmd As New OleDbCommand(sql)
 		Dim reader As OleDbDataReader
 		cmd.CommandType = CommandType.Text
 		cmd.Connection = con
@@ -146,7 +146,7 @@ Public Class CMTOverveiw
 
 	Private Sub getCMTOperator()
 		Dim strQuery As String = "SELECT EmployeeID, (EmployeeFirstName + ' ' + EmployeeLastName) AS [FullName] from [GN - EmployeeDetails] WHERE Department = 'CMT' ORDER BY EmployeeFirstName"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;OLE DB Services=-4;Data Source=|DataDirectory|\Shantara Production IT.mdb")
 		Dim cmd As New OleDbCommand()
 		If IsPostBack = False Then
 			ddlCMTStaff.AppendDataBoundItems = True
@@ -171,7 +171,7 @@ Public Class CMTOverveiw
 
 	Private Sub getCMTStaffDetails()
 		Dim cmdstring = "SELECT EmployeeID, (EmployeeFirstName + ' ' + EmployeeLastName) AS [FullName], JobDescription FROM [GN - EmployeeDetails] WHERE EmployeeID = " & ddlCMTStaff.SelectedValue
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;OLE DB Services=-4;Data Source=|DataDirectory|\Shantara Production IT.mdb")
 		Dim cmd As New OleDbCommand(cmdstring)
 		Dim reader As OleDbDataReader
 		cmd.CommandType = CommandType.Text
@@ -197,7 +197,7 @@ Public Class CMTOverveiw
 		Dim Adapter As New OleDbDataAdapter
 		Dim Data As New DataTable
 		Dim SQL As String
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;OLE DB Services=-4;Data Source=|DataDirectory|\Shantara Production IT.mdb")
 		Dim cmd As New OleDbCommand()
 		grdvCMTbatches.Visible = True
 		Select Case Session("JDescription")
@@ -308,7 +308,7 @@ Public Class CMTOverveiw
 		Dim cmdstring As String
 		cmdstring = "UPDATE [CMT - CMTDetailsHeader]
 							 SET Bundlecompleteview = yes"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;OLE DB Services=-4;Data Source=|DataDirectory|\Shantara Production IT.mdb")
 		Dim cmd As New OleDbCommand(cmdstring)
 		cmd.CommandType = CommandType.Text
 		cmd.Connection = con
@@ -330,7 +330,7 @@ Public Class CMTOverveiw
 
 	Private Sub UpdatenullCMTspecialinstructions()
 		Dim cmdstring As String = "UPDATE [KN - KnittingOrder] SET CMTSpecialInstructionID = 415 WHERE CMTSpecialInstructionID IS NULL"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;OLE DB Services=-4;Data Source=|DataDirectory|\Shantara Production IT.mdb")
 		Dim cmd As New OleDbCommand(cmdstring)
 		cmd.CommandType = CommandType.Text
 		cmd.Connection = con

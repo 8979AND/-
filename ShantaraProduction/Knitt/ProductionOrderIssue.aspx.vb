@@ -212,7 +212,7 @@ Public Class ProductionOrderIssue
 	End Sub
 
 
-	Private Sub knittdatareader()
+	Private Sub knittdatareader() 'still need to test
 		Dim cmdstring As String = "SELECT DISTINCTROW POH.BatchNo, 
 								  POH.ProductID, 
 								  POH.TicketsPrinted,
@@ -256,7 +256,7 @@ Public Class ProductionOrderIssue
 				On POH.BatchNo = PYA.BatchNo
 			WHERE POH.BatchNo = '" & txtbatchno.Text & "'
 			ORDER BY POH.BatchNo, PMA.ComponentID, POD.KnittingOrderID, POD.SizeID;"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;OLE DB Services=-4;Data Source=|DataDirectory|\Shantara Production IT.mdb")
 		Dim cmd As New OleDbCommand(cmdstring)
 		Dim reader As OleDbDataReader
 		cmd.CommandType = CommandType.Text
@@ -280,7 +280,7 @@ Public Class ProductionOrderIssue
 				knittOrderID = reader("KnittingOrderID")
 				componentID = reader("ComponentID")
 				sizeID = reader("TotPnls")
-				qtyppnl = reader("NoOfComponents")
+				qtyppnl = reader("CompPerPnl")
 				Select Case componentName
 					Case "Sleeve", "Front", "Body", "Back"
 						PnlsToProduce = reader("TotPnls")
@@ -356,9 +356,9 @@ Public Class ProductionOrderIssue
 						'End While
 						BuildKnittingRecords(MxBndleSz, componentID, sizeID, PnlsToProduce, qtyppnl, knittOrderID)
 					Case "Stolling"
-						PnlsToProduce += (grdvProdOrderDetails.Rows(i).Cells(10).Text * (grdvProdOrderDetails.Rows(i).Cells(20).Text / 100))
+						PnlsToProduce += (reader("CompTot") * reader("ComponentLength"))
 					Case "Pocket"
-						PocketsToMake += (reader("CompPerPnl") / reader("CompPerPnl")
+						PocketsToMake += (reader("CompTot") / reader("CompPerPnl"))
 						PnlsToProduce = Round(PocketsToMake + 0.4, 0)
 						BuildKnittingRecords(MxBndleSz, componentID, sizeID, PnlsToProduce, qtyppnl, knittOrderID)
 				End Select

@@ -17,7 +17,7 @@ Public Class DisplayJerseyoverview
 		Dim Adapter As New OleDbDataAdapter
 		Dim Data As New DataTable
 		Dim SQL As String
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;OLE DB Services=-4;Data Source=|DataDirectory|\Shantara Production IT.mdb")
 		Dim cmd As New OleDbCommand()
 		grdvFromKnitt.Visible = True
 		SQL = "SELECT POD.BatchNo, EM.EntityName, EPC.ProductCode, SUM(POD.ProductionQty) AS [Batch Total Panels], SIM.SpecialInstructionDetail, POH.KnittBatchComplete
@@ -53,7 +53,7 @@ Public Class DisplayJerseyoverview
 		Dim Adapter As New OleDbDataAdapter
 		Dim Data As New DataTable
 		Dim SQL As String
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;OLE DB Services=-4;Data Source=|DataDirectory|\Shantara Production IT.mdb")
 		Dim cmd As New OleDbCommand()
 		grdvReadyForCMT.Visible = True
 		SQL = "SELECT POD.BatchNo, EM.EntityName, EPC.ProductCode, SUM(POD.ProductionQty) AS [Batch Total Panels]
@@ -89,7 +89,7 @@ Public Class DisplayJerseyoverview
 										ON POH.BatchNo = CDH.BatchNo) 
 								   SET POH.BatchComplete = yes 
 								   WHERE POH.CheckBatchComplete = yes AND CDH.CutDataCaptured = no"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;OLE DB Services=-4;Data Source=|DataDirectory|\Shantara Production IT.mdb")
 		'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
 		Dim cmd As New OleDbCommand(cmdstring)
 		'Dim cmd As New SqlCommand(cmdstring)
@@ -106,7 +106,7 @@ Public Class DisplayJerseyoverview
 										ON POD.BatchNo = KDH.BatchNo)
 								   SET POD.ProductionQty = 600 
 								   WHERE KDH.BundleComplete = yes AND KDH.KnittComplete = yes AND KDH.Checkcomplete = yes"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;OLE DB Services=-4;Data Source=|DataDirectory|\Shantara Production IT.mdb")
 		'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
 		Dim cmd As New OleDbCommand(cmdstring)
 		'Dim cmd As New SqlCommand(cmdstring)
@@ -125,7 +125,7 @@ Public Class DisplayJerseyoverview
 						INNER JOIN [KN - ProductionOrderHeader]
 							ON [KN - ProductionOrderHeader].BatchNo = [CMT - CMTDetailsHeader].BatchNo) 
 						WHERE [KN - ProductionOrderHeader].BatchComplete = no AND [KN - ProductionOrderHeader].CheckBatchComplete = yes  AND [CMT - CMTDetailsHeader].CutDataCaptured = no AND [KN - ProductionOrderHeader].BatchNo = [CMT - CMTDetailsHeader].BatchNo"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;OLE DB Services=-4;Data Source=|DataDirectory|\Shantara Production IT.mdb")
 		Dim cmd As New OleDbCommand(cmdstring)
 		cmd.CommandType = CommandType.Text
 		cmd.Connection = con

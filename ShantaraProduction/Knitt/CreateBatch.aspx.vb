@@ -14,7 +14,7 @@ Public Class CreateBatch
 	'	Public Shared Function GettProduct(prefix As String) As String()
 	'		Dim products As New List(Of String)()
 	'		Using conn As New OleDbConnection()
-	'			conn.ConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb"
+	'			conn.ConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;OLE DB Services=-4;Data Source=|DataDirectory|\Shantara Production IT.mdb"
 	'			Using cmd As New OleDbCommand()
 	'				cmd.CommandText = "SELECT DISTINCT KO.ProductID, EPC.ProductCode, EPC.ProdDescription 
 	'FROM [FG - End Product Codes] AS EPC
@@ -43,7 +43,7 @@ INNER JOIN [KN - KnittingOrder] AS KO
 	ON EPC.ProductID = KO.ProductID 
 WHERE (((KO.KnittingIssued)=False)) 
 ORDER BY EPC.ProductCode; "
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;OLE DB Services=-4;Data Source=|DataDirectory|\Shantara Production IT.mdb")
 		Dim cmd As New OleDbCommand()
 
 		If IsPostBack = False Then
@@ -85,7 +85,7 @@ ORDER BY EPC.ProductCode; "
 		Dim Adapter As New OleDbDataAdapter
 		Dim Data As New DataTable
 		Dim SQL As String
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;OLE DB Services=-4;Data Source=|DataDirectory|\Shantara Production IT.mdb")
 		Dim cmd As New OleDbCommand()
 		grdvProductionOrders.Visible = True
 		'btnBack.Visible = False
@@ -122,7 +122,7 @@ ORDER BY EPC.ProductCode; "
 		Dim Adapter As New OleDbDataAdapter
 		Dim Data As New DataTable
 		Dim SQL As String
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;OLE DB Services=-4;Data Source=|DataDirectory|\Shantara Production IT.mdb")
 		Dim cmd As New OleDbCommand()
 		grdvisyarnavailable.Visible = True
 		'btnBack.Visible = False
@@ -153,7 +153,7 @@ ORDER BY D15.CurrentWeight;"
 						 INNER JOIN [FG- Size Master] AS SM
 							ON SM.SizeID = EPM.SizeID)
 						 WHERE (EPM.ProductID = " & Session("Batch_Product") & ") AND (SM.[Size Abbreviation] = '" & size & "')"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;OLE DB Services=-4;Data Source=|DataDirectory|\Shantara Production IT.mdb")
 		Dim cmd As New OleDbCommand(cmdstring)
 		Dim reader As OleDbDataReader
 		cmd.CommandType = CommandType.Text
@@ -178,7 +178,7 @@ ORDER BY D15.CurrentWeight;"
 		Dim Adapter As New OleDbDataAdapter
 		Dim Data As New DataTable
 		Dim SQL As String
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;OLE DB Services=-4;Data Source=|DataDirectory|\Shantara Production IT.mdb")
 		Dim cmd As New OleDbCommand()
 		grdvmachincomp.Visible = True
 		'Session("Batch_Product") = ddlBProduct.SelectedValue
@@ -237,7 +237,7 @@ ORDER BY D15.CurrentWeight;"
 		INNER JOIN [FG - End Product Colours] AS FGPC 
 			ON YNCF.YarnColourID = FGPC.YarnColourID
         WHERE (FGPC.ColourNumber = 'G') AND (FGPC.ProductID = " & ddlBProduct.SelectedValue & ");"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;OLE DB Services=-4;Data Source=|DataDirectory|\Shantara Production IT.mdb")
 		Dim cmd As New OleDbCommand(cmdstring)
 		Dim reader As OleDbDataReader
 		cmd.CommandType = CommandType.Text
@@ -264,7 +264,7 @@ ORDER BY D15.CurrentWeight;"
 										ON YNCF.YarnColourID = FGPC.YarnColourID)
 								   SET YNCF.LastBatchNo = " & BLNU &
 								   " WHERE (FGPC.ColourNumber = 'G') AND (FGPC.ProductID = " & ddlBProduct.SelectedValue & ");"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;OLE DB Services=-4;Data Source=|DataDirectory|\Shantara Production IT.mdb")
 		'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
 		Dim cmd As New OleDbCommand(cmdstring)
 		'Dim cmd As New SqlCommand(cmdstring)
@@ -283,7 +283,7 @@ ORDER BY D15.CurrentWeight;"
 					"', " & ddlBProduct.SelectedValue &
 					", '" & DateTime.Now &
 					"');"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;OLE DB Services=-4;Data Source=|DataDirectory|\Shantara Production IT.mdb")
 		Dim cmd As New OleDbCommand(cmdstring)
 		cmd.CommandType = CommandType.Text
 		cmd.Connection = con
@@ -304,7 +304,7 @@ ORDER BY D15.CurrentWeight;"
 							", " & grdvProductionOrders.Rows(i).Cells(1).Text &
 							", " & grdvProductionOrders.Rows(i).Cells(6).Text &
 							");"
-				Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+				Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;OLE DB Services=-4;Data Source=|DataDirectory|\Shantara Production IT.mdb")
 				Dim cmd As New OleDbCommand(cmdstring)
 				cmd.CommandType = CommandType.Text
 				cmd.Connection = con
@@ -320,7 +320,7 @@ ORDER BY D15.CurrentWeight;"
 		For c As Integer = 0 To grdvmachincomp.Rows.Count - 1
 			Dim cmdstring As String
 			cmdstring = " INSERT INTO [KN - ProductionMachineAllocation] (BatchNo, ComponentID) VALUES('" & grdvmachincomp.Rows(c).Cells(0).Text & "', " & grdvmachincomp.Rows(c).Cells(1).Text & ");"
-			Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+			Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;OLE DB Services=-4;Data Source=|DataDirectory|\Shantara Production IT.mdb")
 			Dim cmd As New OleDbCommand(cmdstring)
 			cmd.CommandType = CommandType.Text
 			cmd.Connection = con
@@ -359,15 +359,15 @@ ORDER BY D15.CurrentWeight;"
 							", VAL(Replace('" & grdvisyarnavailable.Rows(i).Cells(11).Text & "',',','.'))" &
 							");"
 				End If
-				Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
-					Dim cmd As New OleDbCommand(cmdstring)
-					cmd.CommandType = CommandType.Text
-					cmd.Connection = con
-					cmd.Connection.Open()
-					cmd.ExecuteNonQuery()
-					cmd.Connection.Close()
-				End If
-        Next
+				Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;OLE DB Services=-4;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+				Dim cmd As New OleDbCommand(cmdstring)
+				cmd.CommandType = CommandType.Text
+				cmd.Connection = con
+				cmd.Connection.Open()
+				cmd.ExecuteNonQuery()
+				cmd.Connection.Close()
+			End If
+		Next
 		'MsgBox("yarn allocated")
 	End Sub
 
@@ -404,7 +404,7 @@ ORDER BY D15.CurrentWeight;"
 		Dim Adapter As New OleDbDataAdapter
 		Dim Data As New DataTable
 		Dim SQL As String
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;OLE DB Services=-4;Data Source=|DataDirectory|\Shantara Production IT.mdb")
 		Dim cmd As New OleDbCommand()
 		grdvisvariousdyelot.Visible = True
 		Dim i As Integer

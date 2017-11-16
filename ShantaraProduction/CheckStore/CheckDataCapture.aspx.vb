@@ -42,7 +42,7 @@ Public Class CheckDataCapture
 		INNER JOIN [YN - Yarn Colour Defns] AS YCD
 			ON YM.YarnColourID = YCD.YarnColourID)
 		WHERE KDH.BundleNo = '" & Session("BundleNo") & "';"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;OLE DB Services=-4;OLE DB Services=-4;Data Source=|DataDirectory|\Shantara Production IT.mdb")
 		Dim cmd As New OleDbCommand(cmdstring)
 		Dim reader As OleDbDataReader
 		cmd.CommandType = CommandType.Text
@@ -80,7 +80,7 @@ Public Class CheckDataCapture
 
 	Private Sub getChecker()
 		Dim strQuery As String = "SELECT EmployeeID, (EmployeeFirstName + ' ' + EmployeeLastName) AS [FullName] from [GN - EmployeeDetails] WHERE JobDescription = 'KnitChecker'"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;OLE DB Services=-4;Data Source=|DataDirectory|\Shantara Production IT.mdb")
 		Dim cmd As New OleDbCommand()
 		If IsPostBack = False Then
 			ddlChecker.AppendDataBoundItems = True
@@ -138,7 +138,7 @@ Public Class CheckDataCapture
 						", " & txtFQty.Text &
 						", " & txtFaultCollars.Text &
 						", " & txtFOthers.Text & ");"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;OLE DB Services=-4;Data Source=|DataDirectory|\Shantara Production IT.mdb")
 		Dim cmd As New OleDbCommand(cmdstring)
 		cmd.CommandType = CommandType.Text
 		cmd.Connection = con
@@ -151,7 +151,7 @@ Public Class CheckDataCapture
 		Dim cmdstring = "SELECT  BundleNo
 						 FROM  [KN - KnittingDetailsWeights]
 						 WHERE BundleNo = '" & Session("BundleNo") & "'"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;OLE DB Services=-4;Data Source=|DataDirectory|\Shantara Production IT.mdb")
 		Dim cmd As New OleDbCommand(cmdstring)
 		Dim reader As OleDbDataReader
 		cmd.CommandType = CommandType.Text
@@ -174,7 +174,7 @@ Public Class CheckDataCapture
 						", BundleWasteWeight =" & txtBundleWasteWeight.Text &
 						", BundleFaultWeight = " & txtBundleFaultWeight.Text &
 						 " WHERE BundleNo = '" & Session("BundleNo") & "'"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;OLE DB Services=-4;Data Source=|DataDirectory|\Shantara Production IT.mdb")
 		Dim cmd As New OleDbCommand(cmdstring)
 		cmd.CommandType = CommandType.Text
 		cmd.Connection = con
@@ -190,7 +190,7 @@ Public Class CheckDataCapture
 						", " & txtBundleWasteWeight.Text &
 						", " & txtBundleFaultWeight.Text &
 					");"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;OLE DB Services=-4;Data Source=|DataDirectory|\Shantara Production IT.mdb")
 		Dim cmd As New OleDbCommand(cmdstring)
 		cmd.CommandType = CommandType.Text
 		cmd.Connection = con
@@ -206,7 +206,7 @@ Public Class CheckDataCapture
 						", DateChecked ='" & DateTime.Now &
 						"', Checkcomplete = yes 
 						 WHERE BundleNo = '" & Session("BundleNo") & "'"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;OLE DB Services=-4;Data Source=|DataDirectory|\Shantara Production IT.mdb")
 		Dim cmd As New OleDbCommand(cmdstring)
 		cmd.CommandType = CommandType.Text
 		cmd.Connection = con
@@ -216,7 +216,7 @@ Public Class CheckDataCapture
 	End Sub
 	Public Sub UpdateCheckbatchComplete()
 		Dim cmdstring As String = "UPDATE [KN - ProductionOrderHeader] SET CheckBatchComplete = yes WHERE BatchNo =  '" & txtBatchNo.Text & "'"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;OLE DB Services=-4;Data Source=|DataDirectory|\Shantara Production IT.mdb")
 		Dim cmd As New OleDbCommand(cmdstring)
 		cmd.CommandType = CommandType.Text
 		cmd.Connection = con
@@ -235,7 +235,7 @@ Public Class CheckDataCapture
 		INNER JOIN [KN - KnittingDetailsHeader] KDH
 			ON POD.BatchNo = KDH.BatchNo)
 		WHERE (KDH.Checkcomplete = no) AND (POH.CheckBatchComplete = no) AND (KDH.BatchNo = '" & txtBatchNo.Text & "')"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;OLE DB Services=-4;Data Source=|DataDirectory|\Shantara Production IT.mdb")
 		Dim cmd As New OleDbCommand(cmdstring)
 		Dim reader As OleDbDataReader
 		cmd.CommandType = CommandType.Text
@@ -268,7 +268,7 @@ Public Class CheckDataCapture
 		INNER JOIN [KN -Special Instructions Master] AS SIM
 			ON ko.SpecialInstructionID = SIM.SpecialInstructionID)
 		WHERE (kdh.BatchNo = '" & Session("BatchNo") & "') AND (kdh.KnittComplete = yes) AND (kdh.Checkcomplete = no);"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;OLE DB Services=-4;Data Source=|DataDirectory|\Shantara Production IT.mdb")
 		Dim cmd As New OleDbCommand(cmdstring)
 		Dim reader As OleDbDataReader
 		cmd.CommandType = CommandType.Text

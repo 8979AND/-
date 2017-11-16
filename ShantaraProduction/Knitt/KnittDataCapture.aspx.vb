@@ -71,7 +71,7 @@ Public Class KnittDataCapture
 	'				NoOfComponents
 	'FROM POSqry
 	'ORDER BY BatchNo, ComponentID;"
-	'		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\Deepak Vallabh\Documents\shantara\ShantaraProduction\ShantaraProduction\App_Data\Shantara Production IT.mdb")
+	'		Dim con As New OleDbConnection("Provider=Microsoft.OLEDB.12.0;OLE DB Services=-4;Data Source=C:\Users\Deepak Vallabh\Documents\shantara\ShantaraProduction\ShantaraProduction\App_Data\Shantara Production IT.mdb")
 	'		'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
 	'		Dim cmd As New OleDbCommand(cmdstring)
 	'		'Dim cmd As New SqlCommand(cmdstring)
@@ -101,7 +101,7 @@ Public Class KnittDataCapture
 		cmdstring = "UPDATE [KN - KnittingDetailsHeader]
 					 SET DateStarted ='" & DateTime.Now &
 					"' WHERE BundleNo = '" & BundleNo & "'"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.OLEDB.12.0;OLE DB Services=-4;Data Source=|DataDirectory|\Shantara Production IT.mdb")
 		'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
 		Dim cmd As New OleDbCommand(cmdstring)
 		'Dim cmd As New SqlCommand()
@@ -158,7 +158,7 @@ Public Class KnittDataCapture
 		INNER JOIN [YN - Yarn Colour Defns] AS YCD
 			ON YM.YarnColourID = YCD.YarnColourID)
 		WHERE KDH.BundleNo = '" & BundleNo & "';"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.OLEDB.12.0;OLE DB Services=-4;Data Source=|DataDirectory|\Shantara Production IT.mdb")
 		'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
 		Dim cmd As New OleDbCommand(cmdstring)
 		'Dim cmd As New SqlCommand(cmdstring)
@@ -222,7 +222,7 @@ Public Class KnittDataCapture
 
 	Private Sub getOperator()
 		Dim strQuery As String = "SELECT EmployeeID, (EmployeeFirstName + ' ' + EmployeeLastName) AS [FullName] from [GN - EmployeeDetails] WHERE JobDescription = 'MC-Operator'"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.OLEDB.12.0;OLE DB Services=-4;Data Source=|DataDirectory|\Shantara Production IT.mdb")
 		'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
 		Dim cmd As New OleDbCommand()
 		'Dim cmd As New SqlCommand()
@@ -250,7 +250,7 @@ Public Class KnittDataCapture
 		Dim cmdstring = "SELECT KDH.BatchNo, PanelsMadeDay, PanelsMadeNight, PanelsToMake
 						 FROM [KN - KnittingDetailsHeader] AS KDH
 						 WHERE KDH.BundleNo ='" & BundleNo & "'"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.OLEDB.12.0;OLE DB Services=-4;Data Source=|DataDirectory|\Shantara Production IT.mdb")
 		'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
 		Dim cmd As New OleDbCommand(cmdstring)
 		'Dim cmd As New SqlCommand(cmdstring)
@@ -292,7 +292,7 @@ Public Class KnittDataCapture
 		'Dim Adapter As New SqlDataAdapter
 		Dim Data As New DataTable
 		Dim SQL As String
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.OLEDB.12.0;OLE DB Services=-4;Data Source=|DataDirectory|\Shantara Production IT.mdb")
 		'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
 		Dim cmd As New OleDbCommand()
 		'Dim cmd As New SqlCommand()
@@ -318,7 +318,7 @@ Public Class KnittDataCapture
 		cmdstring = "UPDATE [KN - ProductionMachineAllocation]
 					 SET MachineNumber =" & txtMachineNo.Text &
 					" WHERE (BatchNo = '" & txtBatchNo.Text & "') AND (ComponentID = " & Session("compID") & ")"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.OLEDB.12.0;OLE DB Services=-4;Data Source=|DataDirectory|\Shantara Production IT.mdb")
 		'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
 		Dim cmd As New OleDbCommand(cmdstring)
 		'Dim cmd As New SqlCommand()
@@ -408,7 +408,7 @@ Public Class KnittDataCapture
 				Exit Sub
 			End If
 		End If
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.OLEDB.12.0;OLE DB Services=-4;Data Source=|DataDirectory|\Shantara Production IT.mdb")
 		'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
 		Dim cmd As New OleDbCommand(cmdstring)
 		'Dim cmd As New SqlCommand(cmdstring)
@@ -423,7 +423,7 @@ Public Class KnittDataCapture
 
 	Public Sub UpdateKnittbatchComplete()
 		Dim cmdstring As String = "UPDATE [KN - ProductionOrderHeader] SET KnittBatchComplete = yes WHERE BatchNo =  '" & txtBatchNo.Text & "'"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.OLEDB.12.0;OLE DB Services=-4;Data Source=|DataDirectory|\Shantara Production IT.mdb")
 		'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
 		Dim cmd As New OleDbCommand(cmdstring)
 		'Dim cmd As New SqlCommand(cmdstring)
@@ -444,7 +444,7 @@ Public Class KnittDataCapture
 		INNER JOIN [KN - KnittingDetailsHeader] AS KDH
 			ON POD.BatchNo = KDH.BatchNo)
 		WHERE (KDH.KnittComplete = no) AND (POH.KnittBatchComplete = no) AND (KDH.BatchNo = '" & txtBatchNo.Text & "')"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.OLEDB.12.0;OLE DB Services=-4;Data Source=|DataDirectory|\Shantara Production IT.mdb")
 		'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
 		Dim cmd As New OleDbCommand(cmdstring)
 		'Dim cmd As New SqlCommand(cmdstring)

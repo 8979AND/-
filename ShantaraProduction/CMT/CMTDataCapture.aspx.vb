@@ -34,7 +34,7 @@ Public Class CMTDataCapture
 		INNER JOIN [KN - CMT Special Instruction Master] AS CSIM
 			ON KO.CMTSpecialInstructionID = CSIM.SpecialInstructionID)
 		WHERE CDH.BundleNo = '" & Session("BundleNo") & "';"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;OLE DB Services=-4;Data Source=|DataDirectory|\Shantara Production IT.mdb")
 		Dim cmd As New OleDbCommand(cmdstring)
 		Dim reader As OleDbDataReader
 		cmd.CommandType = CommandType.Text
@@ -92,7 +92,7 @@ Public Class CMTDataCapture
 							 SET CutDataCaptured = yes, 
 								 ActualJrsysCut = " & txtactualJcut.Text &
 							 " WHERE BundleNo = '" & Session("BundleNo") & "'"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;OLE DB Services=-4;Data Source=|DataDirectory|\Shantara Production IT.mdb")
 		Dim cmd As New OleDbCommand(cmdstring)
 		cmd.CommandType = CommandType.Text
 		cmd.Connection = con
@@ -130,7 +130,7 @@ Public Class CMTDataCapture
 							", DispatchDate ='" & DateTime.Now &
 							"' WHERE BundleNo = '" & Session("BundleNo") & "'"
 		End Select
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;OLE DB Services=-4;Data Source=|DataDirectory|\Shantara Production IT.mdb")
 		Dim cmd As New OleDbCommand(cmdstring)
 		cmd.CommandType = CommandType.Text
 		cmd.Connection = con
@@ -173,7 +173,7 @@ Public Class CMTDataCapture
 								ON CDO.BundleNo = CDH.BundleNo)
 							 WHERE (CDO.DispatchDate IS NULL) AND (CDH.BatchNo = '" & txtBatchNo.Text & "') AND (CDH.CutDataCaptured = yes)"
 		End Select
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;OLE DB Services=-4;Data Source=|DataDirectory|\Shantara Production IT.mdb")
 		Dim cmd As New OleDbCommand(cmdstring)
 		Dim reader As OleDbDataReader
 		cmd.CommandType = CommandType.Text
@@ -194,7 +194,7 @@ Public Class CMTDataCapture
 		cmdstring = "UPDATE [CMT - CMTDetailsHeader]
 							 SET Bundlecompleteview = yes
 							 WHERE BundleNo = '" & Session("BundleNo") & "'"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;OLE DB Services=-4;Data Source=|DataDirectory|\Shantara Production IT.mdb")
 		Dim cmd As New OleDbCommand(cmdstring)
 		cmd.CommandType = CommandType.Text
 		cmd.Connection = con
@@ -207,7 +207,7 @@ Public Class CMTDataCapture
 		cmdstring = "SELECT BundleNo
 					 FROM [CMT - CMTDetailsOperations] 
 					 WHERE (CutDate IS NOT NULL) AND (AttachVDate IS NOT NULL) AND (SideSeamsDate IS NOT NULL) AND (PressDate IS NOT NULL) AND (DispatchDate IS NOT NULL) AND (BundleNo = '" & Session("BundleNo") & "')"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;OLE DB Services=-4;Data Source=|DataDirectory|\Shantara Production IT.mdb")
 		Dim cmd As New OleDbCommand(cmdstring)
 		Dim reader As OleDbDataReader
 		cmd.CommandType = CommandType.Text
