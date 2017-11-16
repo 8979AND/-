@@ -13,7 +13,7 @@ Public Class DisplayBatchs
 		'Dim Adapter As New SqlDataAdapter
 		Dim Data As New DataTable
 		Dim SQL As String
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;OLE DB Services=-4;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
 		'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
 		Dim cmd As New OleDbCommand()
 		'Dim cmd As New SqlCommand()
@@ -51,7 +51,7 @@ Public Class DisplayBatchs
 		Dim Adapter As New OleDbDataAdapter
 		Dim Data As New DataTable
 		Dim SQL As String
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;OLE DB Services=-4;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
 		Dim cmd As New OleDbCommand()
 		grdvprodnBundlesChecked.Visible = True
 		Session("BatchNo") = Request.QueryString("ID").ToString()

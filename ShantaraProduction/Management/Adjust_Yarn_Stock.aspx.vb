@@ -21,7 +21,7 @@ Public Class Adjust_Yarn_Stock
 
 	Private Sub getTransactiontype()
 		Dim strQuery As String = "SELECT TransactionTypeID, TransactionType FROM [YN - Yarn Transaction Type]"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
 		Dim cmd As New OleDbCommand()
 		If IsPostBack = False Then
 			ddltranstype.AppendDataBoundItems = True
@@ -44,7 +44,7 @@ Public Class Adjust_Yarn_Stock
 
 	Private Sub getColour()
 		Dim strQuery As String = "SELECT YarnColourID, YarnColour from [YN - Yarn Colour Defns]"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
 		Dim cmd As New OleDbCommand()
 		If IsPostBack = False Then
 			ddleYcolour.AppendDataBoundItems = True
@@ -72,7 +72,7 @@ Public Class Adjust_Yarn_Stock
 		INNER JOIN [GN - EntityMaster] AS EM
 			On EM.EntityID = YM.YarnSupplier
         WHERE YM.YarnDyelot = '" & txteYdyelot.Text & "';"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
 		Dim cmd As New OleDbCommand(cmdstring)
 		Dim reader As OleDbDataReader
 		cmd.CommandType = CommandType.Text
@@ -108,7 +108,7 @@ Public Class Adjust_Yarn_Stock
 		Dim cmdstring As String = "SELECT YTT.RangePrefix, YTT.LastNumberUsed
         FROM [YN - Yarn Transaction Type] AS YTT
         WHERE YTT.TransactionTypeID = " & ddltranstype.SelectedValue & ";"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
 		Dim cmd As New OleDbCommand(cmdstring)
 		Dim reader As OleDbDataReader
 		cmd.CommandType = CommandType.Text
@@ -140,7 +140,7 @@ Public Class Adjust_Yarn_Stock
 		Dim cmdstring As String = "UPDATE [YN - Yarn Master] 
 								   SET YarnColourID=" & ddleYcolour.SelectedValue & " ,CurrentWeight= '" & NewWeight & "' ,CurrentCartons=" & NewCartons & " 
 								   WHERE YarnDyelot='" & txteYdyelot.Text & "'"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
 		Dim cmd As New OleDbCommand(cmdstring)
 		cmd.CommandType = CommandType.Text
 		cmd.Connection = con
@@ -151,7 +151,7 @@ Public Class Adjust_Yarn_Stock
 
 	Private Sub UpdateAdjustLastNumberUsed()
 		Dim cmdstring As String = "UPDATE [YN - Yarn Transaction Type] SET LastNumberUsed = " & ALNU & " WHERE TransactionTypeID = " & ddltranstype.SelectedValue
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
 		'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
 		Dim cmd As New OleDbCommand(cmdstring)
 		'Dim cmd As New SqlCommand(cmdstring)
@@ -168,7 +168,7 @@ Public Class Adjust_Yarn_Stock
 		',  REPLACE('" & CStr(WeightDiff) & "',',','.') ,
 		Dim cmdstring As String = "INSERT INTO [YN - YarnTransactionLines] (YarnTransactionID, YarnID, TransactionWeight, TransactionCartons, Processed) " &
 		"VALUES (" & YarnTransactionID & ", " & Session("YarnID") & ",'" & CStr(WeightDiff) & "' ," & CartonDiff & " ,1);"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
 		Dim cmd As New OleDbCommand(cmdstring)
 		cmd.CommandType = CommandType.Text
 		cmd.Connection = con
@@ -181,7 +181,7 @@ Public Class Adjust_Yarn_Stock
 		Dim cmdstring As String = "SELECT YTH.YarnTransactionID
         FROM [YN - YarnTransactionHeader] YTH
         WHERE YTH.YarnDocumentNo = '" & DocNo & "';"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
 		Dim cmd As New OleDbCommand(cmdstring)
 		Dim reader As OleDbDataReader
 		cmd.CommandType = CommandType.Text
@@ -205,7 +205,7 @@ Public Class Adjust_Yarn_Stock
 	Private Sub AdjustDBAuditTrail()
 		Dim cmdstring As String = "INSERT INTO [YN - YarnTransactionHeader] (TransactionTypeID, TransactionDate, EntityID, YarnDocumentNo, Processed) " &
 		"VALUES (" & ddltranstype.SelectedValue & ", '" & DateTime.Now & "' ,5 ,'" & DocNo & "' ,1);"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
 		Dim cmd As New OleDbCommand(cmdstring)
 		cmd.CommandType = CommandType.Text
 		cmd.Connection = con

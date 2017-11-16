@@ -16,7 +16,7 @@ Public Class CreateOrder
 
 	Private Sub getCustomer()
 		Dim strQuery As String = "SELECT EntityID, EntityName FROM [GN - EntityMaster] WHERE (((EntityTypeID)=2)) ORDER BY EntityName;"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
 		Dim cmd As New OleDbCommand()
 		If IsPostBack = False Then
 			ddlCustomer.AppendDataBoundItems = True
@@ -41,7 +41,7 @@ Public Class CreateOrder
 		Dim strQuery As String = "SELECT ProductID, ProductID & ' - ' + ProductCode & ' - ' & ProdDescription AS [Prod] 
 								  FROM [FG - End Product Codes] 
 								  ORDER BY ProductID;"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
 		Dim cmd As New OleDbCommand()
 		If IsPostBack = False Then
 			ddlProduct.AppendDataBoundItems = True
@@ -64,7 +64,7 @@ Public Class CreateOrder
 
 	Private Sub getSize()
 		Dim strQuery As String = "SELECT SizeID, ([Size Abbreviation]) AS [Sizze] FROM [FG- Size Master];"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
 		Dim cmd As New OleDbCommand()
 		If IsPostBack = False Then
 			ddlSize.AppendDataBoundItems = True
@@ -87,7 +87,7 @@ Public Class CreateOrder
 
 	Private Sub getSI()
 		Dim strQuery As String = "SELECT SpecialInstructionID, SpecialInstructionDetail FROM [KN -Special Instructions Master] ORDER BY SpecialInstructionDetail;"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
 		Dim cmd As New OleDbCommand()
 		If IsPostBack = False Then
 			ddlSI.AppendDataBoundItems = True
@@ -112,7 +112,7 @@ Public Class CreateOrder
 		Dim cmdstring As String = "SELECT EM.[Entity Abbreviation], EM.LastNumUsed
         FROM [GN - EntityMaster] AS EM
         WHERE EM.EntityID = " & ddlCustomer.SelectedValue & ";"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
 		Dim cmd As New OleDbCommand(cmdstring)
 		Dim reader As OleDbDataReader
 		cmd.CommandType = CommandType.Text
@@ -136,7 +136,7 @@ Public Class CreateOrder
 
 	Private Sub getCMTSI()
 		Dim strQuery As String = "SELECT SpecialInstructionID, CMTSpecialInstructionDetail FROM [KN - CMT Special Instruction Master] ORDER BY CMTSpecialInstructionDetail;"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
 		Dim cmd As New OleDbCommand()
 		If IsPostBack = False Then
 			ddlCMTSI.AppendDataBoundItems = True
@@ -168,7 +168,7 @@ Public Class CreateOrder
 						"', " & ddlSI.SelectedValue &
 						", " & ddlCMTSI.SelectedValue &
 						");"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
 		Dim cmd As New OleDbCommand(cmdstring)
 		cmd.CommandType = CommandType.Text
 		cmd.Connection = con
@@ -181,7 +181,7 @@ Public Class CreateOrder
 		Dim cmdstring As String = "SELECT KnittingOrderID
         FROM [KN - KnittingOrder]
         WHERE OrderNo = '" & txtOrderNo.Text & "';"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
 		Dim cmd As New OleDbCommand(cmdstring)
 		Dim reader As OleDbDataReader
 		cmd.CommandType = CommandType.Text
@@ -209,7 +209,7 @@ Public Class CreateOrder
 					", " & txtQuantity.Text &
 					", " & txtOrderQtyBalance.Text &
 					");"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
 		Dim cmd As New OleDbCommand(cmdstring)
 		cmd.CommandType = CommandType.Text
 		cmd.Connection = con
@@ -223,7 +223,7 @@ Public Class CreateOrder
 		'Dim Adapter As New SqlDataAdapter
 		Dim Data As New DataTable
 		Dim SQL As String
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
 		'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
 		Dim cmd As New OleDbCommand()
 		'Dim cmd As New SqlCommand()
@@ -251,7 +251,7 @@ Public Class CreateOrder
 
 	Private Sub UpdateOrderLastNumberUsed()
 		Dim cmdstring As String = "UPDATE  [GN - EntityMaster] SET LastNumUsed = " & OLNU & " WHERE EntityID = " & ddlCustomer.SelectedValue & ";"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
 		'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
 		Dim cmd As New OleDbCommand(cmdstring)
 		'Dim cmd As New SqlCommand(cmdstring)
@@ -314,7 +314,7 @@ Public Class CreateOrder
 	'	Dim cmdstring As String = "SELECT KnittingOrderID
 	'       FROM [KN - KnittingOrder]
 	'       WHERE OrderNo = '" & txtOrderNo.Text & "';"
-	'	Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+	'	Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
 	'	Dim cmd As New OleDbCommand(cmdstring)
 	'	Dim reader As OleDbDataReader
 	'	cmd.CommandType = CommandType.Text

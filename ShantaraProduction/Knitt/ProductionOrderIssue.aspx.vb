@@ -32,7 +32,7 @@ Public Class ProductionOrderIssue
 			End If
 			Dim cmdstring As String
 			cmdstring = " INSERT INTO [KN - KnittingDetailsHeader] (BatchNo, BundleNo, ComponentID, SizeID, PanelsToMake, QtyPerPanel, KnittingOrderID) VALUES('" & txtbatchno.Text & "', '" & bundlenum & "', " & compID & ", " & sizeID & ", " & PanelsToMake & ", " & QtyPerPanel & ", " & KnittingOrderID & ");"
-			Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;OLE DB Services=-4;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+			Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
 			Dim cmd As New OleDbCommand(cmdstring)
 			cmd.CommandType = CommandType.Text
 			cmd.Connection = con
@@ -53,27 +53,30 @@ Public Class ProductionOrderIssue
 		Dim qtyppnl As Integer
 		For i = 0 To grdvProdOrderDetails.Rows.Count - 1
 			componentName = grdvProdOrderDetails.Rows(i).Cells(7).Text
-			MxBndleSz = grdvProdOrderDetails.Rows(i).Cells(8).Text
 			knittOrderID = grdvProdOrderDetails.Rows(i).Cells(5).Text
 			componentID = grdvProdOrderDetails.Rows(i).Cells(4).Text
 			sizeID = grdvProdOrderDetails.Rows(i).Cells(6).Text
 			qtyppnl = grdvProdOrderDetails.Rows(i).Cells(15).Text
 			Select Case componentName
 				Case "Sleeve", "Front", "Body", "Back"
+					MxBndleSz = 36
 					PnlsToProduce = grdvProdOrderDetails.Rows(i).Cells(16).Text
 					BuildKnittingRecords(MxBndleSz, componentID, sizeID, PnlsToProduce, qtyppnl, knittOrderID)
 				Case "FrontRib34-42"
+					MxBndleSz = 150
 					'PnlsToProduce = 0
 					'While componentName = "FrontRib34-42"
 					PnlsToProduce += grdvProdOrderDetails.Rows(i).Cells(16).Text
 					'End While
 					BuildKnittingRecords(MxBndleSz, componentID, sizeID, PnlsToProduce, qtyppnl, knittOrderID)
 				Case "FrontRib44-50"
+					MxBndleSz = 150
 					'PnlsToProduce = 0
 					'While componentName = "FrontRib44-50"
 					PnlsToProduce += grdvProdOrderDetails.Rows(i).Cells(16).Text
 					'End While
 				Case "Collar22-32"
+					MxBndleSz = 200
 					'PnlsToProduce = 0
 					'While componentName = "Collar22-32"
 					PnlsToProduce += grdvProdOrderDetails.Rows(i).Cells(16).Text
@@ -88,6 +91,7 @@ Public Class ProductionOrderIssue
 					End Select
 					BuildKnittingRecords(MxBndleSz, componentID, sizeID, PnlsToProduce, qtyppnl, knittOrderID)
 				Case "Collar34-46"
+					MxBndleSz = 200
 					'PnlsToProduce = 0
 					'While componentName = "Collar34-46"
 					PnlsToProduce += grdvProdOrderDetails.Rows(i).Cells(16).Text
@@ -102,6 +106,7 @@ Public Class ProductionOrderIssue
 					End Select
 					BuildKnittingRecords(MxBndleSz, componentID, sizeID, PnlsToProduce, qtyppnl, knittOrderID)
 				Case "CollarS-4XL"
+					MxBndleSz = 200
 					'PnlsToProduce = 0
 					'While componentName = "CollarS-4XL"
 					PnlsToProduce += grdvProdOrderDetails.Rows(i).Cells(16).Text
@@ -115,26 +120,31 @@ Public Class ProductionOrderIssue
 							PnlsToProduce = PnlsToProduce + 3
 					End Select
 				Case "Armhole22-46"
+					MxBndleSz = 150
 					'PnlsToProduce = 0
 					'While componentName = "Armhole22-46"
 					PnlsToProduce += grdvProdOrderDetails.Rows(i).Cells(16).Text
 					'End While
 					BuildKnittingRecords(MxBndleSz, componentID, sizeID, PnlsToProduce, qtyppnl, knittOrderID)
 				Case "ArmholeS-XL"
+					MxBndleSz = 150
 					'PnlsToProduce = 0
 					'While componentName = "ArmholeS-XL"
 					PnlsToProduce += grdvProdOrderDetails.Rows(i).Cells(16).Text
 					'End While
 					BuildKnittingRecords(MxBndleSz, componentID, sizeID, PnlsToProduce, qtyppnl, knittOrderID)
 				Case "Armhole2XL-4XL"
+					MxBndleSz = 150
 					'PnlsToProduce = 0
 					'While componentName = "Armhole2XL-4XL"
 					PnlsToProduce += grdvProdOrderDetails.Rows(i).Cells(16).Text
 					'End While
 					BuildKnittingRecords(MxBndleSz, componentID, sizeID, PnlsToProduce, qtyppnl, knittOrderID)
 				Case "Stolling"
+					MxBndleSz = 30
 					PnlsToProduce += (grdvProdOrderDetails.Rows(i).Cells(10).Text * (grdvProdOrderDetails.Rows(i).Cells(20).Text / 100))
 				Case "Pocket"
+					MxBndleSz = 100
 					PocketsToMake += (grdvProdOrderDetails.Rows(i).Cells(10).Text / grdvProdOrderDetails.Rows(i).Cells(15).Text)
 					PnlsToProduce = Round(PocketsToMake + 0.4, 0)
 					BuildKnittingRecords(MxBndleSz, componentID, sizeID, PnlsToProduce, qtyppnl, knittOrderID)
@@ -145,7 +155,7 @@ Public Class ProductionOrderIssue
 		Dim Adapter As New OleDbDataAdapter
 		Dim Data As New DataTable
 		Dim SQL As String
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;OLE DB Services=-4;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
 		Dim cmd As New OleDbCommand()
 		grdvProdOrderDetails.Visible = True
 		SQL = "SELECT DISTINCTROW POH.BatchNo, 
@@ -256,7 +266,7 @@ Public Class ProductionOrderIssue
 				On POH.BatchNo = PYA.BatchNo
 			WHERE POH.BatchNo = '" & txtbatchno.Text & "'
 			ORDER BY POH.BatchNo, PMA.ComponentID, POD.KnittingOrderID, POD.SizeID;"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;OLE DB Services=-4;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
 		Dim cmd As New OleDbCommand(cmdstring)
 		Dim reader As OleDbDataReader
 		cmd.CommandType = CommandType.Text

@@ -30,7 +30,7 @@ Public Class Recieve_yarn
 
 	Private Sub getSupplier()
 		Dim strQuery As String = "SELECT DISTINCT EntityID, EntityName from [GN - EntityMaster] WHERE EntityTypeID = 1"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
 		'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
 		Dim cmd As New OleDbCommand()
 		'Dim cmd As New SqlCommand()
@@ -59,7 +59,7 @@ Public Class Recieve_yarn
 
 
 		Dim strQuery As String = "SELECT YarnColourID, YarnColour from [YN - Yarn Colour Defns]"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
 		'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
 		Dim cmd As New OleDbCommand()
 		'Dim cmd As New SqlCommand()
@@ -84,7 +84,7 @@ Public Class Recieve_yarn
 
 	Private Sub getYtype()
 
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
 		'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
 		Dim cmd As New OleDbCommand()
 		'Dim cmd As New SqlCommand()		
@@ -120,7 +120,7 @@ Public Class Recieve_yarn
 	Private Sub InvoiceDBPopulate()
 		Dim cmdstring As String = "INSERT INTO [YN - Yarn Master] (YarnDyelot, YarnColourID, YarnTypeID, YarnSupplier, SupplierInvoiceNo, YarnPurchaceWeight, YarnPurchaseCartons, YarnKgPrice, YarnPurchaseDate, CurrentWeight, CurrentCartons) " &
 		"VALUES ('" & txtYdyelot.Text & "', " & ddlYcolour.SelectedValue & ", " & ddlYtype.SelectedValue & ", " & ddlSupplier.SelectedValue & ", '" & txtInvoice.Text & "', " & txtYweight.Text & ", " & txtYcartons.Text & ", " & txtkgprice.Text & ", '" & txtdate.Text & "', " & txtYweight.Text & ", " & txtYcartons.Text & ");"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
 		'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
 		Dim cmd As New OleDbCommand(cmdstring)
 		'Dim cmd As New SqlCommand(cmdstring)	
@@ -135,7 +135,7 @@ Public Class Recieve_yarn
 		'Dim Adapter As New SqlDataAdapter
 		Dim Data As New DataTable
 		Dim SQL As String
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
 		'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
 		Dim cmd As New OleDbCommand()
 		'Dim cmd As New SqlCommand()
@@ -162,7 +162,7 @@ Public Class Recieve_yarn
 	Private Sub InvoiceDBAuditTrail()
 		Dim cmdstring As String = "INSERT INTO [YN - YarnTransactionHeader] (TransactionTypeID, TransactionDate, EntityID, YarnDocumentNo, Processed) " &
 		"VALUES (1, '" & DateTime.Now & "', " & ddlSupplier.SelectedValue & ", '" & txtInvoice.Text & "', 1);"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
 
 
 		Dim cmd As New OleDbCommand(cmdstring)
@@ -178,7 +178,7 @@ Public Class Recieve_yarn
 		'Dim Adapter As New SqlDataAdapter
 		Dim Data As New DataTable
 		Dim SQL As String
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
 		'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
 		Dim cmd As New OleDbCommand()
 		'Dim cmd As New SqlCommand()	

@@ -16,7 +16,7 @@ Public Class DisplayBatchBundles
 		'Dim Adapter As New SqlDataAdapter
 		Dim Data As New DataTable
 		Dim SQL As String
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;OLE DB Services=-4;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
 		'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
 		Dim cmd As New OleDbCommand()
 		'Dim cmd As New SqlCommand()
@@ -55,7 +55,7 @@ Public Class DisplayBatchBundles
 
 	Private Sub Updatenullspecialinstructions()
 		Dim cmdstring As String = "UPDATE [KN - KnittingOrder] SET SpecialInstructionID = 43 WHERE SpecialInstructionID IS NULL"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;OLE DB Services=-4;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
 		'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
 		Dim cmd As New OleDbCommand(cmdstring)
 		'Dim cmd As New SqlCommand(cmdstring)
@@ -70,7 +70,7 @@ Public Class DisplayBatchBundles
 		Dim cmdstring As String
 		cmdstring = "UPDATE [KN - ProductionOrderHeader]
 					 SET BatchComplete = no"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;OLE DB Services=-4;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
 		'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
 		Dim cmd As New OleDbCommand(cmdstring)
 		'Dim cmd As New SqlCommand()
@@ -86,7 +86,7 @@ Public Class DisplayBatchBundles
 		Dim cmdstring As String
 		cmdstring = "UPDATE [KN - KnittingDetailsHeader]
 					 SET KnittComplete = no, Checkcomplete = no"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;OLE DB Services=-4;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
 		'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
 		Dim cmd As New OleDbCommand(cmdstring)
 		'Dim cmd As New SqlCommand()

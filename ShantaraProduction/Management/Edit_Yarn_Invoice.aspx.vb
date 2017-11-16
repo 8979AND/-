@@ -20,7 +20,7 @@ Public Class Edit_Yarn_Invoice
 		INNER JOIN [YN - Yarn Colour Defns] AS YC
 			On YM.YarnColourID = YC.YarnColourID) 
         WHERE YM.YarnID = " & YarnID & ";"
-			Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+			Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
 			Dim cmd As New OleDbCommand(cmdstring)
 			Dim reader As OleDbDataReader
 			cmd.CommandType = CommandType.Text
@@ -43,7 +43,7 @@ Public Class Edit_Yarn_Invoice
 
 	Private Sub getColour()
 		Dim strQuery As String = "SELECT YarnColourID, YarnColour from [YN - Yarn Colour Defns]"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
 		Dim cmd As New OleDbCommand()
 		If IsPostBack = False Then
 			ddleYcolour.AppendDataBoundItems = True
@@ -67,7 +67,7 @@ Public Class Edit_Yarn_Invoice
 	Private Sub InvoiceDyelotUpdate()
 		YarnID = CInt(Request.QueryString("ID").ToString())
 		Dim cmdstring As String = "UPDATE [YN - Yarn Master] SET YarnDyelot='" & txteYdyelot.Text & "',YarnColourID=" & ddleYcolour.SelectedValue & ",YarnPurchaceWeight='" & txteYweight.Text & "',YarnPurchaseCartons=" & txteYcartons.Text & ",CurrentWeight='" & txteYweight.Text & "',CurrentCartons=" & txteYcartons.Text & " WHERE YarnID=" & YarnID
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
 		Dim cmd As New OleDbCommand(cmdstring)
 		cmd.CommandType = CommandType.Text
 		cmd.Connection = con
