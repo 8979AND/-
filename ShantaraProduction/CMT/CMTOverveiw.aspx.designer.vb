@@ -14,15 +14,6 @@ Option Explicit On
 Partial Public Class CMTOverveiw
     
     '''<summary>
-    '''ddlCMTStaff control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents ddlCMTStaff As Global.System.Web.UI.WebControls.DropDownList
-    
-    '''<summary>
     '''LblJDisc control.
     '''</summary>
     '''<remarks>
@@ -30,6 +21,15 @@ Partial Public Class CMTOverveiw
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents LblJDisc As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''ddlCMTStaff control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlCMTStaff As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
     '''displayCMTbatches control.
@@ -57,4 +57,13 @@ Partial Public Class CMTOverveiw
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents grdvCMTbatches As Global.System.Web.UI.WebControls.GridView
+    
+    '''<summary>
+    '''btnBack control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnBack As Global.System.Web.UI.WebControls.LinkButton
 End Class

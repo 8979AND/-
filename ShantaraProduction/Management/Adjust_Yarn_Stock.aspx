@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/Site.Master" CodeBehind="Adjust_Yarn_Stock.aspx.vb" Inherits="ShantaraProduction.Adjust_Yarn_Stock" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<div class="container-fluid">
 		<h1>Yarn Transaction from Stock</h1>
 		<br />
@@ -8,6 +9,10 @@
 		<h4><asp:Label ID="lblYarnPurchaseCartons" runat="server"></asp:Label></h4>
 		<h4><asp:Label ID="lblYarnCurrentWeight" runat="server"></asp:Label></h4>
 		<h4><asp:Label ID="lblYarnCurrentCartons" runat="server"></asp:Label></h4>
+		<h4><asp:Label ID="lblerrYexists" runat="server" ForeColor="Red"></asp:Label></h4>
+		<h4><asp:Label ID="lblerrother" runat="server" ForeColor="Red"></asp:Label></h4>
+		
+		
 		<br />
 			<div class="row">
 				<label for="ddltranstype">Transaction</label>

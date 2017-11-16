@@ -1,7 +1,6 @@
 ﻿Imports System.Data.OleDb
 Public Class CheckDataCapture
 	Inherits System.Web.UI.Page
-	'Shared BundleNo As String
 	Shared totPanelsmade As Integer
 	Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 		GetCheckDatadb()
@@ -76,7 +75,7 @@ Public Class CheckDataCapture
 		Else
 			MsgBox("problem with displaying info from database into boxes")
 		End If
-
+		cmd.Connection.Close()
 	End Sub
 
 	Private Sub getChecker()
@@ -97,9 +96,7 @@ Public Class CheckDataCapture
 			Catch ex As Exception
 				Throw ex
 			Finally
-				con.Close()
-				cmd.Dispose()
-				con.Dispose()
+				cmd.Connection.Close()
 			End Try
 		End If
 	End Sub
@@ -130,7 +127,6 @@ Public Class CheckDataCapture
 	End Sub
 	Private Sub cdcInsertfaultrecord()
 		Dim cmdstring As String
-		'"', FaultPress-Off ='" & txtFPressoff.Text &
 		cmdstring = "INSERT INTO [KN - KnittingDetailsFaults] (BundleNo, FaultHoles, FaultNeedleStripe, FaultWidth, FaultLength, FaultDropStitch, FaultYarn, [FaultPress-Off], FaultQty, FaultCollars, FaultOther) VALUES ('" & Session("BundleNo") &
 						"', " & txtFHoles.Text &
 						", " & txtFNeedleStripe.Text &
@@ -151,13 +147,49 @@ Public Class CheckDataCapture
 		cmd.Connection.Close()
 	End Sub
 
-	Private Sub cdcUpdateweightrecord()
+	Private Sub cdccheckweightexists()
+		Dim cmdstring = "SELECT  BundleNo
+						 FROM  [KN - KnittingDetailsWeights]
+						 WHERE BundleNo = '" & Session("BundleNo") & "'"
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim cmd As New OleDbCommand(cmdstring)
+		Dim reader As OleDbDataReader
+		cmd.CommandType = CommandType.Text
+		cmd.Connection = con
+		cmd.Connection.Open()
+		cmd.ExecuteNonQuery()
+
+		reader = cmd.ExecuteReader(CommandBehavior.CloseConnection)
+		If reader.HasRows = True Then
+			cdcupdateweightrecord()
+		Else
+			cdcInsertweightrecord()
+		End If
+		cmd.Connection.Close()
+	End Sub
+	Private Sub cdcupdateweightrecord()
 		Dim cmdstring As String
 		cmdstring = " UPDATE [KN - KnittingDetailsWeights]
 					  SET BundleWeight =" & txtBundleWeight.Text &
 						", BundleWasteWeight =" & txtBundleWasteWeight.Text &
-						", BundleFaultWeight =" & txtBundleFaultWeight.Text &
-					" WHERE BundleNo = '" & Session("BundleNo") & "'"
+						", BundleFaultWeight = " & txtBundleFaultWeight.Text &
+						 " WHERE BundleNo = '" & Session("BundleNo") & "'"
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
+		Dim cmd As New OleDbCommand(cmdstring)
+		cmd.CommandType = CommandType.Text
+		cmd.Connection = con
+		cmd.Connection.Open()
+		cmd.ExecuteNonQuery()
+		cmd.Connection.Close()
+	End Sub
+
+	Private Sub cdcInsertweightrecord()
+		Dim cmdstring As String
+		cmdstring = " INSERT INTO [KN - KnittingDetailsWeights] (BundleNo, BundleWeight, BundleWasteWeight, BundleFaultWeight) VALUES ('" & Session("BundleNo") &
+						"', " & txtBundleWeight.Text &
+						", " & txtBundleWasteWeight.Text &
+						", " & txtBundleFaultWeight.Text &
+					");"
 		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
 		Dim cmd As New OleDbCommand(cmdstring)
 		cmd.CommandType = CommandType.Text
@@ -185,9 +217,7 @@ Public Class CheckDataCapture
 	Public Sub UpdateCheckbatchComplete()
 		Dim cmdstring As String = "UPDATE [KN - ProductionOrderHeader] SET CheckBatchComplete = yes WHERE BatchNo =  '" & txtBatchNo.Text & "'"
 		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
-		'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
 		Dim cmd As New OleDbCommand(cmdstring)
-		'Dim cmd As New SqlCommand(cmdstring)
 		cmd.CommandType = CommandType.Text
 		cmd.Connection = con
 		cmd.Connection.Open()
@@ -206,11 +236,8 @@ Public Class CheckDataCapture
 			ON POD.BatchNo = KDH.BatchNo)
 		WHERE (KDH.Checkcomplete = no) AND (POH.CheckBatchComplete = no) AND (KDH.BatchNo = '" & txtBatchNo.Text & "')"
 		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
-		'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
 		Dim cmd As New OleDbCommand(cmdstring)
-		'Dim cmd As New SqlCommand(cmdstring)
 		Dim reader As OleDbDataReader
-		'Dim reader As SqlDataReader
 		cmd.CommandType = CommandType.Text
 		cmd.Connection = con
 		cmd.Connection.Open()
@@ -218,12 +245,13 @@ Public Class CheckDataCapture
 
 		reader = cmd.ExecuteReader(CommandBehavior.CloseConnection)
 		If reader.HasRows = False Then
-			MsgBox("check batch complete")
+			'MsgBox("check batch complete")
 			UpdateCheckbatchComplete()
 			Response.Redirect("~\CheckStore\CheckOverview.aspx")
 		Else
 			KnittbatchCompleteCheck()
 		End If
+		cmd.Connection.Close()
 	End Sub
 
 	Public Sub KnittbatchCompleteCheck()
@@ -241,11 +269,8 @@ Public Class CheckDataCapture
 			ON ko.SpecialInstructionID = SIM.SpecialInstructionID)
 		WHERE (kdh.BatchNo = '" & Session("BatchNo") & "') AND (kdh.KnittComplete = yes) AND (kdh.Checkcomplete = no);"
 		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
-		'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
 		Dim cmd As New OleDbCommand(cmdstring)
-		'Dim cmd As New SqlCommand(cmdstring)
 		Dim reader As OleDbDataReader
-		'Dim reader As SqlDataReader
 		cmd.CommandType = CommandType.Text
 		cmd.Connection = con
 		cmd.Connection.Open()
@@ -253,19 +278,56 @@ Public Class CheckDataCapture
 
 		reader = cmd.ExecuteReader(CommandBehavior.CloseConnection)
 		If reader.HasRows = False Then
-			MsgBox("no more checks but outstandng bundles(batch incomplete)")
+			'MsgBox("no more checks but outstandng bundles(batch incomplete)")
 			Response.Redirect("~\CheckStore\CheckOverview.aspx")
 		Else
 			Response.Redirect("~\CheckStore\CheckBundles.aspx?ID=" & txtBatchNo.Text)
 		End If
+		con.Close()
+		cmd.Dispose()
+
 	End Sub
 
 	Protected Sub BtnCaptureBundle_Click(sender As Object, e As EventArgs) Handles BtnCaptureBundle.Click
-		If ddlFault.SelectedIndex = 1 Then
-			cdcInsertfaultrecord()
+		If ddlChecker.SelectedIndex <> 0 Then
+			lblerrchecker.Visible = False
+			If ddlFault.SelectedIndex <> "0" Then
+				lblerrfault.Visible = False
+				If txtBundleWeight.Text <> "0" Then
+					lblerrBweight.Visible = False
+					If Val(txtBundleWeight.Text) <= 28 Then
+						lblerrBweight.Visible = False
+						If Val(txtBundleWeight.Text) > Val(txtBundleWasteWeight.Text) Then
+							lblerrother.Visible = False
+							If ddlFault.SelectedIndex = 1 Then
+								cdcInsertfaultrecord()
+							End If
+							cdccheckweightexists()
+							cdcUpdateheaderrecord()
+							CheckbatchCompleteCheck()
+						Else
+							lblerrother.Visible = True
+							lblerrother.Text = "waste weight can't be bigger than bundle weight"
+						End If
+					Else
+						lblerrBweight.Visible = True
+						lblerrBweight.Text = "Bundle Weight entered appears to be incorrect"
+					End If
+				Else
+					lblerrBweight.Visible = True
+					lblerrBweight.Text = "Please Enter a Valid Weight"
+					txtBundleWeight.Focus()
+				End If
+			Else
+				lblerrfault.Visible = True
+				lblerrfault.Text = "Please Select Yes or No"
+				ddlFault.Focus()
+			End If
+		Else
+			lblerrchecker.Visible = True
+			lblerrchecker.Text = "Please Select Checker"
+			ddlChecker.Focus()
 		End If
-		cdcUpdateweightrecord()
-		cdcUpdateheaderrecord()
-		CheckbatchCompleteCheck()
+
 	End Sub
 End Class

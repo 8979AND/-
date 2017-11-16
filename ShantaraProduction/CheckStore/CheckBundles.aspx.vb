@@ -38,7 +38,7 @@ Public Class BundleOverview
 
 		grdvBundlesToCheck.DataSource = Data
 		grdvBundlesToCheck.DataBind()
-
+		cmd.Connection.Close()
 	End Sub
 
 	Private Sub grdvBundlesCheckedPopulate()
@@ -72,7 +72,7 @@ Public Class BundleOverview
 
 		grdvBundlesChecked.DataSource = Data
 		grdvBundlesChecked.DataBind()
-
+		cmd.Connection.Close()
 	End Sub
 
 

@@ -47,6 +47,15 @@
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AjaxControlToolkit, Version=17.1.1.0, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
+      <HintPath>..\packages\AjaxControlToolkit.17.1.1.0\lib\net40\AjaxControlToolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="AspNet.ScriptManager.bootstrap, Version=3.3.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AspNet.ScriptManager.bootstrap.3.3.7\lib\net45\AspNet.ScriptManager.bootstrap.dll</HintPath>
+    </Reference>
+    <Reference Include="AspNet.ScriptManager.jQuery, Version=1.12.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AspNet.ScriptManager.jQuery.1.12.4\lib\net45\AspNet.ScriptManager.jQuery.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.5\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
@@ -79,12 +88,6 @@
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
-    </Reference>
-    <Reference Include="AspNet.ScriptManager.bootstrap">
-      <HintPath>..\packages\AspNet.ScriptManager.bootstrap.3.0.0\lib\net45\AspNet.ScriptManager.bootstrap.dll</HintPath>
-    </Reference>
-    <Reference Include="AspNet.ScriptManager.jQuery">
-      <HintPath>..\packages\AspNet.ScriptManager.jQuery.1.10.2\lib\net45\AspNet.ScriptManager.jQuery.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.ScriptManager.MSAjax">
       <HintPath>..\packages\Microsoft.AspNet.ScriptManager.MSAjax.5.0.0\lib\net45\Microsoft.ScriptManager.MSAjax.dll</HintPath>
@@ -224,6 +227,7 @@
     <Content Include="CheckStore\CheckOverview.aspx" />
     <Content Include="CMT\CMTBundles.aspx" />
     <Content Include="CMT\CMTDataCapture.aspx" />
+    <Content Include="CMT\CMTJob.aspx" />
     <Content Include="CMT\CMTOverveiw.aspx">
       <BrowseToURL>~/CMT/CMTOverveiw.aspx</BrowseToURL>
     </Content>
@@ -245,45 +249,61 @@
     <Content Include="Admincontrol\Dashboard.aspx" />
     <Content Include="Account\UserOverview.aspx" />
     <Content Include="Contact.aspx" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\chosen\chosen-sprite.png" />
     <Content Include="Content\chosen\chosen.min.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="Content\typeahead.css" />
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Account\Web.config" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Knitt\CreateBatch.aspx" />
     <Content Include="Knitt\CreateTicket.aspx" />
     <Content Include="Knitt\Dashboard.aspx" />
     <Content Include="Knitt\DisplayBatches.aspx" />
     <Content Include="Knitt\DisplayBatchBundles.aspx" />
     <Content Include="Knitt\KnittDataCapture.aspx" />
+    <Content Include="Knitt\ProductionOrderIssue.aspx" />
     <Content Include="Knitt\TicketOverview.aspx" />
     <Content Include="Management\Adjust_Yarn_Stock.aspx" />
+    <Content Include="Management\CreateOrder.aspx" />
     <Content Include="Management\Dashboard.aspx" />
     <Content Include="Management\Edit_Yarn_Invoice.aspx" />
     <Content Include="Management\ManageTickets.aspx" />
     <Content Include="Management\Recieve yarn.aspx" />
     <Content Include="Management\Reports.aspx" />
     <Content Include="ProdnOrdSummaryQRY.sql" />
+    <Content Include="Scripts\bloodhound.js" />
+    <Content Include="Scripts\bloodhound.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\chosen.jquery.min.js" />
-    <Content Include="Scripts\jquery-1.10.2.js" />
-    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <None Include="Scripts\jquery-1.12.4.intellisense.js" />
+    <Content Include="Scripts\jquery-1.12.4.js" />
+    <Content Include="Scripts\jquery-1.12.4.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\typeahead.bundle.js" />
+    <Content Include="Scripts\typeahead.bundle.min.js" />
+    <Content Include="Scripts\typeahead.jquery.js" />
+    <Content Include="Scripts\typeahead.jquery.min.js" />
     <Content Include="Scripts\WebForms\DetailsView.js" />
     <Content Include="Scripts\WebForms\Focus.js" />
     <Content Include="Scripts\WebForms\GridView.js" />
@@ -358,6 +378,13 @@
     </Compile>
     <Compile Include="CMT\CMTDataCapture.aspx.vb">
       <DependentUpon>CMTDataCapture.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="CMT\CMTJob.aspx.designer.vb">
+      <DependentUpon>CMTJob.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CMT\CMTJob.aspx.vb">
+      <DependentUpon>CMTJob.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="CMT\CMTOverveiw.aspx.designer.vb">
@@ -557,6 +584,13 @@
       <DependentUpon>KnittDataCapture.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
+    <Compile Include="Knitt\ProductionOrderIssue.aspx.designer.vb">
+      <DependentUpon>ProductionOrderIssue.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Knitt\ProductionOrderIssue.aspx.vb">
+      <DependentUpon>ProductionOrderIssue.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
     <Compile Include="Knitt\TicketOverview.aspx.designer.vb">
       <DependentUpon>TicketOverview.aspx</DependentUpon>
     </Compile>
@@ -569,6 +603,13 @@
     </Compile>
     <Compile Include="Management\Adjust_Yarn_Stock.aspx.vb">
       <DependentUpon>Adjust_Yarn_Stock.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Management\CreateOrder.aspx.designer.vb">
+      <DependentUpon>CreateOrder.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Management\CreateOrder.aspx.vb">
+      <DependentUpon>CreateOrder.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="Management\Dashboard.aspx.designer.vb">
@@ -672,7 +713,7 @@
     <Content Include="Site.Mobile.Master" />
     <Content Include="ViewSwitcher.ascx" />
     <None Include="packages.config" />
-    <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Scripts\jquery-1.12.4.min.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

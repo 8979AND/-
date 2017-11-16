@@ -14,8 +14,6 @@ Public Class Adjust_Yarn_Stock
 	Private WeightDiff As Double
 	Private DocNo As String
 	Private ALNU As Integer ' adjustment Last number used
-	Private locale As String
-	Private culture As CultureInfo
 	Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 		getColour()
 		getTransactiontype()
@@ -23,10 +21,8 @@ Public Class Adjust_Yarn_Stock
 
 	Private Sub getTransactiontype()
 		Dim strQuery As String = "SELECT TransactionTypeID, TransactionType FROM [YN - Yarn Transaction Type]"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\Deepak Vallabh\Documents\shantara\ShantaraProduction\ShantaraProduction\App_Data\Shantara Production IT.mdb")
-		'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
 		Dim cmd As New OleDbCommand()
-		'Dim cmd As New SqlCommand()
 		If IsPostBack = False Then
 			ddltranstype.AppendDataBoundItems = True
 			cmd.CommandType = CommandType.Text
@@ -41,19 +37,15 @@ Public Class Adjust_Yarn_Stock
 			Catch ex As Exception
 				Throw ex
 			Finally
-				con.Close()
-				cmd.Dispose()
-				con.Dispose()
+				cmd.Connection.Close()
 			End Try
 		End If
 	End Sub
 
 	Private Sub getColour()
 		Dim strQuery As String = "SELECT YarnColourID, YarnColour from [YN - Yarn Colour Defns]"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\Deepak Vallabh\Documents\shantara\ShantaraProduction\ShantaraProduction\App_Data\Shantara Production IT.mdb")
-		'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
 		Dim cmd As New OleDbCommand()
-		'Dim cmd As New SqlCommand()
 		If IsPostBack = False Then
 			ddleYcolour.AppendDataBoundItems = True
 			cmd.CommandType = CommandType.Text
@@ -68,26 +60,21 @@ Public Class Adjust_Yarn_Stock
 			Catch ex As Exception
 				Throw ex
 			Finally
-				con.Close()
-				cmd.Dispose()
-				con.Dispose()
+				cmd.Connection.Close()
 			End Try
 		End If
 	End Sub
 	Private Sub dispDyelot()
 
 		'YarnID = CInt(Request.QueryString("ID").ToString())
-
 		Dim cmdstring As String = "SELECT YM.YarnID, YM.YarnDyelot, YM.YarnColourID, EM.EntityName, YM.YarnPurchaceWeight, YM.YarnSupplier, YM.YarnPurchaseCartons, YM.CurrentWeight, YM.CurrentCartons
-        FROM [YN - Yarn Master] YM INNER JOIN [GN - EntityMaster] EM
-        On EM.EntityID = YM.YarnSupplier
+        FROM [YN - Yarn Master] AS YM 
+		INNER JOIN [GN - EntityMaster] AS EM
+			On EM.EntityID = YM.YarnSupplier
         WHERE YM.YarnDyelot = '" & txteYdyelot.Text & "';"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\Deepak Vallabh\Documents\shantara\ShantaraProduction\ShantaraProduction\App_Data\Shantara Production IT.mdb")
-		'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
 		Dim cmd As New OleDbCommand(cmdstring)
-		'Dim cmd As New SqlCommand(cmdstring)
 		Dim reader As OleDbDataReader
-		'Dim reader As SqlDataReader
 		cmd.CommandType = CommandType.Text
 		cmd.Connection = con
 		cmd.Connection.Open()
@@ -105,11 +92,12 @@ Public Class Adjust_Yarn_Stock
 				Session("CurrentCartons") = reader("CurrentCartons")
 				Session("SupplierID") = reader("YarnSupplier")
 			End While
+			lblYarnCurrentCartons.Text = "Yarn Current Cartons: " & Session("CurrentCartons")
+			lblYarnCurrentWeight.Text = "Yarn Current Weight: " & Replace(Session("CurrentWeight"), ",", ".")
 		Else
-			MsgBox("Dyelot entered incorrectly Or does Not exist")
+			lblerrYexists.Text = "Dyelot entered incorrectly Or doesn't exist"
 		End If
-		lblYarnCurrentCartons.Text = "Yarn Current Cartons: " & Session("CurrentCartons")
-		lblYarnCurrentWeight.Text = "Yarn Current Weight: " & Replace(Session("CurrentWeight"), ",", ".")
+		cmd.Connection.Close()
 	End Sub
 
 	Private Sub Newyarndocnumber()
@@ -118,14 +106,11 @@ Public Class Adjust_Yarn_Stock
 		'      On YTT.TransactionTypeID = YTH.TransactionTypeID
 		'      WHERE YTH.EntityID = 5 AND YTT.TransactionTypeID = 7;"
 		Dim cmdstring As String = "SELECT YTT.RangePrefix, YTT.LastNumberUsed
-        FROM [YN - Yarn Transaction Type] YTT
+        FROM [YN - Yarn Transaction Type] AS YTT
         WHERE YTT.TransactionTypeID = " & ddltranstype.SelectedValue & ";"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\Deepak Vallabh\Documents\shantara\ShantaraProduction\ShantaraProduction\App_Data\Shantara Production IT.mdb")
-		'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
 		Dim cmd As New OleDbCommand(cmdstring)
-		'Dim cmd As New SqlCommand(cmdstring)
 		Dim reader As OleDbDataReader
-		'Dim reader As SqlDataReader
 		cmd.CommandType = CommandType.Text
 		cmd.Connection = con
 		cmd.Connection.Open()
@@ -138,8 +123,9 @@ Public Class Adjust_Yarn_Stock
 				DocNo = reader("RangePrefix") & CStr(ALNU)
 			End While
 		Else
-			MsgBox("problem with new doc number")
+			lblerrother.Text = "problem with new doc number"
 		End If
+		cmd.Connection.Close()
 	End Sub
 
 	Private Sub AdjustDyelotUpdate()
@@ -154,10 +140,8 @@ Public Class Adjust_Yarn_Stock
 		Dim cmdstring As String = "UPDATE [YN - Yarn Master] 
 								   SET YarnColourID=" & ddleYcolour.SelectedValue & " ,CurrentWeight= '" & NewWeight & "' ,CurrentCartons=" & NewCartons & " 
 								   WHERE YarnDyelot='" & txteYdyelot.Text & "'"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\Deepak Vallabh\Documents\shantara\ShantaraProduction\ShantaraProduction\App_Data\Shantara Production IT.mdb")
-		'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
 		Dim cmd As New OleDbCommand(cmdstring)
-		'Dim cmd As New SqlCommand(cmdstring)
 		cmd.CommandType = CommandType.Text
 		cmd.Connection = con
 		cmd.Connection.Open()
@@ -167,7 +151,7 @@ Public Class Adjust_Yarn_Stock
 
 	Private Sub UpdateAdjustLastNumberUsed()
 		Dim cmdstring As String = "UPDATE [YN - Yarn Transaction Type] SET LastNumberUsed = " & ALNU & " WHERE TransactionTypeID = " & ddltranstype.SelectedValue
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\Deepak Vallabh\Documents\shantara\ShantaraProduction\ShantaraProduction\App_Data\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
 		'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
 		Dim cmd As New OleDbCommand(cmdstring)
 		'Dim cmd As New SqlCommand(cmdstring)
@@ -184,10 +168,8 @@ Public Class Adjust_Yarn_Stock
 		',  REPLACE('" & CStr(WeightDiff) & "',',','.') ,
 		Dim cmdstring As String = "INSERT INTO [YN - YarnTransactionLines] (YarnTransactionID, YarnID, TransactionWeight, TransactionCartons, Processed) " &
 		"VALUES (" & YarnTransactionID & ", " & Session("YarnID") & ",'" & CStr(WeightDiff) & "' ," & CartonDiff & " ,1);"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\Deepak Vallabh\Documents\shantara\ShantaraProduction\ShantaraProduction\App_Data\Shantara Production IT.mdb")
-		'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
 		Dim cmd As New OleDbCommand(cmdstring)
-		'Dim cmd As New SqlCommand(cmdstring)
 		cmd.CommandType = CommandType.Text
 		cmd.Connection = con
 		cmd.Connection.Open()
@@ -199,12 +181,9 @@ Public Class Adjust_Yarn_Stock
 		Dim cmdstring As String = "SELECT YTH.YarnTransactionID
         FROM [YN - YarnTransactionHeader] YTH
         WHERE YTH.YarnDocumentNo = '" & DocNo & "';"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\Deepak Vallabh\Documents\shantara\ShantaraProduction\ShantaraProduction\App_Data\Shantara Production IT.mdb")
-		'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
 		Dim cmd As New OleDbCommand(cmdstring)
-		'Dim cmd As New SqlCommand(cmdstring)
 		Dim reader As OleDbDataReader
-		'Dim reader As SqlDataReader
 		cmd.CommandType = CommandType.Text
 		cmd.Connection = con
 		cmd.Connection.Open()
@@ -214,19 +193,20 @@ Public Class Adjust_Yarn_Stock
 		If reader.HasRows = True Then
 			While reader.Read
 				YarnTransactionID = reader("YarnTransactionID")
+				lblerrother.Visible = False
 			End While
 		Else
-			MsgBox("Transaction ID does not match")
+			lblerrother.Visible = True
+			lblerrother.Text = "Transaction ID does not match"
 		End If
+		cmd.Connection.Close()
 	End Sub
 
 	Private Sub AdjustDBAuditTrail()
 		Dim cmdstring As String = "INSERT INTO [YN - YarnTransactionHeader] (TransactionTypeID, TransactionDate, EntityID, YarnDocumentNo, Processed) " &
 		"VALUES (" & ddltranstype.SelectedValue & ", '" & DateTime.Now & "' ,5 ,'" & DocNo & "' ,1);"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\Deepak Vallabh\Documents\shantara\ShantaraProduction\ShantaraProduction\App_Data\Shantara Production IT.mdb")
-		'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
 		Dim cmd As New OleDbCommand(cmdstring)
-		'Dim cmd As New SqlCommand(cmdstring)
 		cmd.CommandType = CommandType.Text
 		cmd.Connection = con
 		cmd.Connection.Open()
@@ -243,22 +223,10 @@ Public Class Adjust_Yarn_Stock
 		'Do Not Delete
 	End Sub
 	Private Sub selectwc()
-		If Request.UserLanguages.Length = 0 Then Exit Sub
-		locale = Request.UserLanguages(0)
-		If String.IsNullOrEmpty(locale) Then Exit Sub
-
-		' Instantiate CultureInfo object for the user's locale
-		culture = New CultureInfo(locale)
-
-		' Convert user input from a string to a number
-		'Try
 		WeightDiff = Replace(txteYweight.Text, ".", ",")
-		'Catch ex As FormatException
-		'Exit Sub
-		'Catch ex As Exception
-		'	Exit Sub
-		'End Try
+
 		'Double.TryParse(txteYweight.Text, Session("WeightDiff"))
+		'adds weight and carton difference 
 		Select Case ddltranstype.SelectedValue
 			Case 1, 5
 				'Session("WeightDiff") = CDbl(txteYweight.Text)
@@ -266,7 +234,7 @@ Public Class Adjust_Yarn_Stock
 				CartonDiff = txteYcartons.Text
 				NewCartons = Session("CurrentCartons") + CartonDiff
 
-		' The following is the only Case clause that evaluates to True.
+		'minus weight and carton difference 
 			Case 2, 3, 4, 6, 7, 8
 				WeightDiff = 0 - WeightDiff
 				NewWeight = Session("CurrentWeight") + WeightDiff
@@ -274,7 +242,7 @@ Public Class Adjust_Yarn_Stock
 				NewCartons = Session("CurrentCartons") + CartonDiff
 
 			Case Else
-				MsgBox("transaction type out of range")
+				lblerrother.Text = "transaction type out of range"
 		End Select
 	End Sub
 
@@ -287,7 +255,7 @@ Public Class Adjust_Yarn_Stock
 		AdjustDBAuditTrailLines()
 		UpdateAdjustLastNumberUsed()
 		AdjustDyelotUpdate()
-		MsgBox("Adjustment Captured")
+		'MsgBox("Adjustment Captured")
 	End Sub
 
 	Protected Sub Back(sender As Object, e As EventArgs) Handles btnBack.Click

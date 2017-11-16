@@ -83,6 +83,8 @@ Public Class CMTDataCapture
 			txtactualJcut.Visible = False
 			lblajce.Visible = False
 		End If
+		lblOperation.Text = Session("FullName") & " - " & Session("JDescription")
+		cmd.Connection.Close()
 	End Sub
 	Private Sub Updatecuttcaptured()
 		Dim cmdstring As String
@@ -111,6 +113,11 @@ Public Class CMTDataCapture
 				cmdstring = "UPDATE [CMT - CMTDetailsOperations]
 							 SET AttachVID =" & Session("EmployeeID") &
 							", AttachVDate ='" & DateTime.Now &
+							"' WHERE BundleNo = '" & Session("BundleNo") & "'"
+			Case "Side Seams"
+				cmdstring = "UPDATE [CMT - CMTDetailsOperations]
+							 SET SideSeamsID =" & Session("EmployeeID") &
+							", SideSeamsDate ='" & DateTime.Now &
 							"' WHERE BundleNo = '" & Session("BundleNo") & "'"
 			Case "Pressing"
 				cmdstring = "UPDATE [CMT - CMTDetailsOperations]
@@ -147,6 +154,12 @@ Public Class CMTDataCapture
 							 INNER JOIN [CMT - CMTDetailsHeader] AS CDH
 								ON CDO.BundleNo = CDH.BundleNo)
 							 WHERE (CDO.AttachVDate IS NULL) AND (CDH.BatchNo = '" & txtBatchNo.Text & "') AND (CDH.CutDataCaptured = yes)"
+			Case "Side Seams"
+				cmdstring = "SELECT CDH.BatchNo
+							 FROM ([CMT - CMTDetailsOperations] AS CDO
+							 INNER JOIN [CMT - CMTDetailsHeader] AS CDH
+								ON CDO.BundleNo = CDH.BundleNo)
+							 WHERE (CDO.SideSeamsDate IS NULL) AND (CDH.BatchNo = '" & txtBatchNo.Text & "') AND (CDH.CutDataCaptured = yes)"
 			Case "Pressing"
 				cmdstring = "SELECT CDH.BatchNo
 							 FROM ([CMT - CMTDetailsOperations] AS CDO
@@ -170,16 +183,16 @@ Public Class CMTDataCapture
 
 		reader = cmd.ExecuteReader(CommandBehavior.CloseConnection)
 		If reader.HasRows = False Then
-			MsgBox("no more checks but outstandng bundles(batch incomplete)")
-			Response.Redirect("~/CMT/CMTOverveiw.aspx")
+			Response.Redirect("~/CMT/CMTJob.aspx")
 		Else
 			Response.Redirect("~/CMT/CMTBundles.aspx?ID=" & txtBatchNo.Text)
 		End If
+		cmd.Connection.Close()
 	End Sub
-	Private Sub UpdateCMTBundleComplete()
+	Private Sub UpdateCMTBundleCompleteview()
 		Dim cmdstring As String
 		cmdstring = "UPDATE [CMT - CMTDetailsHeader]
-							 SET BundleComplete = yes
+							 SET Bundlecompleteview = yes
 							 WHERE BundleNo = '" & Session("BundleNo") & "'"
 		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
 		Dim cmd As New OleDbCommand(cmdstring)
@@ -189,11 +202,11 @@ Public Class CMTDataCapture
 		cmd.ExecuteNonQuery()
 		cmd.Connection.Close()
 	End Sub
-	Public Sub CMTbundleCompleteCheck()
+	Public Sub CMTbundleCompleteviewCheck()
 		Dim cmdstring As String
 		cmdstring = "SELECT BundleNo
 					 FROM [CMT - CMTDetailsOperations] 
-					 WHERE (CutDate IS NOT NULL) AND (AttachVDate IS NOT NULL) AND (PressDate IS NOT NULL) AND (DispatchDate IS NOT NULL) AND (BundleNo = '" & Session("BundleNo") & "')"
+					 WHERE (CutDate IS NOT NULL) AND (AttachVDate IS NOT NULL) AND (SideSeamsDate IS NOT NULL) AND (PressDate IS NOT NULL) AND (DispatchDate IS NOT NULL) AND (BundleNo = '" & Session("BundleNo") & "')"
 		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
 		Dim cmd As New OleDbCommand(cmdstring)
 		Dim reader As OleDbDataReader
@@ -204,17 +217,30 @@ Public Class CMTDataCapture
 
 		reader = cmd.ExecuteReader(CommandBehavior.CloseConnection)
 		If reader.HasRows = True Then
-			MsgBox("cmt bundle complete")
-			UpdateCMTBundleComplete()
+			'MsgBox("cmt bundle complete")
+			UpdateCMTBundleCompleteview()
 			CMTbatchCompleteCheck()
 		Else
 			CMTbatchCompleteCheck()
 		End If
+		cmd.Connection.Close()
 	End Sub
 
 	Protected Sub BtnCaptureBundle_Click(sender As Object, e As EventArgs) Handles BtnCaptureBundle.Click
-		UpdatewhereJdesc()
-		CMTbundleCompleteCheck()
+		If Session("JDescription") = "Cutting" Then
+			If lblajce.Text <> "0" Then
+				lblerrajce.Visible = False
+				UpdatewhereJdesc()
+				CMTbundleCompleteviewCheck()
+			Else
+				lblerrajce.Visible = True
+				lblerrajce.Text = "please enter Valid number of jerseys"
+			End If
+		Else
+			UpdatewhereJdesc()
+			CMTbundleCompleteviewCheck()
+		End If
+
 
 	End Sub
 End Class

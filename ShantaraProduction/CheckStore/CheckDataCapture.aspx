@@ -3,7 +3,7 @@
 	<div class="container-fluid">
 		<h1>Check Data Capture</h1>
 		<br />
-		<h3>><asp:Label ID="lblBundleNo" runat="server" Text="BundleNo: "></asp:Label></h3>
+		<h3><asp:Label ID="lblBundleNo" runat="server" Text="BundleNo: "></asp:Label></h3>
 		<br />
 		<div class="row">
 			<div class="col-sm-4">
@@ -61,8 +61,11 @@
 		<br />
 		<hr style="height:1px;border:none;color:#333;background-color:#333;" />
 		<h4>Capture</h4>
+
 		<div class="row">
+			<asp:Label ID="lblerrother" runat="server" ForeColor="Red"></asp:Label>
 			<div class="col-sm-4">
+				<asp:Label ID="lblerrchecker" runat="server" ForeColor="Red"></asp:Label>
 				<label for="ddlChecker">Checker Name </label>
 				<asp:DropDownList ID="ddlChecker" CssClass="form-control" Style="height: 34px; width: 100%; max-width: none" runat="server" AutoPostBack="true"
 					 AppendDataBoundItems="True">
@@ -70,6 +73,7 @@
 				</asp:DropDownList>
 			</div>
 			<div class="col-sm-4">
+				<asp:Label ID="lblerrfault" runat="server" ForeColor="Red"></asp:Label>
 				<label for="ddlFault">Is there any faults? </label>
 				<asp:DropDownList ID="ddlFault" CssClass="form-control" Style="height: 34px; width: 100%; max-width: none" runat="server" AutoPostBack="true"
 					AppendDataBoundItems="True">
@@ -126,16 +130,17 @@
 		<br />
 		<div class="row">
 			<div class="col-sm-4">
+				<asp:Label ID="lblerrBweight" runat="server" ForeColor="Red"></asp:Label>
 				<label for="txtBundleWeight">Bundle Weight</label>
-				<asp:TextBox runat="server" ID="txtBundleWeight" CssClass="form-control" Style="height: 34px; width: 100%; max-width: none" >0</asp:TextBox>
+				<asp:TextBox runat="server" ID="txtBundleWeight" CssClass="form-control" Style="height: 34px; width: 100%; max-width: none" TextMode="Number" >0</asp:TextBox>
 			</div>
 			<div class="col-sm-4">
 				<label for="txtBundleWasteWeight">Bundle Waste Weight</label>
-				<asp:TextBox runat="server" ID="txtBundleWasteWeight" CssClass="form-control" Style="height: 34px; width: 100%; max-width: none" >0</asp:TextBox>
+				<asp:TextBox runat="server" ID="txtBundleWasteWeight" CssClass="form-control" Style="height: 34px; width: 100%; max-width: none" TextMode="Number">0</asp:TextBox>
 			</div>
 			<div class="col-sm-4">
 				<label for="txtBundleFaultWeight">Bundle Fault Weight</label>
-				<asp:TextBox runat="server" ID="txtBundleFaultWeight" CssClass="form-control" Style="height: 34px; width: 100%; max-width: none" >0</asp:TextBox>
+				<asp:TextBox runat="server" ID="txtBundleFaultWeight" CssClass="form-control" Style="height: 34px; width: 100%; max-width: none" TextMode="Number">0</asp:TextBox>
 			</div>
 		</div>
 		<br />

@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/Site.Master" CodeBehind="CheckBundles.aspx.vb" Inherits="ShantaraProduction.BundleOverview" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 	<div class="container-fluid">
-		<h1>Check store</h1>
+		<h1>Check store - Bundles</h1>
 		<table class="table" style="width: 100%">
 			<tr>
 				<td>

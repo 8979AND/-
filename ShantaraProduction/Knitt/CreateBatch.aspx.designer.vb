@@ -23,13 +23,13 @@ Partial Public Class CreateBatch
     Protected WithEvents ddlBProduct As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
-    '''DisplayProductionOrders control.
+    '''hfProductId control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents DisplayProductionOrders As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    Protected WithEvents hfProductId As Global.System.Web.UI.WebControls.HiddenField
     
     '''<summary>
     '''lblProductionOrders control.
@@ -41,6 +41,24 @@ Partial Public Class CreateBatch
     Protected WithEvents lblProductionOrders As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
+    '''lblerrPO control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblerrPO As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''DisplayProductionOrders control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents DisplayProductionOrders As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
     '''grdvProductionOrders control.
     '''</summary>
     '''<remarks>
@@ -48,4 +66,139 @@ Partial Public Class CreateBatch
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents grdvProductionOrders As Global.System.Web.UI.WebControls.GridView
+    
+    '''<summary>
+    '''lblisyarnavailable control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblisyarnavailable As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''lblerrYA control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblerrYA As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''Displayisyarnavailable control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Displayisyarnavailable As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
+    '''grdvisyarnavailable control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents grdvisyarnavailable As Global.System.Web.UI.WebControls.GridView
+    
+    '''<summary>
+    '''lblisvariousdyelot control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblisvariousdyelot As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''lblerrvd control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblerrvd As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''Div2 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Div2 As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
+    '''grdvisvariousdyelot control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents grdvisvariousdyelot As Global.System.Web.UI.WebControls.GridView
+    
+    '''<summary>
+    '''txtYarnReq control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtYarnReq As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''txtOrderTot control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtOrderTot As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''BtnCreateBatch control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents BtnCreateBatch As Global.System.Web.UI.WebControls.LinkButton
+    
+    '''<summary>
+    '''btnBack control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnBack As Global.System.Web.UI.WebControls.LinkButton
+    
+    '''<summary>
+    '''Label2 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Label2 As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''Div1 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Div1 As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
+    '''grdvmachincomp control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents grdvmachincomp As Global.System.Web.UI.WebControls.GridView
 End Class

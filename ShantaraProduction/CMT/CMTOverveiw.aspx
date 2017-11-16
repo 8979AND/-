@@ -1,11 +1,14 @@
 ﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/Site.Master" CodeBehind="CMTOverveiw.aspx.vb" Inherits="ShantaraProduction.CMTOverveiw" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-		<div class="container-fluid">
+	<div class="container-fluid">
 		<h1>CMT Batches</h1>
 		<br />
 		<div class="row">
+			<h2><asp:Label ID="LblJDisc" runat="server" Text=""></asp:Label></h2>
+		</div>
+		<div class="row">
 			<div class="col-sm-4">
-				<label for="ddlCMTStaff">Your Name </label>
+				<label for="ddlCMTStaff">CMT Operator </label>
 				<asp:DropDownList ID="ddlCMTStaff" CssClass="form-control" Style="height: 34px; width: 100%; max-width: none" runat="server" AutoPostBack="true"
 					OnSelectedIndexChanged="ddlCMTStaff_SelectedIndexChanged" AppendDataBoundItems="True">
 					<asp:ListItem Text="--Select Your Name--" Value=""></asp:ListItem>
@@ -13,10 +16,8 @@
 			</div>
 		</div>
 		<br />
-		<div class="row">	
-			<h2><asp:Label ID="LblJDisc" runat="server" Text=""></asp:Label></h2>
-		</div>
-			<br />
+
+		<br />
 		<div class="row">
 			<div id="displayCMTbatches" runat="server">
 				<asp:Label runat="server" AssociatedControlID="grdvCMTbatches" Visible="false" ID="lblgrdbatch" CssClass="h2">Dyelots Captured for this Invoice</asp:Label>
@@ -40,5 +41,12 @@
 				</asp:GridView>
 			</div>
 		</div>
+		<br />
+		<div class="row">
+			<asp:LinkButton runat="server" ID="btnBack" CssClass="btn btn-default btn-lg">
+                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Back
+			</asp:LinkButton>
+		</div>
 	</div>
+		
 </asp:Content>

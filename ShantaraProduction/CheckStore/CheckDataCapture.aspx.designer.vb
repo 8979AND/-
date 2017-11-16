@@ -131,6 +131,24 @@ Partial Public Class CheckDataCapture
     Protected WithEvents txtYarnColour As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
+    '''lblerrother control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblerrother As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''lblerrchecker control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblerrchecker As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
     '''ddlChecker control.
     '''</summary>
     '''<remarks>
@@ -138,6 +156,15 @@ Partial Public Class CheckDataCapture
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents ddlChecker As Global.System.Web.UI.WebControls.DropDownList
+    
+    '''<summary>
+    '''lblerrfault control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblerrfault As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
     '''ddlFault control.
@@ -237,6 +264,15 @@ Partial Public Class CheckDataCapture
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents txtFOthers As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''lblerrBweight control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblerrBweight As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
     '''txtBundleWeight control.

@@ -23,49 +23,49 @@ Partial Public Class SiteMaster
     Protected WithEvents MainMenu As Global.System.Web.UI.HtmlControls.HtmlGenericControl
     
     '''<summary>
-    '''adminDashboard control.
+    '''KNITT control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents adminDashboard As Global.System.Web.UI.HtmlControls.HtmlAnchor
+    Protected WithEvents KNITT As Global.System.Web.UI.HtmlControls.HtmlAnchor
     
     '''<summary>
-    '''manageUsers control.
+    '''CHECKSTORE control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents manageUsers As Global.System.Web.UI.HtmlControls.HtmlAnchor
+    Protected WithEvents CHECKSTORE As Global.System.Web.UI.HtmlControls.HtmlAnchor
     
     '''<summary>
-    '''manageTickets control.
+    '''CMT control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents manageTickets As Global.System.Web.UI.HtmlControls.HtmlAnchor
+    Protected WithEvents CMT As Global.System.Web.UI.HtmlControls.HtmlAnchor
     
     '''<summary>
-    '''Reports control.
+    '''Corder control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents Reports As Global.System.Web.UI.HtmlControls.HtmlAnchor
+    Protected WithEvents Corder As Global.System.Web.UI.HtmlControls.HtmlAnchor
     
     '''<summary>
-    '''manager control.
+    '''AYS control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents manager As Global.System.Web.UI.HtmlControls.HtmlAnchor
+    Protected WithEvents AYS As Global.System.Web.UI.HtmlControls.HtmlAnchor
     
     '''<summary>
     '''UserOverview control.

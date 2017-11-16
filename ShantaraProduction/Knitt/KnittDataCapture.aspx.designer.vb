@@ -212,6 +212,15 @@ Partial Public Class KnittDataCapture
     Protected WithEvents grdvprevpnls As Global.System.Web.UI.WebControls.GridView
     
     '''<summary>
+    '''lblerroperator control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblerroperator As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
     '''ddlOperator control.
     '''</summary>
     '''<remarks>
@@ -219,6 +228,15 @@ Partial Public Class KnittDataCapture
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents ddlOperator As Global.System.Web.UI.WebControls.DropDownList
+    
+    '''<summary>
+    '''lblerrshift control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblerrshift As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
     '''ddlShift control.
@@ -239,6 +257,15 @@ Partial Public Class KnittDataCapture
     Protected WithEvents txtMachineNo As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
+    '''lblerrpanels control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblerrpanels As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
     '''txtPanelsMade control.
     '''</summary>
     '''<remarks>
@@ -246,6 +273,24 @@ Partial Public Class KnittDataCapture
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents txtPanelsMade As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''lblerror1 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblerror1 As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''lblerror2 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblerror2 As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
     '''BtnCaptureBundle control.

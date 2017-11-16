@@ -59,6 +59,24 @@ Partial Public Class Adjust_Yarn_Stock
     Protected WithEvents lblYarnCurrentCartons As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
+    '''lblerrYexists control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblerrYexists As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''lblerrother control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblerrother As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
     '''ddltranstype control.
     '''</summary>
     '''<remarks>

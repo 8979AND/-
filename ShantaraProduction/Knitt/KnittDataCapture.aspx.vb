@@ -12,6 +12,8 @@ Public Class KnittDataCapture
 	Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 		If Not IsPostBack Then
 			getOperator()
+			lblerror1.Visible = False
+			lblerror2.Visible = False
 		End If
 		BundleNo = Request.QueryString("ID").ToString()
 	End Sub
@@ -196,12 +198,16 @@ Public Class KnittDataCapture
 				txtYarnDyelot.Text = reader("YarnDyelot")
 				Pmadeday = reader("PanelsMadeDay")
 				Pmadenight = reader("PanelsMadeNight")
-				Startdate = reader("DateStarted")
+				If reader.IsDBNull(6) Then
+					Startdate = ""
+				Else
+					Startdate = reader("DateStarted")
+				End If
 			End While
 		Else
-		MsgBox("problem with displaying info from database into boxes")
+			lblerror1.Text = "problem with reading info from database into boxes"
 		End If
-
+		cmd.Connection.Close()
 	End Sub
 
 
@@ -234,9 +240,7 @@ Public Class KnittDataCapture
 			Catch ex As Exception
 				Throw ex
 			Finally
-				con.Close()
-				cmd.Dispose()
-				con.Dispose()
+				cmd.Connection.Close()
 			End Try
 		End If
 	End Sub
@@ -267,18 +271,21 @@ Public Class KnittDataCapture
 			End While
 			If ((totalPMade + CInt(pmadecurrent)) >= PanelsToMake) And ((totalPMade + CInt(pmadecurrent)) <= (PanelsToMake + 8)) Then
 				Result = 1 'bundle complete
-				MsgBox("Bundle complete")
+				'MsgBox("Bundle complete")
 			ElseIf (totalPMade + CInt(pmadecurrent)) < PanelsToMake Then
 				Result = 2 'bundle incomplete
-				MsgBox("Bundle Incomplete")
+				'MsgBox("Bundle Incomplete")
 			Else
 				Result = 3
-				MsgBox("Please check number of bundles entered")
+				lblerror1.Visible = True
+				lblerror1.Text = "Please check number of bundles entered"
 			End If
 		Else
 			Result = 3
-			MsgBox("error with Sub KnittBundleCompleteCheck()")
+			lblerror2.Visible = True
+			lblerror2.Text = "error with Sub KnittBundleCompleteCheck()"
 		End If
+		cmd.Connection.Close()
 	End Sub
 	Private Sub grdvprevpnlsPopulate()
 		Dim Adapter As New OleDbDataAdapter
@@ -303,7 +310,7 @@ Public Class KnittDataCapture
 
 		grdvprevpnls.DataSource = Data
 		grdvprevpnls.DataBind()
-
+		cmd.Connection.Close()
 	End Sub
 
 	Private Sub Machineupdate()
@@ -429,15 +436,15 @@ Public Class KnittDataCapture
 	Public Sub KnittbatchCompleteCheck()
 		BundleNo = Request.QueryString("ID").ToString()
 		Dim cmdstring = "SELECT POD.BatchNo, KDH.BundleNo, KDH.KnittComplete, POH.KnittBatchComplete
-		FROM ((([KN - ProductionOrderDetails] POD 
-		INNER JOIN [KN - KnittingOrder] KO
+		FROM ((([KN - ProductionOrderDetails] AS POD 
+		INNER JOIN [KN - KnittingOrder] AS KO
 			On POD.KnittingOrderID = KO.KnittingOrderID )
-		INNER JOIN [KN - ProductionOrderHeader] POH
+		INNER JOIN [KN - ProductionOrderHeader] AS POH
 			ON POD.BatchNo = POH.BatchNo)
-		INNER JOIN [KN - KnittingDetailsHeader] KDH
+		INNER JOIN [KN - KnittingDetailsHeader] AS KDH
 			ON POD.BatchNo = KDH.BatchNo)
 		WHERE (KDH.KnittComplete = no) AND (POH.KnittBatchComplete = no) AND (KDH.BatchNo = '" & txtBatchNo.Text & "')"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\Deepak Vallabh\Documents\shantara\ShantaraProduction\ShantaraProduction\App_Data\Shantara Production IT.mdb")
+		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
 		'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
 		Dim cmd As New OleDbCommand(cmdstring)
 		'Dim cmd As New SqlCommand(cmdstring)
@@ -461,6 +468,7 @@ Public Class KnittDataCapture
 		ElseIf Result = 3 Then
 			Exit Sub
 		End If
+		cmd.Connection.Close()
 	End Sub
 
 	Protected Sub btnStart_Click(sender As Object, e As EventArgs) Handles btnStart.Click
@@ -495,29 +503,41 @@ Public Class KnittDataCapture
 		'UpdateAllRecordscompletes()
 	End Sub
 
-	Private Sub UpdateAllRecordscompletes()
-		Dim cmdstring As String
-		cmdstring = "UPDATE [KN - ProductionOrderHeader]
-					 SET KnittBatchComplete = yes, CheckBatchComplete = yes"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
-		'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
-		Dim cmd As New OleDbCommand(cmdstring)
-		'Dim cmd As New SqlCommand()
-		cmd.CommandType = CommandType.Text
-		cmd.Connection = con
-		cmd.Connection.Open()
-		cmd.ExecuteNonQuery()
-		cmd.Connection.Close()
-		MsgBox("all records batch complete checkbox checked")
-	End Sub
+
 
 	Protected Sub BtnCaptureBundle_Click(sender As Object, e As EventArgs) Handles BtnCaptureBundle.Click
-		KnittBundleCompleteCheck()
-		If Result = 1 Or Result = 2 Then
-			Machineupdate()
-			kdcUpdateRecord()
-			KnittbatchCompleteCheck()
+		lblerror1.Visible = False
+		lblerror2.Visible = False
+		If ddlOperator.SelectedIndex <> 0 Then
+			lblerroperator.Visible = False
+			If ddlShift.SelectedIndex <> 0 Then
+				lblerrshift.Visible = False
+				If txtPanelsMade.Text <> "0" Then
+					lblerrpanels.Visible = False
+					KnittBundleCompleteCheck()
+					If Result = 1 Or Result = 2 Then
+						Machineupdate()
+						kdcUpdateRecord()
+						KnittbatchCompleteCheck()
+					Else
+						Exit Sub
+					End If
+				Else
+					lblerrpanels.Visible = True
+					lblerrpanels.Text = "Please enter an appropriate value for Panels Made"
+					txtPanelsMade.Focus()
+					Exit Sub
+				End If
+			Else
+				lblerrshift.Visible = True
+				lblerrshift.Text = "please Select Shift"
+				ddlShift.Focus()
+				Exit Sub
+			End If
 		Else
+			lblerroperator.Visible = True
+			lblerroperator.Text = "please Select Operator"
+			ddlOperator.Focus()
 			Exit Sub
 		End If
 

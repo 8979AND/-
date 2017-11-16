@@ -11,7 +11,7 @@ Option Strict On
 Option Explicit On
 
 
-Partial Public Class Edit_Yarn_Stock
+Partial Public Class Edit_Yarn_Invoice
     
     '''<summary>
     '''lblYarn control.

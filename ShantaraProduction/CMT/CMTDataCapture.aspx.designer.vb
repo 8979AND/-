@@ -131,6 +131,15 @@ Partial Public Class CMTDataCapture
     Protected WithEvents lblOperation As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
+    '''lblerrajce control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblerrajce As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
     '''lblajce control.
     '''</summary>
     '''<remarks>

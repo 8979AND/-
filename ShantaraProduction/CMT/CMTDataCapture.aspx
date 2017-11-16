@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/Site.Master" CodeBehind="CMTDataCapture.aspx.vb" Inherits="ShantaraProduction.CMTDataCapture" %>
+﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/Site.Master" CodeBehind="CMTDataCapture.aspx.vb" Inherits="ShantaraProduction.CMTDataCapture" MaintainScrollPositionOnPostback="true" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 	<div class="container-fluid">
 		<h1>CMT Data Capture</h1>
@@ -51,12 +51,13 @@
 		<h4>Capture</h4>
 		<br />
 		<div class="row">
-					<h3>><asp:Label ID="lblOperation" runat="server" Text="BundleNo: "></asp:Label></h3>
+					<h3>><asp:Label ID="lblOperation" runat="server" Text=" "></asp:Label></h3>
 		</div>
 		<div class="row">
 			<div class="col-sm-4">
+				<asp:Label ID="lblerrajce" runat="server" Text="" ForeColor="Red"></asp:Label>
 				<asp:Label ID="lblajce" runat="server" Text="Actual Jerseys Cut" Font-Bold="True"></asp:Label>
-				<asp:TextBox runat="server" ID="txtactualJcut" CssClass="form-control" Style="height: 34px; width: 100%; max-width: none" />
+				<asp:TextBox runat="server" ID="txtactualJcut" CssClass="form-control" Style="height: 34px; width: 100%; max-width: none" TextMode="Number" />
 			</div>
 		</div>
 		<br />

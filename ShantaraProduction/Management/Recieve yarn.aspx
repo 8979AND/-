@@ -1,7 +1,6 @@
 ﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/Site.Master" CodeBehind="Recieve yarn.aspx.vb" Inherits="ShantaraProduction.Recieve_yarn" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-
 	<div class="container-fluid">
 		<h1>Recieve Yarn Stock</h1>
 		<br />
@@ -129,11 +128,10 @@
 				</asp:GridView>
 			</div>
 		</div>
-<%-- <script> 
-	 {
-		 $("#ddlYcolour").chosen(function () { });
-	 }
-	 	
+
+<%-- <script type="text/javascript"> 
+
+	 $("#ddlYcolour").chosen();
 	</script>--%>
  
 	

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/Site.Master" CodeBehind="Edit_Yarn_Invoice.aspx.vb" Inherits="ShantaraProduction.Edit_Yarn_Stock" %>
+﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/Site.Master" CodeBehind="Edit_Yarn_Invoice.aspx.vb" Inherits="ShantaraProduction.Edit_Yarn_Invoice" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 	<div class="container-fluid">
 		<h1>Edit Stock</h1>

@@ -109,6 +109,7 @@
 		<h4>Capture</h4>
 		<div class="row">
 			<div class="col-sm-4">
+				<asp:Label ID="lblerroperator" runat="server" BorderColor="Red" ForeColor="Red"></asp:Label>
 				<label for="ddlOperator">Operator Name </label>
 				<asp:DropDownList ID="ddlOperator" CssClass="form-control" Style="height: 34px; width: 100%; max-width: none" runat="server" AutoPostBack="true"
 					OnSelectedIndexChanged="ddlOperator_SelectedIndexChanged" AppendDataBoundItems="True" Visible="False">
@@ -116,6 +117,7 @@
 				</asp:DropDownList>
 			</div>
 			<div class="col-sm-4">
+				<asp:Label ID="lblerrshift" runat="server" ForeColor="Red"></asp:Label>
 				<label for="ddlShift">Shift </label>
 				<asp:DropDownList ID="ddlShift" CssClass="form-control" Style="height: 34px; width: 100%; max-width: none" runat="server" AutoPostBack="true"
 					OnSelectedIndexChanged="ddlShift_SelectedIndexChanged" AppendDataBoundItems="True" Visible="False">
@@ -126,14 +128,19 @@
 			</div>
 			<div class="col-sm-4">
 				<label for="txtMachineNo">Machine Number</label>
-				<asp:TextBox runat="server" ID="txtMachineNo" CssClass="form-control" Style="height: 34px; width: 100%; max-width: none" Visible="False" />
+				<asp:TextBox runat="server" ID="txtMachineNo" CssClass="form-control" Style="height: 34px; width: 100%; max-width: none" Visible="False" TextMode="Number" />
 			</div>
 			<div class="col-sm-4">
+				<asp:Label ID="lblerrpanels" runat="server" ForeColor="Red"></asp:Label>
 				<label for="txtPanelsMade">Panels Made</label>
-				<asp:TextBox runat="server" ID="txtPanelsMade" CssClass="form-control" Style="height: 34px; width: 100%; max-width: none" Visible="False" >0</asp:TextBox>
+				<asp:TextBox runat="server" ID="txtPanelsMade" CssClass="form-control" Style="height: 34px; width: 100%; max-width: none" Visible="False" TextMode="Number">0</asp:TextBox>
 			</div>
 		</div>
 		<br />
+		<div class="row">
+			<asp:Label ID="lblerror1" runat="server" ForeColor="Red"></asp:Label>
+			<asp:Label ID="lblerror2" runat="server" ForeColor="Red"></asp:Label>
+		</div>
 		<br />
 		<div class="row">
 			<div class="col-sm-4">

@@ -12,7 +12,7 @@ Option Explicit On
 
 
 Partial Public Class Site_Mobile
-
+    
     '''<summary>
     '''Head1 control.
     '''</summary>
@@ -21,7 +21,7 @@ Partial Public Class Site_Mobile
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents Head1 As Global.System.Web.UI.HtmlControls.HtmlHead
-
+    
     '''<summary>
     '''HeadContent control.
     '''</summary>
@@ -30,7 +30,7 @@ Partial Public Class Site_Mobile
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents HeadContent As Global.System.Web.UI.WebControls.ContentPlaceHolder
-
+    
     '''<summary>
     '''form1 control.
     '''</summary>
@@ -39,7 +39,7 @@ Partial Public Class Site_Mobile
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents form1 As Global.System.Web.UI.HtmlControls.HtmlForm
-
+    
     '''<summary>
     '''FeaturedContent control.
     '''</summary>
@@ -48,7 +48,7 @@ Partial Public Class Site_Mobile
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents FeaturedContent As Global.System.Web.UI.WebControls.ContentPlaceHolder
-
+    
     '''<summary>
     '''MainContent control.
     '''</summary>
@@ -57,7 +57,7 @@ Partial Public Class Site_Mobile
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents MainContent As Global.System.Web.UI.WebControls.ContentPlaceHolder
-
+    
     '''<summary>
     '''ViewSwitcher1 control.
     '''</summary>
@@ -65,5 +65,5 @@ Partial Public Class Site_Mobile
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents ViewSwitcher1 As Global.System.Web.UI.UserControl
+    Protected WithEvents ViewSwitcher1 As Global.ShantaraProduction.ViewSwitcher
 End Class

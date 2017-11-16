@@ -23,7 +23,9 @@ Public Class Recieve_yarn
 
 			End If
 			Session("editYarn") = 0
+			txtdate.Text = DateTime.Now.Date
 		End If
+
 	End Sub
 
 	Private Sub getSupplier()
@@ -48,11 +50,7 @@ Public Class Recieve_yarn
 			Catch ex As Exception
 				Throw ex
 			Finally
-
-				con.Close()
-
-				con.Dispose()
-
+				cmd.Connection.Close()
 			End Try
 		End If
 	End Sub
@@ -79,9 +77,7 @@ Public Class Recieve_yarn
 			Catch ex As Exception
 				Throw ex
 			Finally
-				con.Close()
-				cmd.Dispose()
-				con.Dispose()
+				cmd.Connection.Close()
 			End Try
 		End If
 	End Sub
@@ -109,9 +105,7 @@ Public Class Recieve_yarn
 			Catch ex As Exception
 				Throw ex
 			Finally
-				con.Close()
-				'	cmd.Dispose()
-				con.Dispose()
+				cmd.Connection.Close()
 
 			End Try
 		End If
@@ -147,7 +141,11 @@ Public Class Recieve_yarn
 		'Dim cmd As New SqlCommand()
 		grdvInvoiceDyelots.Visible = True
 		Session("Invoice_number") = txtInvoice.Text
-		SQL = "SELECT [YN - Yarn Master].YarnID, [YN - Yarn Master].YarnDyelot, [YN - Yarn Colour Defns].YarnColour, [YN - Yarn Master].YarnPurchaceWeight, [YN - Yarn Master].YarnPurchaseCartons from [YN - Yarn Master] INNER JOIN [YN - Yarn Colour Defns] On [YN - Yarn Master].YarnColourID = [YN - Yarn Colour Defns].YarnColourID WHERE [YN - Yarn Master].SupplierInvoiceNo = '" & Session("Invoice_number") & "'"
+		SQL = "SELECT [YN - Yarn Master].YarnID, [YN - Yarn Master].YarnDyelot, [YN - Yarn Colour Defns].YarnColour, [YN - Yarn Master].YarnPurchaceWeight, [YN - Yarn Master].YarnPurchaseCartons 
+			   FROM ([YN - Yarn Master] 
+			   INNER JOIN [YN - Yarn Colour Defns] 
+					On [YN - Yarn Master].YarnColourID = [YN - Yarn Colour Defns].YarnColourID)
+			   WHERE [YN - Yarn Master].SupplierInvoiceNo = '" & Session("Invoice_number") & "'"
 
 		con.Open()
 		cmd.Connection = con
@@ -158,12 +156,12 @@ Public Class Recieve_yarn
 
 		grdvInvoiceDyelots.DataSource = Data
 		grdvInvoiceDyelots.DataBind()
-
+		cmd.Connection.Close()
 	End Sub
 
 	Private Sub InvoiceDBAuditTrail()
 		Dim cmdstring As String = "INSERT INTO [YN - YarnTransactionHeader] (TransactionTypeID, TransactionDate, EntityID, YarnDocumentNo, Processed) " &
-		"VALUES (1, '" & Date.Now & "', " & ddlSupplier.SelectedValue & ", '" & txtInvoice.Text & "', 1);"
+		"VALUES (1, '" & DateTime.Now & "', " & ddlSupplier.SelectedValue & ", '" & txtInvoice.Text & "', 1);"
 		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb")
 
 
@@ -190,7 +188,7 @@ Public Class Recieve_yarn
 		Session("Invoice_number") = txtInvoice.Text
 		', (YM.YarnKgPrice*YM.YarnPurchaceWeight) AS [Total Price(R)]
 		SQL = "SELECT YM.SupplierInvoiceNo, SUM(YM.YarnPurchaceWeight) AS [Total Weight], SUM(YM.YarnPurchaseCartons) AS [Total Cartons]
-        FROM [YN - Yarn Master] YM
+        FROM [YN - Yarn Master] AS YM
 		WHERE YM.SupplierInvoiceNo = '" & Session("Invoice_number") & "'
 		GROUP BY YM.SupplierInvoiceNo
 		ORDER BY YM.SupplierInvoiceNo, SUM(YM.YarnPurchaceWeight), SUM(YM.YarnPurchaseCartons)"
@@ -203,6 +201,7 @@ Public Class Recieve_yarn
 
 		grdvInvoiceSummary.DataSource = Data
 		grdvInvoiceSummary.DataBind()
+		cmd.Connection.Close()
 	End Sub
 
 	Protected Sub btnCapture_Click(sender As Object, e As EventArgs) Handles btnCapture.Click
@@ -239,14 +238,10 @@ Public Class Recieve_yarn
 	Protected Sub btnyarninvcaptur_Click(sender As Object, e As EventArgs) Handles btnyarninvcaptur.Click
 		InvoiceDBAuditTrail()
 		grdvInvoiceSummaryPopulate()
-		MsgBox("invoice Captured")
 		btnyarninvcaptur.Enabled = False
 	End Sub
 
 	Protected Sub Back(sender As Object, e As EventArgs) Handles btnBack.Click
-
-
-
 
 	End Sub
 End Class
