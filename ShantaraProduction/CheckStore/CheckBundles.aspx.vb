@@ -1,7 +1,7 @@
 ﻿Imports System.Data.OleDb
 Public Class BundleOverview
 	Inherits System.Web.UI.Page
-
+	Private cnString As String = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4"
 	Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 		grdvBundlesToCheckPopulate()
 		grdvBundlesCheckedPopulate()
@@ -11,11 +11,11 @@ Public Class BundleOverview
 		Dim Adapter As New OleDbDataAdapter
 		Dim Data As New DataTable
 		Dim SQL As String
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
-		Dim cmd As New OleDbCommand()
-		grdvBundlesToCheck.Visible = True
-		Session("BatchNo") = Request.QueryString("ID").ToString()
-		SQL = "SELECT kdh.BatchNo, kdh.BundleNo, (sm.[Size Abbreviation]) AS [Size], (cm.ComponentName) AS [Component], kdh.PanelsToMake, (SIM.SpecialInstructionDetail) AS [Special Instructions]
+		Using con As New OleDbConnection(cnString)
+			Dim cmd As New OleDbCommand()
+			grdvBundlesToCheck.Visible = True
+			Session("BatchNo") = Request.QueryString("ID").ToString()
+			SQL = "SELECT kdh.BatchNo, kdh.BundleNo, (sm.[Size Abbreviation]) AS [Size], (cm.ComponentName) AS [Component], kdh.PanelsToMake, (SIM.SpecialInstructionDetail) AS [Special Instructions]
         FROM ((((([KN - KnittingDetailsHeader] AS kdh
 		INNER JOIN [KN - KnittingOrder] AS ko
 			On kdh.KnittingOrderID = ko.KnittingOrderID )
@@ -29,27 +29,27 @@ Public Class BundleOverview
 			ON ko.SpecialInstructionID = SIM.SpecialInstructionID)
 		WHERE (kdh.BatchNo = '" & Session("BatchNo") & "') AND (kdh.KnittComplete = yes) AND (kdh.Checkcomplete = no);"
 
-		con.Open()
-		cmd.Connection = con
-		cmd.CommandText = SQL
+			con.Open()
+			cmd.Connection = con
+			cmd.CommandText = SQL
 
-		Adapter.SelectCommand = cmd
-		Adapter.Fill(Data)
+			Adapter.SelectCommand = cmd
+			Adapter.Fill(Data)
 
-		grdvBundlesToCheck.DataSource = Data
-		grdvBundlesToCheck.DataBind()
-		cmd.Connection.Close()
+			grdvBundlesToCheck.DataSource = Data
+			grdvBundlesToCheck.DataBind()
+		End Using
 	End Sub
 
 	Private Sub grdvBundlesCheckedPopulate()
 		Dim Adapter As New OleDbDataAdapter
 		Dim Data As New DataTable
 		Dim SQL As String
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
-		Dim cmd As New OleDbCommand()
-		grdvBundlesChecked.Visible = True
-		Session("BatchNo") = Request.QueryString("ID").ToString()
-		SQL = "SELECT kdh.BatchNo, kdh.BundleNo, (sm.[Size Abbreviation]) AS [Size], (cm.ComponentName) AS [Component], kdh.PanelsToMake
+		Using con As New OleDbConnection(cnString)
+			Dim cmd As New OleDbCommand()
+			grdvBundlesChecked.Visible = True
+			Session("BatchNo") = Request.QueryString("ID").ToString()
+			SQL = "SELECT kdh.BatchNo, kdh.BundleNo, (sm.[Size Abbreviation]) AS [Size], (cm.ComponentName) AS [Component], kdh.PanelsToMake
         FROM ((((([KN - KnittingDetailsHeader] AS kdh
 		INNER JOIN [KN - KnittingOrder] AS ko
 			On kdh.KnittingOrderID = ko.KnittingOrderID )
@@ -63,16 +63,16 @@ Public Class BundleOverview
 			ON ko.SpecialInstructionID = SIM.SpecialInstructionID)
 		WHERE (kdh.BatchNo = '" & Session("BatchNo") & "') AND (kdh.KnittComplete = yes) AND (kdh.Checkcomplete = yes);"
 
-		con.Open()
-		cmd.Connection = con
-		cmd.CommandText = SQL
+			con.Open()
+			cmd.Connection = con
+			cmd.CommandText = SQL
 
-		Adapter.SelectCommand = cmd
-		Adapter.Fill(Data)
+			Adapter.SelectCommand = cmd
+			Adapter.Fill(Data)
 
-		grdvBundlesChecked.DataSource = Data
-		grdvBundlesChecked.DataBind()
-		cmd.Connection.Close()
+			grdvBundlesChecked.DataSource = Data
+			grdvBundlesChecked.DataBind()
+		End Using
 	End Sub
 
 

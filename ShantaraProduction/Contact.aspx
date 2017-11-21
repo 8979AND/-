@@ -5,14 +5,15 @@
     <p>Your contact page.</p>
 
     <address>
-        One Microsoft Way<br />
-        Redmond, WA 98052-6399<br />
-        <abbr title="Phone">P:</abbr>
-        425.555.0100
+        70 Harry Street<br />
+        Robertsham, Johannesburg 2135<br />
+        <abbr title="Phone">Phone:</abbr>
+        0114338840
+
     </address>
 
     <address>
-        <strong>Support:</strong><a href="mailto:Support@example.com">Support@example.com</a><br />
+        <strong>Support:Anil@shantara.co.za</strong><br />
         <strong>Marketing:</strong><a href="mailto:Marketing@example.com">Marketing@example.com</a>
     </address>
 </asp:Content>

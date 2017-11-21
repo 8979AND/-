@@ -1,6 +1,7 @@
 ﻿Imports System.Data.OleDb
 Public Class CMTOverveiw
 	Inherits System.Web.UI.Page
+	Private cnString As String = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4"
 
 	Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 		getCMTOperator()
@@ -104,105 +105,105 @@ Public Class CMTOverveiw
 		GROUP BY CDH.BatchNo, EM.EntityName, EPC.ProductCode, CSIM.CMTSpecialInstructionDetail
 		ORDER BY CDH.BatchNo, EM.EntityName;"
 		End Select
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
-		Dim cmd As New OleDbCommand(sql)
-		Dim reader As OleDbDataReader
-		cmd.CommandType = CommandType.Text
-		cmd.Connection = con
-		cmd.Connection.Open()
-		cmd.ExecuteNonQuery()
+		Using con As New OleDbConnection(cnString)
+			Dim cmd As New OleDbCommand(sql)
+			Dim reader As OleDbDataReader
+			cmd.CommandType = CommandType.Text
+			cmd.Connection = con
+			cmd.Connection.Open()
+			cmd.ExecuteNonQuery()
 
-		reader = cmd.ExecuteReader(CommandBehavior.CloseConnection)
-		If reader.HasRows = True Then
-			Select Case Session("JDescription")
-				Case "Cutting"
-					LblJDisc.Text = "Cutting"
-				Case "AttachVN"
-					LblJDisc.Text = "Attach V-Neck"
-				Case "Side Seams"
-					LblJDisc.Text = "Side Seams"
-				Case "Pressing"
-					LblJDisc.Text = "Pressing"
-				Case "Dispatch"
-					LblJDisc.Text = "Dispatch"
-			End Select
-		Else
-			ddlCMTStaff.Visible = False
-			Select Case Session("JDescription")
-				Case "Cutting"
-					LblJDisc.Text = "No Batches/bundles for Cutting"
-				Case "AttachVN"
-					LblJDisc.Text = "No Batches/bundles for Attach V-Neck"
-				Case "Side Seams"
-					LblJDisc.Text = "No Batches/bundles for Side Seams"
-				Case "Pressing"
-					LblJDisc.Text = "No Batches/bundles for Pressing"
-				Case "Dispatch"
-					LblJDisc.Text = "No Batches/bundles for Dispatch"
-			End Select
-		End If
-		cmd.Connection.Close()
+			reader = cmd.ExecuteReader(CommandBehavior.CloseConnection)
+			If reader.HasRows = True Then
+				Select Case Session("JDescription")
+					Case "Cutting"
+						LblJDisc.Text = "Cutting"
+					Case "AttachVN"
+						LblJDisc.Text = "Attach V-Neck"
+					Case "Side Seams"
+						LblJDisc.Text = "Side Seams"
+					Case "Pressing"
+						LblJDisc.Text = "Pressing"
+					Case "Dispatch"
+						LblJDisc.Text = "Dispatch"
+				End Select
+			Else
+				ddlCMTStaff.Visible = False
+				Select Case Session("JDescription")
+					Case "Cutting"
+						LblJDisc.Text = "No Batches/bundles for Cutting"
+					Case "AttachVN"
+						LblJDisc.Text = "No Batches/bundles for Attach V-Neck"
+					Case "Side Seams"
+						LblJDisc.Text = "No Batches/bundles for Side Seams"
+					Case "Pressing"
+						LblJDisc.Text = "No Batches/bundles for Pressing"
+					Case "Dispatch"
+						LblJDisc.Text = "No Batches/bundles for Dispatch"
+				End Select
+			End If
+		End Using
 	End Sub
 
 	Private Sub getCMTOperator()
 		Dim strQuery As String = "SELECT EmployeeID, (EmployeeFirstName + ' ' + EmployeeLastName) AS [FullName] from [GN - EmployeeDetails] WHERE Department = 'CMT' ORDER BY EmployeeFirstName"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
-		Dim cmd As New OleDbCommand()
-		If IsPostBack = False Then
-			ddlCMTStaff.AppendDataBoundItems = True
-			cmd.CommandType = CommandType.Text
-			cmd.CommandText = strQuery
-			cmd.Connection = con
-			Try
-				con.Open()
-				ddlCMTStaff.DataSource = cmd.ExecuteReader()
-				ddlCMTStaff.DataTextField = "FullName"
-				ddlCMTStaff.DataValueField = "EmployeeID"
-				ddlCMTStaff.DataBind()
-			Catch ex As Exception
-				Throw ex
-			Finally
-				cmd.Connection.Close()
-			End Try
-		End If
+		Using con As New OleDbConnection(cnString)
+			Dim cmd As New OleDbCommand()
+			If IsPostBack = False Then
+				ddlCMTStaff.AppendDataBoundItems = True
+				cmd.CommandType = CommandType.Text
+				cmd.CommandText = strQuery
+				cmd.Connection = con
+				Try
+					con.Open()
+					ddlCMTStaff.DataSource = cmd.ExecuteReader()
+					ddlCMTStaff.DataTextField = "FullName"
+					ddlCMTStaff.DataValueField = "EmployeeID"
+					ddlCMTStaff.DataBind()
+				Catch ex As Exception
+					Throw ex
+
+				End Try
+			End If
+		End Using
 	End Sub
 
 
 
 	Private Sub getCMTStaffDetails()
 		Dim cmdstring = "SELECT EmployeeID, (EmployeeFirstName + ' ' + EmployeeLastName) AS [FullName], JobDescription FROM [GN - EmployeeDetails] WHERE EmployeeID = " & ddlCMTStaff.SelectedValue
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
-		Dim cmd As New OleDbCommand(cmdstring)
-		Dim reader As OleDbDataReader
-		cmd.CommandType = CommandType.Text
-		cmd.Connection = con
-		cmd.Connection.Open()
-		cmd.ExecuteNonQuery()
+		Using con As New OleDbConnection(cnString)
+			Dim cmd As New OleDbCommand(cmdstring)
+			Dim reader As OleDbDataReader
+			cmd.CommandType = CommandType.Text
+			cmd.Connection = con
+			cmd.Connection.Open()
+			cmd.ExecuteNonQuery()
 
-		reader = cmd.ExecuteReader(CommandBehavior.CloseConnection)
-		If reader.HasRows = True Then
-			While reader.Read
-				Session("EmployeeID") = reader("EmployeeID")
-				Session("FullName") = reader("FullName")
-				'Session("JDescription") = reader("JobDescription")
-				'LblJDisc.Text = "Job Discription: " & Session("JDescription")
-			End While
-		Else
-			LblJDisc.Text = "problem with displaying info from database into boxes"
-		End If
-		cmd.Connection.Close()
+			reader = cmd.ExecuteReader(CommandBehavior.CloseConnection)
+			If reader.HasRows = True Then
+				While reader.Read
+					Session("EmployeeID") = reader("EmployeeID")
+					Session("FullName") = reader("FullName")
+					'Session("JDescription") = reader("JobDescription")
+					'LblJDisc.Text = "Job Discription: " & Session("JDescription")
+				End While
+			Else
+				LblJDisc.Text = "problem with displaying info from database into boxes"
+			End If
+		End Using
 	End Sub
 
 	Private Sub grdvCMTbatchesPopulate()
 		Dim Adapter As New OleDbDataAdapter
 		Dim Data As New DataTable
 		Dim SQL As String
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
-		Dim cmd As New OleDbCommand()
-		grdvCMTbatches.Visible = True
-		Select Case Session("JDescription")
-			Case "Cutting"
-				SQL = "SELECT CDH.BatchNo, EM.EntityName, EPC.ProductCode, SUM(CDH.JrsysToCut) AS [Total Jerseys To Cut], CSIM.CMTSpecialInstructionDetail
+		Using con As New OleDbConnection(cnString)
+			Dim cmd As New OleDbCommand()
+			grdvCMTbatches.Visible = True
+			Select Case Session("JDescription")
+				Case "Cutting"
+					SQL = "SELECT CDH.BatchNo, EM.EntityName, EPC.ProductCode, SUM(CDH.JrsysToCut) AS [Total Jerseys To Cut], CSIM.CMTSpecialInstructionDetail
         FROM (((((([CMT - CMTDetailsHeader] AS CDH 
 		INNER JOIN [KN - KnittingOrder] AS KO
 			On CDH.KnittingOrderID = KO.KnittingOrderID)
@@ -219,8 +220,8 @@ Public Class CMTOverveiw
 		WHERE (POH.BatchComplete = yes) AND (CDH.CutDataCaptured = no) AND (CDO.CutDate IS NULL) AND (CDH.Bundlecompleteview = no) 
 		GROUP BY CDH.BatchNo, EM.EntityName, EPC.ProductCode, CSIM.CMTSpecialInstructionDetail
 		ORDER BY CDH.BatchNo, EM.EntityName;"
-			Case "AttachVN"
-				SQL = "SELECT CDH.BatchNo, EM.EntityName, EPC.ProductCode, SUM(CDH.JrsysToCut) AS [Total Jerseys To Cut], CSIM.CMTSpecialInstructionDetail
+				Case "AttachVN"
+					SQL = "SELECT CDH.BatchNo, EM.EntityName, EPC.ProductCode, SUM(CDH.JrsysToCut) AS [Total Jerseys To Cut], CSIM.CMTSpecialInstructionDetail
         FROM (((((([CMT - CMTDetailsHeader] AS CDH 
 		INNER JOIN [KN - KnittingOrder] AS KO
 			On CDH.KnittingOrderID = KO.KnittingOrderID)
@@ -237,8 +238,8 @@ Public Class CMTOverveiw
 		WHERE (POH.BatchComplete = yes) AND (CDH.CutDataCaptured = yes) AND (CDO.AttachVDate IS NULL) AND (CDH.Bundlecompleteview = no) 
 		GROUP BY CDH.BatchNo, EM.EntityName, EPC.ProductCode, CSIM.CMTSpecialInstructionDetail
 		ORDER BY CDH.BatchNo, EM.EntityName;"
-			Case "Side Seams"
-				SQL = "SELECT CDH.BatchNo, EM.EntityName, EPC.ProductCode, SUM(CDH.JrsysToCut) AS [Total Jerseys To Cut], CSIM.CMTSpecialInstructionDetail
+				Case "Side Seams"
+					SQL = "SELECT CDH.BatchNo, EM.EntityName, EPC.ProductCode, SUM(CDH.JrsysToCut) AS [Total Jerseys To Cut], CSIM.CMTSpecialInstructionDetail
         FROM (((((([CMT - CMTDetailsHeader] AS CDH 
 		INNER JOIN [KN - KnittingOrder] AS KO
 			On CDH.KnittingOrderID = KO.KnittingOrderID)
@@ -255,8 +256,8 @@ Public Class CMTOverveiw
 		WHERE (POH.BatchComplete = yes) AND (CDH.CutDataCaptured = yes) AND (CDO.SideSeamsDate IS NULL) AND (CDH.Bundlecompleteview = no) 
 		GROUP BY CDH.BatchNo, EM.EntityName, EPC.ProductCode, CSIM.CMTSpecialInstructionDetail
 		ORDER BY CDH.BatchNo, EM.EntityName;"
-			Case "Pressing"
-				SQL = "SELECT CDH.BatchNo, EM.EntityName, EPC.ProductCode, SUM(CDH.JrsysToCut) AS [Total Jerseys To Cut], CSIM.CMTSpecialInstructionDetail
+				Case "Pressing"
+					SQL = "SELECT CDH.BatchNo, EM.EntityName, EPC.ProductCode, SUM(CDH.JrsysToCut) AS [Total Jerseys To Cut], CSIM.CMTSpecialInstructionDetail
         FROM (((((([CMT - CMTDetailsHeader] AS CDH 
 		INNER JOIN [KN - KnittingOrder] AS KO
 			On CDH.KnittingOrderID = KO.KnittingOrderID)
@@ -273,8 +274,8 @@ Public Class CMTOverveiw
 		WHERE (POH.BatchComplete = yes) AND (CDH.CutDataCaptured = yes) AND (CDO.PressDate IS NULL) AND (CDH.Bundlecompleteview = no) 
 		GROUP BY CDH.BatchNo, EM.EntityName, EPC.ProductCode, CSIM.CMTSpecialInstructionDetail
 		ORDER BY CDH.BatchNo, EM.EntityName;"
-			Case "Dispatch"
-				SQL = "SELECT CDH.BatchNo, EM.EntityName, EPC.ProductCode, SUM(CDH.JrsysToCut) AS [Total Jerseys To Cut], CSIM.CMTSpecialInstructionDetail
+				Case "Dispatch"
+					SQL = "SELECT CDH.BatchNo, EM.EntityName, EPC.ProductCode, SUM(CDH.JrsysToCut) AS [Total Jerseys To Cut], CSIM.CMTSpecialInstructionDetail
         FROM (((((([CMT - CMTDetailsHeader] AS CDH 
 		INNER JOIN [KN - KnittingOrder] AS KO
 			On CDH.KnittingOrderID = KO.KnittingOrderID)
@@ -291,30 +292,30 @@ Public Class CMTOverveiw
 		WHERE (POH.BatchComplete = yes) AND (CDH.CutDataCaptured = yes) AND (CDO.DispatchDate IS NULL) AND (CDH.Bundlecompleteview = no) 
 		GROUP BY CDH.BatchNo, EM.EntityName, EPC.ProductCode, CSIM.CMTSpecialInstructionDetail
 		ORDER BY CDH.BatchNo, EM.EntityName;"
-		End Select
+			End Select
 
-		con.Open()
-		cmd.Connection = con
-		cmd.CommandText = SQL
+			con.Open()
+			cmd.Connection = con
+			cmd.CommandText = SQL
 
-		Adapter.SelectCommand = cmd
-		Adapter.Fill(Data)
+			Adapter.SelectCommand = cmd
+			Adapter.Fill(Data)
 
-		grdvCMTbatches.DataSource = Data
-		grdvCMTbatches.DataBind()
-		cmd.Connection.Close()
+			grdvCMTbatches.DataSource = Data
+			grdvCMTbatches.DataBind()
+		End Using
 	End Sub
 	Private Sub updatecmtBundleComplete()
 		Dim cmdstring As String
 		cmdstring = "UPDATE [CMT - CMTDetailsHeader]
 							 SET Bundlecompleteview = yes"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
-		Dim cmd As New OleDbCommand(cmdstring)
-		cmd.CommandType = CommandType.Text
-		cmd.Connection = con
-		cmd.Connection.Open()
-		cmd.ExecuteNonQuery()
-		cmd.Connection.Close()
+		Using con As New OleDbConnection(cnString)
+			Dim cmd As New OleDbCommand(cmdstring)
+			cmd.CommandType = CommandType.Text
+			cmd.Connection = con
+			cmd.Connection.Open()
+			cmd.ExecuteNonQuery()
+		End Using
 	End Sub
 	Protected Sub ddlCMTStaff_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlCMTStaff.SelectedIndexChanged
 		If ddlCMTStaff.SelectedIndex = 0 Then
@@ -330,13 +331,13 @@ Public Class CMTOverveiw
 
 	Private Sub UpdatenullCMTspecialinstructions()
 		Dim cmdstring As String = "UPDATE [KN - KnittingOrder] SET CMTSpecialInstructionID = 415 WHERE CMTSpecialInstructionID IS NULL"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
-		Dim cmd As New OleDbCommand(cmdstring)
-		cmd.CommandType = CommandType.Text
-		cmd.Connection = con
-		cmd.Connection.Open()
-		cmd.ExecuteNonQuery()
-		cmd.Connection.Close()
+		Using con As New OleDbConnection(cnString)
+			Dim cmd As New OleDbCommand(cmdstring)
+			cmd.CommandType = CommandType.Text
+			cmd.Connection = con
+			cmd.Connection.Open()
+			cmd.ExecuteNonQuery()
+		End Using
 	End Sub
 
 

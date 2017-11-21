@@ -2,6 +2,7 @@
 Public Class CheckDataCapture
 	Inherits System.Web.UI.Page
 	Shared totPanelsmade As Integer
+	Private cnString As String = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4"
 	Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 		GetCheckDatadb()
 		getChecker()
@@ -42,63 +43,62 @@ Public Class CheckDataCapture
 		INNER JOIN [YN - Yarn Colour Defns] AS YCD
 			ON YM.YarnColourID = YCD.YarnColourID)
 		WHERE KDH.BundleNo = '" & Session("BundleNo") & "';"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;OLE DB Services=-4;OLE DB Services=-4;Data Source=|DataDirectory|\Shantara Production IT.mdb")
-		Dim cmd As New OleDbCommand(cmdstring)
-		Dim reader As OleDbDataReader
-		cmd.CommandType = CommandType.Text
-		cmd.Connection = con
-		cmd.Connection.Open()
-		cmd.ExecuteNonQuery()
+		Using con As New OleDbConnection(cnString)
+			Dim cmd As New OleDbCommand(cmdstring)
+			Dim reader As OleDbDataReader
+			cmd.CommandType = CommandType.Text
+			cmd.Connection = con
+			cmd.Connection.Open()
+			cmd.ExecuteNonQuery()
 
-		reader = cmd.ExecuteReader(CommandBehavior.CloseConnection)
-		If reader.HasRows = True Then
-			While reader.Read
-				txtorderNo.Text = reader("OrderNo")
-				lblBundleNo.Text = "BundleNo: " & reader("BundleNo")
-				txtBatchNo.Text = reader("BatchNo")
-				txtProdcode.Text = reader("ProductCode")
-				If reader.IsDBNull(8) Then
-					txtProdDescr.Text = ""
-				Else
-					txtProdDescr.Text = reader("ProdDescription")
-				End If
+			reader = cmd.ExecuteReader(CommandBehavior.CloseConnection)
+			If reader.HasRows = True Then
+				While reader.Read
+					txtorderNo.Text = reader("OrderNo")
+					lblBundleNo.Text = "BundleNo: " & reader("BundleNo")
+					txtBatchNo.Text = reader("BatchNo")
+					txtProdcode.Text = reader("ProductCode")
+					If reader.IsDBNull(8) Then
+						txtProdDescr.Text = ""
+					Else
+						txtProdDescr.Text = reader("ProdDescription")
+					End If
 
-				txtPToMake.Text = reader("PanelsToMake")
-				txtSize.Text = reader("Size")
-				txtComponent.Text = reader("ComponentName")
-				txtQPpanel.Text = reader("QtyPerPanel")
-				txtKwidth.Text = reader("ComponentWidth")
-				txtkLength.Text = reader("ComponentLength")
-				txtYarnColour.Text = reader("YarnColour")
-				txtPMade.Text = reader("PanelsMadeDay") + reader("PanelsMadeNight")
-			End While
-		Else
-			MsgBox("problem with displaying info from database into boxes")
-		End If
-		cmd.Connection.Close()
+					txtPToMake.Text = reader("PanelsToMake")
+					txtSize.Text = reader("Size")
+					txtComponent.Text = reader("ComponentName")
+					txtQPpanel.Text = reader("QtyPerPanel")
+					txtKwidth.Text = reader("ComponentWidth")
+					txtkLength.Text = reader("ComponentLength")
+					txtYarnColour.Text = reader("YarnColour")
+					txtPMade.Text = reader("PanelsMadeDay") + reader("PanelsMadeNight")
+				End While
+			Else
+				MsgBox("problem with displaying info from database into boxes")
+			End If
+		End Using
 	End Sub
 
 	Private Sub getChecker()
 		Dim strQuery As String = "SELECT EmployeeID, (EmployeeFirstName + ' ' + EmployeeLastName) AS [FullName] from [GN - EmployeeDetails] WHERE JobDescription = 'KnitChecker'"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
-		Dim cmd As New OleDbCommand()
-		If IsPostBack = False Then
-			ddlChecker.AppendDataBoundItems = True
-			cmd.CommandType = CommandType.Text
-			cmd.CommandText = strQuery
-			cmd.Connection = con
-			Try
-				con.Open()
-				ddlChecker.DataSource = cmd.ExecuteReader()
-				ddlChecker.DataTextField = "FullName"
-				ddlChecker.DataValueField = "EmployeeID"
-				ddlChecker.DataBind()
-			Catch ex As Exception
-				Throw ex
-			Finally
-				cmd.Connection.Close()
-			End Try
-		End If
+		Using con As New OleDbConnection(cnString)
+			Dim cmd As New OleDbCommand()
+			If IsPostBack = False Then
+				ddlChecker.AppendDataBoundItems = True
+				cmd.CommandType = CommandType.Text
+				cmd.CommandText = strQuery
+				cmd.Connection = con
+				Try
+					con.Open()
+					ddlChecker.DataSource = cmd.ExecuteReader()
+					ddlChecker.DataTextField = "FullName"
+					ddlChecker.DataValueField = "EmployeeID"
+					ddlChecker.DataBind()
+				Catch ex As Exception
+					Throw ex
+				End Try
+			End If
+		End Using
 	End Sub
 	Private Sub checkiffault()
 		If ddlFault.SelectedIndex = 1 Then
@@ -138,34 +138,34 @@ Public Class CheckDataCapture
 						", " & txtFQty.Text &
 						", " & txtFaultCollars.Text &
 						", " & txtFOthers.Text & ");"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
-		Dim cmd As New OleDbCommand(cmdstring)
-		cmd.CommandType = CommandType.Text
-		cmd.Connection = con
-		cmd.Connection.Open()
-		cmd.ExecuteNonQuery()
-		cmd.Connection.Close()
+		Using con As New OleDbConnection(cnString)
+			Dim cmd As New OleDbCommand(cmdstring)
+			cmd.CommandType = CommandType.Text
+			cmd.Connection = con
+			cmd.Connection.Open()
+			cmd.ExecuteNonQuery()
+		End Using
 	End Sub
 
 	Private Sub cdccheckweightexists()
 		Dim cmdstring = "SELECT  BundleNo
 						 FROM  [KN - KnittingDetailsWeights]
 						 WHERE BundleNo = '" & Session("BundleNo") & "'"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
-		Dim cmd As New OleDbCommand(cmdstring)
-		Dim reader As OleDbDataReader
-		cmd.CommandType = CommandType.Text
-		cmd.Connection = con
-		cmd.Connection.Open()
-		cmd.ExecuteNonQuery()
+		Using con As New OleDbConnection(cnString)
+			Dim cmd As New OleDbCommand(cmdstring)
+			Dim reader As OleDbDataReader
+			cmd.CommandType = CommandType.Text
+			cmd.Connection = con
+			cmd.Connection.Open()
+			cmd.ExecuteNonQuery()
 
-		reader = cmd.ExecuteReader(CommandBehavior.CloseConnection)
-		If reader.HasRows = True Then
-			cdcupdateweightrecord()
-		Else
-			cdcInsertweightrecord()
-		End If
-		cmd.Connection.Close()
+			reader = cmd.ExecuteReader(CommandBehavior.CloseConnection)
+			If reader.HasRows = True Then
+				cdcupdateweightrecord()
+			Else
+				cdcInsertweightrecord()
+			End If
+		End Using
 	End Sub
 	Private Sub cdcupdateweightrecord()
 		Dim cmdstring As String
@@ -174,13 +174,13 @@ Public Class CheckDataCapture
 						", BundleWasteWeight =" & txtBundleWasteWeight.Text &
 						", BundleFaultWeight = " & txtBundleFaultWeight.Text &
 						 " WHERE BundleNo = '" & Session("BundleNo") & "'"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
-		Dim cmd As New OleDbCommand(cmdstring)
-		cmd.CommandType = CommandType.Text
-		cmd.Connection = con
-		cmd.Connection.Open()
-		cmd.ExecuteNonQuery()
-		cmd.Connection.Close()
+		Using con As New OleDbConnection(cnString)
+			Dim cmd As New OleDbCommand(cmdstring)
+			cmd.CommandType = CommandType.Text
+			cmd.Connection = con
+			cmd.Connection.Open()
+			cmd.ExecuteNonQuery()
+		End Using
 	End Sub
 
 	Private Sub cdcInsertweightrecord()
@@ -190,13 +190,13 @@ Public Class CheckDataCapture
 						", " & txtBundleWasteWeight.Text &
 						", " & txtBundleFaultWeight.Text &
 					");"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
-		Dim cmd As New OleDbCommand(cmdstring)
-		cmd.CommandType = CommandType.Text
-		cmd.Connection = con
-		cmd.Connection.Open()
-		cmd.ExecuteNonQuery()
-		cmd.Connection.Close()
+		Using con As New OleDbConnection(cnString)
+			Dim cmd As New OleDbCommand(cmdstring)
+			cmd.CommandType = CommandType.Text
+			cmd.Connection = con
+			cmd.Connection.Open()
+			cmd.ExecuteNonQuery()
+		End Using
 	End Sub
 
 	Private Sub cdcUpdateheaderrecord()
@@ -205,24 +205,25 @@ Public Class CheckDataCapture
 					  SET Checker =" & ddlChecker.SelectedValue &
 						", DateChecked ='" & DateTime.Now &
 						"', Checkcomplete = yes 
+						  , BundleComplete = yes 
 						 WHERE BundleNo = '" & Session("BundleNo") & "'"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
-		Dim cmd As New OleDbCommand(cmdstring)
-		cmd.CommandType = CommandType.Text
-		cmd.Connection = con
-		cmd.Connection.Open()
-		cmd.ExecuteNonQuery()
-		cmd.Connection.Close()
+		Using con As New OleDbConnection(cnString)
+			Dim cmd As New OleDbCommand(cmdstring)
+			cmd.CommandType = CommandType.Text
+			cmd.Connection = con
+			cmd.Connection.Open()
+			cmd.ExecuteNonQuery()
+		End Using
 	End Sub
 	Public Sub UpdateCheckbatchComplete()
 		Dim cmdstring As String = "UPDATE [KN - ProductionOrderHeader] SET CheckBatchComplete = yes WHERE BatchNo =  '" & txtBatchNo.Text & "'"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
-		Dim cmd As New OleDbCommand(cmdstring)
-		cmd.CommandType = CommandType.Text
-		cmd.Connection = con
-		cmd.Connection.Open()
-		cmd.ExecuteNonQuery()
-		cmd.Connection.Close()
+		Using con As New OleDbConnection(cnString)
+			Dim cmd As New OleDbCommand(cmdstring)
+			cmd.CommandType = CommandType.Text
+			cmd.Connection = con
+			cmd.Connection.Open()
+			cmd.ExecuteNonQuery()
+		End Using
 	End Sub
 
 	Public Sub CheckbatchCompleteCheck()
@@ -235,23 +236,23 @@ Public Class CheckDataCapture
 		INNER JOIN [KN - KnittingDetailsHeader] KDH
 			ON POD.BatchNo = KDH.BatchNo)
 		WHERE (KDH.Checkcomplete = no) AND (POH.CheckBatchComplete = no) AND (KDH.BatchNo = '" & txtBatchNo.Text & "')"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
-		Dim cmd As New OleDbCommand(cmdstring)
-		Dim reader As OleDbDataReader
-		cmd.CommandType = CommandType.Text
-		cmd.Connection = con
-		cmd.Connection.Open()
-		cmd.ExecuteNonQuery()
+		Using con As New OleDbConnection(cnString)
+			Dim cmd As New OleDbCommand(cmdstring)
+			Dim reader As OleDbDataReader
+			cmd.CommandType = CommandType.Text
+			cmd.Connection = con
+			cmd.Connection.Open()
+			cmd.ExecuteNonQuery()
 
-		reader = cmd.ExecuteReader(CommandBehavior.CloseConnection)
-		If reader.HasRows = False Then
-			'MsgBox("check batch complete")
-			UpdateCheckbatchComplete()
-			Response.Redirect("~\CheckStore\CheckOverview.aspx")
-		Else
-			KnittbatchCompleteCheck()
-		End If
-		cmd.Connection.Close()
+			reader = cmd.ExecuteReader(CommandBehavior.CloseConnection)
+			If reader.HasRows = False Then
+				'MsgBox("check batch complete")
+				UpdateCheckbatchComplete()
+				Response.Redirect("~\CheckStore\CheckOverview.aspx")
+			Else
+				KnittbatchCompleteCheck()
+			End If
+		End Using
 	End Sub
 
 	Public Sub KnittbatchCompleteCheck()
@@ -268,23 +269,22 @@ Public Class CheckDataCapture
 		INNER JOIN [KN -Special Instructions Master] AS SIM
 			ON ko.SpecialInstructionID = SIM.SpecialInstructionID)
 		WHERE (kdh.BatchNo = '" & Session("BatchNo") & "') AND (kdh.KnittComplete = yes) AND (kdh.Checkcomplete = no);"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
-		Dim cmd As New OleDbCommand(cmdstring)
-		Dim reader As OleDbDataReader
-		cmd.CommandType = CommandType.Text
-		cmd.Connection = con
-		cmd.Connection.Open()
-		cmd.ExecuteNonQuery()
+		Using con As New OleDbConnection(cnString)
+			Dim cmd As New OleDbCommand(cmdstring)
+			Dim reader As OleDbDataReader
+			cmd.CommandType = CommandType.Text
+			cmd.Connection = con
+			cmd.Connection.Open()
+			cmd.ExecuteNonQuery()
 
-		reader = cmd.ExecuteReader(CommandBehavior.CloseConnection)
-		If reader.HasRows = False Then
-			'MsgBox("no more checks but outstandng bundles(batch incomplete)")
-			Response.Redirect("~\CheckStore\CheckOverview.aspx")
-		Else
-			Response.Redirect("~\CheckStore\CheckBundles.aspx?ID=" & txtBatchNo.Text)
-		End If
-		con.Close()
-		cmd.Dispose()
+			reader = cmd.ExecuteReader(CommandBehavior.CloseConnection)
+			If reader.HasRows = False Then
+				'MsgBox("no more checks but outstandng bundles(batch incomplete)")
+				Response.Redirect("~\CheckStore\CheckOverview.aspx")
+			Else
+				Response.Redirect("~\CheckStore\CheckBundles.aspx?ID=" & txtBatchNo.Text)
+			End If
+		End Using
 
 	End Sub
 

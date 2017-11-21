@@ -1,4 +1,4 @@
-﻿6<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/Site.Master" CodeBehind="CreateOrder.aspx.vb" Inherits="ShantaraProduction.CreateOrder" %>
+﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/Site.Master" CodeBehind="CreateOrder.aspx.vb" Inherits="ShantaraProduction.CreateOrder" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 	<div class="container-fluid">
 		<h1>Create New Order</h1>
@@ -12,12 +12,12 @@
 				</asp:DropDownList>
 			</div>
 			<div class="col-sm-4">
-				<label for="txtorderdate">Date Created(yyyy/mm/dd)</label>
-				<asp:TextBox runat="server" ID="txtorderdate" CssClass="form-control" Style="height: 34px; width: 100%; max-width: none" Enabled="False" AutoPostBack="True" />
+				<label for="txtorderdate">Date Created(dd/mm/yyyy)</label>
+				<asp:TextBox runat="server" ID="txtorderdate" CssClass="form-control" Style="height: 34px; width: 100%; max-width: none" Enabled="False" AutoPostBack="True" TextMode="DateTime" />
 			</div>
 			<div class="col-sm-4">
-				<label for="txtduedate">Required by date(yyyy/mm/dd)</label>
-				<asp:TextBox runat="server" ID="txtduedate" type="Date" CssClass="form-control" Style="height: 34px; width: 100%; max-width: none" Enabled="False" AutoPostBack="True" TextMode="Date" />
+				<label for="txtduedate">Required by date(dd/mm/yyyy)</label>
+				<asp:TextBox runat="server" ID="txtduedate" type="Date" CssClass="form-control" Style="height: 34px; width: 100%; max-width: none" Enabled="False" AutoPostBack="True" TextMode="DateTime" />
 			</div>
 			<div class="col-sm-4">
 				<asp:Label ID="lblerrorderno" runat="server" Text="" ForeColor="Red"></asp:Label>
@@ -25,12 +25,14 @@
 				<asp:TextBox runat="server" ID="txtOrderNo" CssClass="form-control" Style="height: 34px; width: 100%; max-width: none" Enabled="False" AutoPostBack="True" />
 			</div>
 			<div class="col-sm-4">
+				<div >
 				<asp:Label ID="lblerrSI" runat="server" Text="" ForeColor="Red"></asp:Label>
 				<label for="ddlSI">Special Instructions</label>
 				<asp:DropDownList ID="ddlSI" CssClass="form-control" Style="height: 34px; width: 100%; max-width: none" runat="server" AutoPostBack="true"
 					Enabled="False" AppendDataBoundItems="True">
 					<asp:ListItem Text="--Select Special Instructions--" Value=""></asp:ListItem>
 				</asp:DropDownList>
+				</div>
 			</div>
 			<div class="col-sm-4">
 				<asp:Label ID="lblerrCMTSI" runat="server" Text="" ForeColor="Red"></asp:Label>
@@ -105,4 +107,9 @@
 				</div>
 			</div>
 	</div>
+<%--	<script type="text/javascript">
+		$(function () {
+			$('#ddlSI').typeahead();
+		});
+	</script>--%>
 </asp:Content>

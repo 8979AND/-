@@ -9,15 +9,21 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%: Page.Title %> - Shantara Industries</title>
+	
 
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/bundles/modernizr") %>
     </asp:PlaceHolder>
-
+<link href="Content/typeahead.css" rel="stylesheet" />
     <webopt:bundlereference runat="server" path="~/Content/css" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 	<script type="text/javascript" src="http://cdn.rawgit.com/bassjobsen/Bootstrap-3-Typeahead/master/bootstrap3-typeahead.min.js"></script>
 <link rel="Stylesheet" href="https://twitter.github.io/typeahead.js/css/examples.css" />
+	<link href="Content/pickaday-date/pikaday.css" rel="stylesheet" />
+	<link href="Content/pickaday-date/site.css" rel="stylesheet" />
+	<link href="Content/pickaday-date/theme.css" rel="stylesheet" />
+	<link href="Content/pickaday-date/triangle.css" rel="stylesheet" />
+	<script src="Scripts/pikaday.js"></script>
 </head>
 
 <body>
@@ -59,15 +65,15 @@
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li><a runat="server" style="background-color: #00004d" id="KNITT" visible="true"
+                        <li><a runat="server" style="background-color: #ff4d4d" id="KNITT" visible="true"
                             href="~/Knitt/DisplayBatches">Knitt Display</a></li>
-                        <li><a runat="server" style="background-color: #000066" id="CHECKSTORE" visible="true" 
+                        <li><a runat="server" style="background-color: #ff8080" id="CHECKSTORE" visible="true" 
 							href="~/CheckStore/CheckOverview">Check Store</a></li>
-                        <li><a runat="server" style="background-color: #000080" id="CMT" visible="true"
+                        <li><a runat="server" style="background-color: #ffb3b3" id="CMT" visible="true"
                             href="~/CMT/CMTJob">CMT</a></li>
                         <li><a runat="server" style="background-color: #ffb31a" id="Corder" visible="true"
                             href="~/Management/CreateOrder">Create Order</a></li>
-                        <li><a runat="server" style="background-color: #ffb3e6" id="AYS" visible="true"
+                        <li><a runat="server" style="background-color: #b3ffb3; text-emphasis-color:darkmagenta" id="AYS" visible="true"
                             href="~/Management/Adjust_Yarn_Stock">Adjust Yarn Stock</a></li>
                         <li><a runat="server" id="UserOverview" visible="false"
                             href="~/Customers/UserOverview">Customers</a></li>

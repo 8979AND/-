@@ -1,6 +1,7 @@
 ﻿Imports System.Data.OleDb
 Public Class CMTDataCapture
 	Inherits System.Web.UI.Page
+	Private cnString As String = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4"
 
 	Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 		GetCMTDatadb()
@@ -34,57 +35,66 @@ Public Class CMTDataCapture
 		INNER JOIN [KN - CMT Special Instruction Master] AS CSIM
 			ON KO.CMTSpecialInstructionID = CSIM.SpecialInstructionID)
 		WHERE CDH.BundleNo = '" & Session("BundleNo") & "';"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
-		Dim cmd As New OleDbCommand(cmdstring)
-		Dim reader As OleDbDataReader
-		cmd.CommandType = CommandType.Text
-		cmd.Connection = con
-		cmd.Connection.Open()
-		cmd.ExecuteNonQuery()
+		Using con As New OleDbConnection(cnString)
+			Dim cmd As New OleDbCommand(cmdstring)
+			Dim reader As OleDbDataReader
+			cmd.CommandType = CommandType.Text
+			cmd.Connection = con
+			cmd.Connection.Open()
+			cmd.ExecuteNonQuery()
 
-		reader = cmd.ExecuteReader(CommandBehavior.CloseConnection)
-		If reader.HasRows = True Then
-			While reader.Read
-				txtorderNo.Text = reader("OrderNo")
-				lblBundleNo.Text = "BundleNo: " & reader("BundleNo")
-				txtBatchNo.Text = reader("BatchNo")
-				txtJtoCut.Text = reader("JrsysToCut")
-				If reader.IsDBNull(3) Then
-					txtAJCutD.Text = "0"
-				Else
-					txtAJCutD.Text = reader(3)
-				End If
+			reader = cmd.ExecuteReader(CommandBehavior.CloseConnection)
+			If reader.HasRows = True Then
+				While reader.Read
+					txtorderNo.Text = reader("OrderNo")
+					lblBundleNo.Text = "BundleNo: " & reader("BundleNo")
+					txtBatchNo.Text = reader("BatchNo")
+					txtJtoCut.Text = reader("JrsysToCut")
+					If reader.IsDBNull(3) Then
+						txtAJCutD.Text = "0"
+					Else
+						txtAJCutD.Text = reader(3)
+					End If
 
-				txtProdcode.Text = reader("ProductCode")
-				If reader.IsDBNull(6) Then
-					txtProdDescr.Text = ""
-				Else
-					txtProdDescr.Text = reader("ProdDescription")
-				End If
-				txtSize.Text = reader("Size")
-				txtCSIM.Text = reader("CMTSpecialInstructionDetail")
-				txtYarnColour.Text = reader("YarnColour")
-			End While
-		Else
-			MsgBox("problem with displaying info from database into boxes")
-		End If
-		If Session("JDescription") = "Cutting" Then
-			txtAJCutD.Visible = False
-			lblajc.Visible = False
-			txtJtoCut.Visible = True
-			lblj2c.Visible = True
-			txtactualJcut.Visible = True
-			lblajce.Visible = True
-		Else
-			txtAJCutD.Visible = True
-			lblajc.Visible = True
-			txtJtoCut.Visible = False
-			lblj2c.Visible = False
-			txtactualJcut.Visible = False
-			lblajce.Visible = False
-		End If
-		lblOperation.Text = Session("FullName") & " - " & Session("JDescription")
-		cmd.Connection.Close()
+					txtProdcode.Text = reader("ProductCode")
+					If reader.IsDBNull(6) Then
+						txtProdDescr.Text = ""
+					Else
+						txtProdDescr.Text = reader("ProdDescription")
+					End If
+					txtSize.Text = reader("Size")
+					txtCSIM.Text = reader("CMTSpecialInstructionDetail")
+					txtYarnColour.Text = reader("YarnColour")
+				End While
+			Else
+				MsgBox("problem with displaying info from database into boxes")
+			End If
+			If Session("JDescription") = "Cutting" Then
+				txtAJCutD.Visible = False
+				lblajc.Visible = False
+				txtJtoCut.Visible = True
+				lblj2c.Visible = True
+				txtactualJcut.Visible = True
+				lblajce.Visible = True
+				lblajce.Text = "Actual Jerseys Cut"
+			ElseIf Session("JDescription") = "Dispatch" Then
+				txtAJCutD.Visible = False
+				lblajc.Visible = False
+				txtJtoCut.Visible = True
+				lblj2c.Visible = True
+				lblajce.Text = "Jerseys Delivered"
+				txtactualJcut.Visible = True
+				lblajce.Visible = True
+			Else
+				txtAJCutD.Visible = True
+				lblajc.Visible = True
+				txtJtoCut.Visible = False
+				lblj2c.Visible = False
+				txtactualJcut.Visible = False
+				lblajce.Visible = False
+			End If
+			lblOperation.Text = Session("FullName") & " - " & Session("JDescription")
+		End Using
 	End Sub
 	Private Sub Updatecuttcaptured()
 		Dim cmdstring As String
@@ -92,14 +102,30 @@ Public Class CMTDataCapture
 							 SET CutDataCaptured = yes, 
 								 ActualJrsysCut = " & txtactualJcut.Text &
 							 " WHERE BundleNo = '" & Session("BundleNo") & "'"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
-		Dim cmd As New OleDbCommand(cmdstring)
-		cmd.CommandType = CommandType.Text
-		cmd.Connection = con
-		cmd.Connection.Open()
-		cmd.ExecuteNonQuery()
-		cmd.Connection.Close()
+		Using con As New OleDbConnection(cnString)
+			Dim cmd As New OleDbCommand(cmdstring)
+			cmd.CommandType = CommandType.Text
+			cmd.Connection = con
+			cmd.Connection.Open()
+			cmd.ExecuteNonQuery()
+		End Using
 	End Sub
+
+	Private Sub Updatedeliverycaptured()
+		Dim cmdstring As String
+		cmdstring = "UPDATE [CMT - CMTDetailsHeader]
+							 SET CutDataCaptured = yes, 
+								 JrsysDelivered = " & txtactualJcut.Text &
+							 " WHERE BundleNo = '" & Session("BundleNo") & "'"
+		Using con As New OleDbConnection(cnString)
+			Dim cmd As New OleDbCommand(cmdstring)
+			cmd.CommandType = CommandType.Text
+			cmd.Connection = con
+			cmd.Connection.Open()
+			cmd.ExecuteNonQuery()
+		End Using
+	End Sub
+
 	Private Sub UpdatewhereJdesc()
 		Dim cmdstring As String
 		Select Case Session("JDescription")
@@ -129,14 +155,15 @@ Public Class CMTDataCapture
 							 SET DispatcherID =" & Session("EmployeeID") &
 							", DispatchDate ='" & DateTime.Now &
 							"' WHERE BundleNo = '" & Session("BundleNo") & "'"
+				Updatedeliverycaptured()
 		End Select
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
-		Dim cmd As New OleDbCommand(cmdstring)
-		cmd.CommandType = CommandType.Text
-		cmd.Connection = con
-		cmd.Connection.Open()
-		cmd.ExecuteNonQuery()
-		cmd.Connection.Close()
+		Using con As New OleDbConnection(cnString)
+			Dim cmd As New OleDbCommand(cmdstring)
+			cmd.CommandType = CommandType.Text
+			cmd.Connection = con
+			cmd.Connection.Open()
+			cmd.ExecuteNonQuery()
+		End Using
 	End Sub
 
 	Public Sub CMTbatchCompleteCheck()
@@ -173,72 +200,74 @@ Public Class CMTDataCapture
 								ON CDO.BundleNo = CDH.BundleNo)
 							 WHERE (CDO.DispatchDate IS NULL) AND (CDH.BatchNo = '" & txtBatchNo.Text & "') AND (CDH.CutDataCaptured = yes)"
 		End Select
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
-		Dim cmd As New OleDbCommand(cmdstring)
-		Dim reader As OleDbDataReader
-		cmd.CommandType = CommandType.Text
-		cmd.Connection = con
-		cmd.Connection.Open()
-		cmd.ExecuteNonQuery()
+		Using con As New OleDbConnection(cnString)
+			Dim cmd As New OleDbCommand(cmdstring)
+			Dim reader As OleDbDataReader
+			cmd.CommandType = CommandType.Text
+			cmd.Connection = con
+			cmd.Connection.Open()
+			cmd.ExecuteNonQuery()
 
-		reader = cmd.ExecuteReader(CommandBehavior.CloseConnection)
-		If reader.HasRows = False Then
-			Response.Redirect("~/CMT/CMTJob.aspx")
-		Else
-			Response.Redirect("~/CMT/CMTBundles.aspx?ID=" & txtBatchNo.Text)
-		End If
-		cmd.Connection.Close()
+			reader = cmd.ExecuteReader(CommandBehavior.CloseConnection)
+			If reader.HasRows = False Then
+				Response.Redirect("~/CMT/CMTJob.aspx")
+			Else
+				Response.Redirect("~/CMT/CMTBundles.aspx?ID=" & txtBatchNo.Text)
+			End If
+		End Using
 	End Sub
 	Private Sub UpdateCMTBundleCompleteview()
 		Dim cmdstring As String
 		cmdstring = "UPDATE [CMT - CMTDetailsHeader]
 							 SET Bundlecompleteview = yes
 							 WHERE BundleNo = '" & Session("BundleNo") & "'"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
-		Dim cmd As New OleDbCommand(cmdstring)
-		cmd.CommandType = CommandType.Text
-		cmd.Connection = con
-		cmd.Connection.Open()
-		cmd.ExecuteNonQuery()
-		cmd.Connection.Close()
+		Using con As New OleDbConnection(cnString)
+			Dim cmd As New OleDbCommand(cmdstring)
+			cmd.CommandType = CommandType.Text
+			cmd.Connection = con
+			cmd.Connection.Open()
+			cmd.ExecuteNonQuery()
+		End Using
 	End Sub
 	Public Sub CMTbundleCompleteviewCheck()
 		Dim cmdstring As String
 		cmdstring = "SELECT BundleNo
 					 FROM [CMT - CMTDetailsOperations] 
 					 WHERE (CutDate IS NOT NULL) AND (AttachVDate IS NOT NULL) AND (SideSeamsDate IS NOT NULL) AND (PressDate IS NOT NULL) AND (DispatchDate IS NOT NULL) AND (BundleNo = '" & Session("BundleNo") & "')"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
-		Dim cmd As New OleDbCommand(cmdstring)
-		Dim reader As OleDbDataReader
-		cmd.CommandType = CommandType.Text
-		cmd.Connection = con
-		cmd.Connection.Open()
-		cmd.ExecuteNonQuery()
+		Using con As New OleDbConnection(cnString)
+			Dim cmd As New OleDbCommand(cmdstring)
+			Dim reader As OleDbDataReader
+			cmd.CommandType = CommandType.Text
+			cmd.Connection = con
+			cmd.Connection.Open()
+			cmd.ExecuteNonQuery()
 
-		reader = cmd.ExecuteReader(CommandBehavior.CloseConnection)
-		If reader.HasRows = True Then
-			'MsgBox("cmt bundle complete")
-			UpdateCMTBundleCompleteview()
-			CMTbatchCompleteCheck()
-		Else
-			CMTbatchCompleteCheck()
-		End If
-		cmd.Connection.Close()
+			reader = cmd.ExecuteReader(CommandBehavior.CloseConnection)
+			If reader.HasRows = True Then
+				'MsgBox("cmt bundle complete")
+				UpdateCMTBundleCompleteview()
+				CMTbatchCompleteCheck()
+			Else
+				CMTbatchCompleteCheck()
+			End If
+		End Using
 	End Sub
 
 	Protected Sub BtnCaptureBundle_Click(sender As Object, e As EventArgs) Handles BtnCaptureBundle.Click
-		If Session("JDescription") = "Cutting" Then
-			If lblajce.Text <> "0" Then
-				lblerrajce.Visible = False
-				UpdatewhereJdesc()
-				CMTbundleCompleteviewCheck()
+		If Session("JDescription") = "Cutting" Or Session("JDescription") = "Dispatch" Then
+			If txtactualJcut.Text <> "0" Or txtactualJcut.Text.Length <> 0 Then
+				'lblerrajce.Visible = False
+				'UpdatewhereJdesc()
+				'CMTbundleCompleteviewCheck()
+				MsgBox("something wrong")
 			Else
 				lblerrajce.Visible = True
 				lblerrajce.Text = "please enter Valid number of jerseys"
+				'Exit Sub
 			End If
 		Else
-			UpdatewhereJdesc()
-			CMTbundleCompleteviewCheck()
+			'UpdatewhereJdesc()
+			'CMTbundleCompleteviewCheck()
 		End If
 
 

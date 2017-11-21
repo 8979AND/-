@@ -1909,6 +1909,51 @@ Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
 </member>
+<member name="F:ShantaraProduction.ProductionOrderIssue._MachineGroupDataSource">
+<summary>
+MachineGroupDataSource control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:ShantaraProduction.ProductionOrderIssue._lblMachineGroupAllocation">
+<summary>
+lblMachineGroupAllocation control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:ShantaraProduction.ProductionOrderIssue._lblerrMGA">
+<summary>
+lblerrMGA control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:ShantaraProduction.ProductionOrderIssue._DisplayMachineGroupAllocation">
+<summary>
+DisplayMachineGroupAllocation control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:ShantaraProduction.ProductionOrderIssue._grdvMachineGroupAllocation">
+<summary>
+grdvMachineGroupAllocation control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
 <member name="F:ShantaraProduction.ProductionOrderIssue._dispProdOrderDetails">
 <summary>
 dispProdOrderDetails control.

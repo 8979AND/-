@@ -2,6 +2,7 @@
 Imports System.Data.OleDb
 Public Class Edit_Yarn_Invoice
 	Inherits System.Web.UI.Page
+	Private cnString As String = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4"
 
 	Private YarnID As Integer
 	Private w, h As Decimal
@@ -20,60 +21,57 @@ Public Class Edit_Yarn_Invoice
 		INNER JOIN [YN - Yarn Colour Defns] AS YC
 			On YM.YarnColourID = YC.YarnColourID) 
         WHERE YM.YarnID = " & YarnID & ";"
-			Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
-			Dim cmd As New OleDbCommand(cmdstring)
-			Dim reader As OleDbDataReader
-			cmd.CommandType = CommandType.Text
-			cmd.Connection = con
-			cmd.Connection.Open()
-			cmd.ExecuteNonQuery()
-			reader = cmd.ExecuteReader(CommandBehavior.CloseConnection)
-			While reader.Read
-				lblYarn.Text = "YarnID: " & reader("YarnID")
-				txteYdyelot.Text = reader("YarnDyelot")
-				ddleYcolour.SelectedValue = reader("YarnColourID")
-				txteYweight.Text = Replace(reader("YarnPurchaceWeight"), ".", ",")
-				txteYcartons.Text = reader("YarnPurchaseCartons")
-			End While
-			con.Close()
-			cmd.Dispose()
-			con.Dispose()
+			Using con As New OleDbConnection(cnString)
+				Dim cmd As New OleDbCommand(cmdstring)
+				Dim reader As OleDbDataReader
+				cmd.CommandType = CommandType.Text
+				cmd.Connection = con
+				cmd.Connection.Open()
+				cmd.ExecuteNonQuery()
+				reader = cmd.ExecuteReader(CommandBehavior.CloseConnection)
+				While reader.Read
+					lblYarn.Text = "YarnID: " & reader("YarnID")
+					txteYdyelot.Text = reader("YarnDyelot")
+					ddleYcolour.SelectedValue = reader("YarnColourID")
+					txteYweight.Text = Replace(reader("YarnPurchaceWeight"), ".", ",")
+					txteYcartons.Text = reader("YarnPurchaseCartons")
+				End While
+			End Using
 		End If
 	End Sub
 
 	Private Sub getColour()
 		Dim strQuery As String = "SELECT YarnColourID, YarnColour from [YN - Yarn Colour Defns]"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
-		Dim cmd As New OleDbCommand()
-		If IsPostBack = False Then
-			ddleYcolour.AppendDataBoundItems = True
-			cmd.CommandType = CommandType.Text
-			cmd.CommandText = strQuery
-			cmd.Connection = con
-			Try
-				con.Open()
-				ddleYcolour.DataSource = cmd.ExecuteReader()
-				ddleYcolour.DataTextField = "YarnColour"
-				ddleYcolour.DataValueField = "YarnColourID"
-				ddleYcolour.DataBind()
-			Catch ex As Exception
-				Throw ex
-			Finally
-				cmd.Connection.Close()
-			End Try
-		End If
+		Using con As New OleDbConnection(cnString)
+			Dim cmd As New OleDbCommand()
+			If IsPostBack = False Then
+				ddleYcolour.AppendDataBoundItems = True
+				cmd.CommandType = CommandType.Text
+				cmd.CommandText = strQuery
+				cmd.Connection = con
+				Try
+					con.Open()
+					ddleYcolour.DataSource = cmd.ExecuteReader()
+					ddleYcolour.DataTextField = "YarnColour"
+					ddleYcolour.DataValueField = "YarnColourID"
+					ddleYcolour.DataBind()
+				Catch ex As Exception
+					Throw ex
+				End Try
+			End If
+		End Using
 	End Sub
 
 	Private Sub InvoiceDyelotUpdate()
 		YarnID = CInt(Request.QueryString("ID").ToString())
 		Dim cmdstring As String = "UPDATE [YN - Yarn Master] SET YarnDyelot='" & txteYdyelot.Text & "',YarnColourID=" & ddleYcolour.SelectedValue & ",YarnPurchaceWeight='" & txteYweight.Text & "',YarnPurchaseCartons=" & txteYcartons.Text & ",CurrentWeight='" & txteYweight.Text & "',CurrentCartons=" & txteYcartons.Text & " WHERE YarnID=" & YarnID
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
-		Dim cmd As New OleDbCommand(cmdstring)
-		cmd.CommandType = CommandType.Text
-		cmd.Connection = con
-		cmd.Connection.Open()
-		cmd.ExecuteNonQuery()
-		cmd.Connection.Close()
+		Using con As New OleDbConnection(cnString)
+			Dim cmd As New OleDbCommand(cmdstring)
+			cmd.CommandType = CommandType.Text
+			cmd.Connection = con
+			cmd.Connection.Open()
+			cmd.ExecuteNonQuery()
+		End Using
 	End Sub
 
 	Protected Sub btnEdit_Click(sender As Object, e As EventArgs) Handles btnEdit.Click

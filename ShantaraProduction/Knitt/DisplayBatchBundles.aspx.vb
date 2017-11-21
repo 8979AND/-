@@ -3,6 +3,8 @@ Imports System.Data.OleDb
 Public Class DisplayBatchs
 	Inherits System.Web.UI.Page
 	Private BatchNo As String
+	Private cnString As String = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4"
+
 	Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 		grdvbatchprodnBundlePopulate()
 		grdvprodnBundlesCheckedPopulate()
@@ -13,13 +15,13 @@ Public Class DisplayBatchs
 		'Dim Adapter As New SqlDataAdapter
 		Dim Data As New DataTable
 		Dim SQL As String
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
-		'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
-		Dim cmd As New OleDbCommand()
-		'Dim cmd As New SqlCommand()
-		grdvbatchprodnBundle.Visible = True
-		Session("BatchNo") = Request.QueryString("ID").ToString()
-		SQL = "SELECT kdh.BatchNo, kdh.BundleNo, (sm.[Size Abbreviation]) AS [Size], (cm.ComponentName) AS [Component], kdh.PanelsToMake, (SIM.SpecialInstructionDetail) AS [Special Instructions]
+		Using con As New OleDbConnection(cnString)
+			'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
+			Dim cmd As New OleDbCommand()
+			'Dim cmd As New SqlCommand()
+			grdvbatchprodnBundle.Visible = True
+			Session("BatchNo") = Request.QueryString("ID").ToString()
+			SQL = "SELECT kdh.BatchNo, kdh.BundleNo, (sm.[Size Abbreviation]) AS [Size], (cm.ComponentName) AS [Component], kdh.PanelsToMake, (SIM.SpecialInstructionDetail) AS [Special Instructions]
         FROM ((((([KN - KnittingDetailsHeader] AS kdh
 		INNER JOIN [KN - KnittingOrder] AS ko
 			On kdh.KnittingOrderID = ko.KnittingOrderID )
@@ -33,29 +35,27 @@ Public Class DisplayBatchs
 			ON ko.SpecialInstructionID = SIM.SpecialInstructionID)
 		WHERE (kdh.BatchNo = '" & Session("BatchNo") & "') AND (kdh.KnittComplete = no);"
 
-		con.Open()
-		cmd.Connection = con
-		cmd.CommandText = SQL
+			con.Open()
+			cmd.Connection = con
+			cmd.CommandText = SQL
 
-		Adapter.SelectCommand = cmd
-		Adapter.Fill(Data)
+			Adapter.SelectCommand = cmd
+			Adapter.Fill(Data)
 
-		grdvbatchprodnBundle.DataSource = Data
-		grdvbatchprodnBundle.DataBind()
-		con.Close()
-		cmd.Dispose()
-		con.Dispose()
+			grdvbatchprodnBundle.DataSource = Data
+			grdvbatchprodnBundle.DataBind()
+		End Using
 	End Sub
 
 	Private Sub grdvprodnBundlesCheckedPopulate()
 		Dim Adapter As New OleDbDataAdapter
 		Dim Data As New DataTable
 		Dim SQL As String
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
-		Dim cmd As New OleDbCommand()
-		grdvprodnBundlesChecked.Visible = True
-		Session("BatchNo") = Request.QueryString("ID").ToString()
-		SQL = "SELECT kdh.BatchNo, kdh.BundleNo, (sm.[Size Abbreviation]) AS [Size], (cm.ComponentName) AS [Component], kdh.PanelsToMake, (SIM.SpecialInstructionDetail) AS [Special Instructions]
+		Using con As New OleDbConnection(cnString)
+			Dim cmd As New OleDbCommand()
+			grdvprodnBundlesChecked.Visible = True
+			Session("BatchNo") = Request.QueryString("ID").ToString()
+			SQL = "SELECT kdh.BatchNo, kdh.BundleNo, (sm.[Size Abbreviation]) AS [Size], (cm.ComponentName) AS [Component], kdh.PanelsToMake, (SIM.SpecialInstructionDetail) AS [Special Instructions]
         FROM ((((([KN - KnittingDetailsHeader] AS kdh
 		INNER JOIN [KN - KnittingOrder] AS ko
 			On kdh.KnittingOrderID = ko.KnittingOrderID )
@@ -68,16 +68,16 @@ Public Class DisplayBatchs
 		INNER JOIN [KN -Special Instructions Master] AS SIM
 			ON ko.SpecialInstructionID = SIM.SpecialInstructionID)
 		WHERE (kdh.BatchNo = '" & Session("BatchNo") & "') AND (kdh.KnittComplete = yes);"
-		con.Open()
-		cmd.Connection = con
-		cmd.CommandText = SQL
+			con.Open()
+			cmd.Connection = con
+			cmd.CommandText = SQL
 
-		Adapter.SelectCommand = cmd
-		Adapter.Fill(Data)
+			Adapter.SelectCommand = cmd
+			Adapter.Fill(Data)
 
-		grdvprodnBundlesChecked.DataSource = Data
-		grdvprodnBundlesChecked.DataBind()
-		cmd.Connection.Close()
+			grdvprodnBundlesChecked.DataSource = Data
+			grdvprodnBundlesChecked.DataBind()
+		End Using
 	End Sub
 
 End Class

@@ -23,6 +23,51 @@ Partial Public Class ProductionOrderIssue
     Protected WithEvents txtbatchno As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
+    '''MachineGroupDataSource control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents MachineGroupDataSource As Global.System.Web.UI.WebControls.SqlDataSource
+    
+    '''<summary>
+    '''lblMachineGroupAllocation control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblMachineGroupAllocation As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''lblerrMGA control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblerrMGA As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''DisplayMachineGroupAllocation control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents DisplayMachineGroupAllocation As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
+    '''grdvMachineGroupAllocation control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents grdvMachineGroupAllocation As Global.System.Web.UI.WebControls.GridView
+    
+    '''<summary>
     '''dispProdOrderDetails control.
     '''</summary>
     '''<remarks>

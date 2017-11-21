@@ -3,6 +3,7 @@ Imports System.Data.OleDb
 Imports System.Data.Odbc
 Public Class DisplayBatchBundles
 	Inherits System.Web.UI.Page
+	Private cnString As String = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4"
 
 	Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 		Updatenullspecialinstructions()
@@ -16,12 +17,12 @@ Public Class DisplayBatchBundles
 		'Dim Adapter As New SqlDataAdapter
 		Dim Data As New DataTable
 		Dim SQL As String
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
-		'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
-		Dim cmd As New OleDbCommand()
-		'Dim cmd As New SqlCommand()
-		grdvbatchprodn.Visible = True
-		SQL = "SELECT DISTINCT [KN - ProductionOrderDetails].BatchNo, 
+		Using con As New OleDbConnection(cnString)
+			'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
+			Dim cmd As New OleDbCommand()
+			'Dim cmd As New SqlCommand()
+			grdvbatchprodn.Visible = True
+			SQL = "SELECT DISTINCT [KN - ProductionOrderDetails].BatchNo, 
 					  [GN - EntityMaster].EntityName, 
 					  [FG - End Product Codes].ProductCode,
 					  [KN -Special Instructions Master].SpecialInstructionDetail,
@@ -41,44 +42,44 @@ Public Class DisplayBatchBundles
 			ON [KN - KnittingDetailsHeader].BatchNo = [KN - ProductionOrderDetails].BatchNo)
 		WHERE [KN - ProductionOrderHeader].KnittBatchComplete = no
 		ORDER BY [KN - ProductionOrderDetails].BatchNo, [KN - ProductionOrderHeader].DateIssued, [GN - EntityMaster].EntityName;"
-		con.Open()
-		cmd.Connection = con
-		cmd.CommandText = SQL
+			con.Open()
+			cmd.Connection = con
+			cmd.CommandText = SQL
 
-		Adapter.SelectCommand = cmd
-		Adapter.Fill(Data)
+			Adapter.SelectCommand = cmd
+			Adapter.Fill(Data)
 
-		grdvbatchprodn.DataSource = Data
-		grdvbatchprodn.DataBind()
-		cmd.Connection.Close()
+			grdvbatchprodn.DataSource = Data
+			grdvbatchprodn.DataBind()
+		End Using
 	End Sub
 
 	Private Sub Updatenullspecialinstructions()
 		Dim cmdstring As String = "UPDATE [KN - KnittingOrder] SET SpecialInstructionID = 43 WHERE SpecialInstructionID IS NULL"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
-		'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
-		Dim cmd As New OleDbCommand(cmdstring)
-		'Dim cmd As New SqlCommand(cmdstring)
-		cmd.CommandType = CommandType.Text
-		cmd.Connection = con
-		cmd.Connection.Open()
-		cmd.ExecuteNonQuery()
-		cmd.Connection.Close()
+		Using con As New OleDbConnection(cnString)
+			'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
+			Dim cmd As New OleDbCommand(cmdstring)
+			'Dim cmd As New SqlCommand(cmdstring)
+			cmd.CommandType = CommandType.Text
+			cmd.Connection = con
+			cmd.Connection.Open()
+			cmd.ExecuteNonQuery()
+		End Using
 	End Sub
 
 	Private Sub UpdateAllRecordscompletes()
 		Dim cmdstring As String
 		cmdstring = "UPDATE [KN - ProductionOrderHeader]
 					 SET BatchComplete = no"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
-		'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
-		Dim cmd As New OleDbCommand(cmdstring)
-		'Dim cmd As New SqlCommand()
-		cmd.CommandType = CommandType.Text
-		cmd.Connection = con
-		cmd.Connection.Open()
-		cmd.ExecuteNonQuery()
-		cmd.Connection.Close()
+		Using con As New OleDbConnection(cnString)
+			'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
+			Dim cmd As New OleDbCommand(cmdstring)
+			'Dim cmd As New SqlCommand()
+			cmd.CommandType = CommandType.Text
+			cmd.Connection = con
+			cmd.Connection.Open()
+			cmd.ExecuteNonQuery()
+		End Using
 		'MsgBox("all records batch complete checkbox checked")
 	End Sub
 
@@ -86,15 +87,15 @@ Public Class DisplayBatchBundles
 		Dim cmdstring As String
 		cmdstring = "UPDATE [KN - KnittingDetailsHeader]
 					 SET KnittComplete = no, Checkcomplete = no"
-		Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4")
-		'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
-		Dim cmd As New OleDbCommand(cmdstring)
-		'Dim cmd As New SqlCommand()
-		cmd.CommandType = CommandType.Text
-		cmd.Connection = con
-		cmd.Connection.Open()
-		cmd.ExecuteNonQuery()
-		cmd.Connection.Close()
+		Using con As New OleDbConnection(cnString)
+			'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
+			Dim cmd As New OleDbCommand(cmdstring)
+			'Dim cmd As New SqlCommand()
+			cmd.CommandType = CommandType.Text
+			cmd.Connection = con
+			cmd.Connection.Open()
+			cmd.ExecuteNonQuery()
+		End Using
 		'MsgBox("all records bundle complete checkbox unchecked")
 	End Sub
 End Class
