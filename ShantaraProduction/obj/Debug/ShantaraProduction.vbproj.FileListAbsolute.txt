@@ -257,3 +257,5 @@ C:\Users\Deepak Vallabh\Documents\shantara\ShantaraProduction\ShantaraProduction
 C:\Users\Deepak Vallabh\Documents\shantara\ShantaraProduction\ShantaraProduction\bin\zxing.presentation.pdb
 C:\Users\Deepak Vallabh\Documents\shantara\ShantaraProduction\ShantaraProduction\bin\zxing.presentation.xml
 C:\Users\Deepak Vallabh\Documents\shantara\ShantaraProduction\ShantaraProduction\bin\AjaxControlToolkit.dll
+C:\Users\Deepak Vallabh\Documents\shantara\ShantaraProduction\ShantaraProduction\bin\GemBox.Spreadsheet.dll
+C:\Users\Deepak Vallabh\Documents\shantara\ShantaraProduction\ShantaraProduction\bin\GemBox.Spreadsheet.xml

@@ -2,6 +2,9 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<div class="container-fluid">
+		<br />
+		<br />
+		<br />
 		<h1>Yarn Transaction from Stock</h1>
 		<br />
 		<h4><asp:Label ID="lblYarnID" runat="server"></asp:Label></h4>

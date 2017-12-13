@@ -45,11 +45,33 @@ Public Class SiteMaster
         End If
     End Sub
 
-    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+	Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+		If Session("Auth_Level") = 1 Then
+			KNITT.Visible = True
+			CMT.Visible = True
+			CHECKSTORE.Visible = True
+			Corder.Visible = True
+			Yarn.Visible = True
+		ElseIf Session("Auth_Level") = 2 Then
+			KNITT.Visible = True
+			CMT.Visible = True
+			CHECKSTORE.Visible = True
+			Corder.Visible = False
+			Yarn.Visible = False
+		Else
+			KNITT.Visible = True
+			CMT.Visible = True
+			CHECKSTORE.Visible = True
+			Corder.Visible = False
+			Yarn.Visible = False
 
-    End Sub
+		End If
 
-    Protected Sub Unnamed_LoggingOut(sender As Object, e As LoginCancelEventArgs)
+
+
+	End Sub
+
+	Protected Sub Unnamed_LoggingOut(sender As Object, e As LoginCancelEventArgs)
         Context.GetOwinContext().Authentication.SignOut(DefaultAuthenticationTypes.ApplicationCookie)
     End Sub
 

@@ -131,22 +131,13 @@ Partial Public Class Recieve_yarn
     Protected WithEvents grdvInvoiceDyelots As Global.System.Web.UI.WebControls.GridView
     
     '''<summary>
-    '''btnyarninvcaptur control.
+    '''btnyarninvCheck control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnyarninvcaptur As Global.System.Web.UI.WebControls.LinkButton
-    
-    '''<summary>
-    '''btnBack control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents btnBack As Global.System.Web.UI.WebControls.LinkButton
+    Protected WithEvents btnyarninvCheck As Global.System.Web.UI.WebControls.LinkButton
     
     '''<summary>
     '''displayInvoiceSummary control.
@@ -174,4 +165,22 @@ Partial Public Class Recieve_yarn
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents grdvInvoiceSummary As Global.System.Web.UI.WebControls.GridView
+    
+    '''<summary>
+    '''btncaptureinv control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btncaptureinv As Global.System.Web.UI.WebControls.LinkButton
+    
+    '''<summary>
+    '''btnBack control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnBack As Global.System.Web.UI.WebControls.LinkButton
 End Class

@@ -42,9 +42,10 @@ Public Class CheckDataCapture
 			ON PYA.YarnID = YM.YarnID)
 		INNER JOIN [YN - Yarn Colour Defns] AS YCD
 			ON YM.YarnColourID = YCD.YarnColourID)
-		WHERE KDH.BundleNo = '" & Session("BundleNo") & "';"
+		WHERE KDH.BundleNo = @BundleNo;"
 		Using con As New OleDbConnection(cnString)
 			Dim cmd As New OleDbCommand(cmdstring)
+			cmd.Parameters.AddWithValue("@BundleNo", Session("BundleNo"))
 			Dim reader As OleDbDataReader
 			cmd.CommandType = CommandType.Text
 			cmd.Connection = con
@@ -150,9 +151,10 @@ Public Class CheckDataCapture
 	Private Sub cdccheckweightexists()
 		Dim cmdstring = "SELECT  BundleNo
 						 FROM  [KN - KnittingDetailsWeights]
-						 WHERE BundleNo = '" & Session("BundleNo") & "'"
+						 WHERE BundleNo = @BundleNo"
 		Using con As New OleDbConnection(cnString)
 			Dim cmd As New OleDbCommand(cmdstring)
+			cmd.Parameters.AddWithValue("@BundleNo", Session("BundleNo"))
 			Dim reader As OleDbDataReader
 			cmd.CommandType = CommandType.Text
 			cmd.Connection = con
@@ -173,9 +175,10 @@ Public Class CheckDataCapture
 					  SET BundleWeight =" & txtBundleWeight.Text &
 						", BundleWasteWeight =" & txtBundleWasteWeight.Text &
 						", BundleFaultWeight = " & txtBundleFaultWeight.Text &
-						 " WHERE BundleNo = '" & Session("BundleNo") & "'"
+						 " WHERE BundleNo = @BundleNo"
 		Using con As New OleDbConnection(cnString)
 			Dim cmd As New OleDbCommand(cmdstring)
+			cmd.Parameters.AddWithValue("@BundleNo", Session("BundleNo"))
 			cmd.CommandType = CommandType.Text
 			cmd.Connection = con
 			cmd.Connection.Open()
@@ -206,9 +209,10 @@ Public Class CheckDataCapture
 						", DateChecked ='" & DateTime.Now &
 						"', Checkcomplete = yes 
 						  , BundleComplete = yes 
-						 WHERE BundleNo = '" & Session("BundleNo") & "'"
+						 WHERE BundleNo = @BundleNo"
 		Using con As New OleDbConnection(cnString)
 			Dim cmd As New OleDbCommand(cmdstring)
+			cmd.Parameters.AddWithValue("@BundleNo", Session("BundleNo"))
 			cmd.CommandType = CommandType.Text
 			cmd.Connection = con
 			cmd.Connection.Open()
@@ -216,9 +220,10 @@ Public Class CheckDataCapture
 		End Using
 	End Sub
 	Public Sub UpdateCheckbatchComplete()
-		Dim cmdstring As String = "UPDATE [KN - ProductionOrderHeader] SET CheckBatchComplete = yes WHERE BatchNo =  '" & txtBatchNo.Text & "'"
+		Dim cmdstring As String = "UPDATE [KN - ProductionOrderHeader] SET CheckBatchComplete = yes WHERE BatchNo =  @BatchNo"
 		Using con As New OleDbConnection(cnString)
 			Dim cmd As New OleDbCommand(cmdstring)
+			cmd.Parameters.AddWithValue("@BatchNo", txtBatchNo.Text)
 			cmd.CommandType = CommandType.Text
 			cmd.Connection = con
 			cmd.Connection.Open()
@@ -235,9 +240,10 @@ Public Class CheckDataCapture
 			ON POD.BatchNo = POH.BatchNo)
 		INNER JOIN [KN - KnittingDetailsHeader] KDH
 			ON POD.BatchNo = KDH.BatchNo)
-		WHERE (KDH.Checkcomplete = no) AND (POH.CheckBatchComplete = no) AND (KDH.BatchNo = '" & txtBatchNo.Text & "')"
+		WHERE (KDH.Checkcomplete = no) AND (POH.CheckBatchComplete = no) AND (KDH.BatchNo = @BatchNo)"
 		Using con As New OleDbConnection(cnString)
 			Dim cmd As New OleDbCommand(cmdstring)
+			cmd.Parameters.AddWithValue("@BatchNo", txtBatchNo.Text)
 			Dim reader As OleDbDataReader
 			cmd.CommandType = CommandType.Text
 			cmd.Connection = con
@@ -268,9 +274,10 @@ Public Class CheckDataCapture
 			ON ko.ProductID = epc.ProductID)
 		INNER JOIN [KN -Special Instructions Master] AS SIM
 			ON ko.SpecialInstructionID = SIM.SpecialInstructionID)
-		WHERE (kdh.BatchNo = '" & Session("BatchNo") & "') AND (kdh.KnittComplete = yes) AND (kdh.Checkcomplete = no);"
+		WHERE (kdh.BatchNo = @BatchNo) AND (kdh.KnittComplete = yes) AND (kdh.Checkcomplete = no);"
 		Using con As New OleDbConnection(cnString)
 			Dim cmd As New OleDbCommand(cmdstring)
+			cmd.Parameters.AddWithValue("@BatchNo", txtBatchNo.Text)
 			Dim reader As OleDbDataReader
 			cmd.CommandType = CommandType.Text
 			cmd.Connection = con

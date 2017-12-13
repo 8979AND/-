@@ -1,6 +1,9 @@
 ﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/Site.Master" CodeBehind="CheckDataCapture.aspx.vb" Inherits="ShantaraProduction.CheckDataCapture" MaintainScrollPositionOnPostback="true" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 	<div class="container-fluid">
+		<br />
+		<br />
+		<br />
 		<h1>Check Data Capture</h1>
 		<br />
 		<h3><asp:Label ID="lblBundleNo" runat="server" Text="BundleNo: "></asp:Label></h3>

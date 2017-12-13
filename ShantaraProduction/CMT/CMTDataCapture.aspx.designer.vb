@@ -165,4 +165,85 @@ Partial Public Class CMTDataCapture
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents BtnCaptureBundle As Global.System.Web.UI.WebControls.LinkButton
+    
+    '''<summary>
+    '''lblerrJDmsg control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblerrJDmsg As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''RBLJD control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents RBLJD As Global.System.Web.UI.WebControls.RadioButtonList
+    
+    '''<summary>
+    '''lblerrJrsyadj control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblerrJrsyadj As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''lblJrsyadj control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblJrsyadj As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''ddlReason control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlReason As Global.System.Web.UI.WebControls.DropDownList
+    
+    '''<summary>
+    '''lblerrother control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblerrother As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''lblother control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblother As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''txtotherR control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtotherR As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''btnjrsyadj control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnjrsyadj As Global.System.Web.UI.WebControls.LinkButton
 End Class

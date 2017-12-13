@@ -28,20 +28,20 @@ Public Class DisplayBatchBundles
 					  [KN -Special Instructions Master].SpecialInstructionDetail,
 					  [KN - ProductionOrderHeader].DateIssued 
 		      FROM (((((([KN - ProductionOrderDetails] 
-		INNER JOIN [KN - KnittingOrder]		
-			ON  [KN - ProductionOrderDetails].KnittingOrderID = [KN - KnittingOrder].KnittingOrderID)
-		INNER JOIN [GN - EntityMaster] 
-			ON [GN - EntityMaster].EntityID = [KN - KnittingOrder].EntityID)
-		INNER JOIN [KN -Special Instructions Master] 
-			ON [KN -Special Instructions Master].SpecialInstructionID = [KN - KnittingOrder].SpecialInstructionID)
-		INNER JOIN [KN - ProductionOrderHeader] 
-			ON [KN - ProductionOrderHeader].BatchNo = [KN - ProductionOrderDetails].BatchNo)
-		INNER JOIN [FG - End Product Codes] 
-			ON [FG - End Product Codes].ProductID = [KN - ProductionOrderHeader].ProductID)
-		INNER JOIN [KN - KnittingDetailsHeader] 
-			ON [KN - KnittingDetailsHeader].BatchNo = [KN - ProductionOrderDetails].BatchNo)
-		WHERE [KN - ProductionOrderHeader].KnittBatchComplete = no
-		ORDER BY [KN - ProductionOrderDetails].BatchNo, [KN - ProductionOrderHeader].DateIssued, [GN - EntityMaster].EntityName;"
+			  INNER JOIN [KN - KnittingOrder]		
+				ON  [KN - ProductionOrderDetails].KnittingOrderID = [KN - KnittingOrder].KnittingOrderID)
+	       	  INNER JOIN [GN - EntityMaster] 
+				ON [GN - EntityMaster].EntityID = [KN - KnittingOrder].EntityID)
+		      INNER JOIN [KN -Special Instructions Master] 
+				ON [KN -Special Instructions Master].SpecialInstructionID = [KN - KnittingOrder].SpecialInstructionID)
+			  INNER JOIN [KN - ProductionOrderHeader] 
+				ON [KN - ProductionOrderHeader].BatchNo = [KN - ProductionOrderDetails].BatchNo)
+			  INNER JOIN [FG - End Product Codes] 
+				ON [FG - End Product Codes].ProductID = [KN - ProductionOrderHeader].ProductID)
+			  INNER JOIN [KN - KnittingDetailsHeader] 
+				ON [KN - KnittingDetailsHeader].BatchNo = [KN - ProductionOrderDetails].BatchNo)
+			  WHERE [KN - ProductionOrderHeader].KnittBatchComplete = no
+			  ORDER BY [KN - ProductionOrderDetails].BatchNo, [KN - ProductionOrderHeader].DateIssued, [GN - EntityMaster].EntityName;"
 			con.Open()
 			cmd.Connection = con
 			cmd.CommandText = SQL
@@ -80,7 +80,6 @@ Public Class DisplayBatchBundles
 			cmd.Connection.Open()
 			cmd.ExecuteNonQuery()
 		End Using
-		'MsgBox("all records batch complete checkbox checked")
 	End Sub
 
 	Private Sub UpdateAlbundlelRecordsincomplete()
@@ -96,6 +95,5 @@ Public Class DisplayBatchBundles
 			cmd.Connection.Open()
 			cmd.ExecuteNonQuery()
 		End Using
-		'MsgBox("all records bundle complete checkbox unchecked")
 	End Sub
 End Class

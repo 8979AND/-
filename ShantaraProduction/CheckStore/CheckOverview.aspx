@@ -1,6 +1,9 @@
 ﻿<%@ Page Title="" Language="vb" MasterPageFile="~/Site.Master" AutoEventWireup="false"  CodeBehind="CheckOverview.aspx.vb" Inherits="ShantaraProduction.DisplayJerseyoverview"%> 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 	<div class="container-fluid">
+		<br />
+		<br />
+		<br />
 		<h1>Check store - Batches</h1>
 		<table class="table" style="width: 100%">
 			<tr>

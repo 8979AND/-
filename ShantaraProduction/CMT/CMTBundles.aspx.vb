@@ -29,7 +29,7 @@ Public Class CMTBundles
 			ON KO.CMTSpecialInstructionID = CSIM.SpecialInstructionID)
 		INNER JOIN [CMT - CMTDetailsOperations] AS CDO
 			ON CDH.BundleNo = CDO.BundleNo)
-		WHERE (CDH.BatchNo = '" & Session("BatchNo") & "') AND (CDH.CutDataCaptured = no) AND (CDH.Bundlecompleteview = no);"
+		WHERE (CDH.BatchNo = @BatchNo) AND (CDH.CutDataCaptured = no) AND (CDH.Bundlecompleteview = no);"
 				Case "AttachVN"
 					SQL = "SELECT CDH.BatchNo, CDH.BundleNo, (SM.[Size Abbreviation]) AS [Size], CDH.JrsysToCut, (CSIM.CMTSpecialInstructionDetail) AS [CMT Special Instructions]
         FROM ((((([CMT - CMTDetailsHeader] AS CDH
@@ -43,7 +43,7 @@ Public Class CMTBundles
 			ON KO.CMTSpecialInstructionID = CSIM.SpecialInstructionID)
 		INNER JOIN [CMT - CMTDetailsOperations] AS CDO
 			ON CDH.BundleNo = CDO.BundleNo)
-		WHERE (CDH.BatchNo = '" & Session("BatchNo") & "') AND (CDH.CutDataCaptured = yes) AND (CDO.AttachVDate IS NULL) AND (CDH.Bundlecompleteview = no);"
+		WHERE (CDH.BatchNo = @BatchNo) AND (CDH.CutDataCaptured = yes) AND (CDO.AttachVDate IS NULL) AND (CDH.Bundlecompleteview = no) AND (JrsyDiffUnprocessed = no);"
 				Case "Side Seams"
 					SQL = "SELECT CDH.BatchNo, CDH.BundleNo, (SM.[Size Abbreviation]) AS [Size], CDH.JrsysToCut, (CSIM.CMTSpecialInstructionDetail) AS [CMT Special Instructions]
         FROM ((((([CMT - CMTDetailsHeader] AS CDH
@@ -57,7 +57,7 @@ Public Class CMTBundles
 			ON KO.CMTSpecialInstructionID = CSIM.SpecialInstructionID)
 		INNER JOIN [CMT - CMTDetailsOperations] AS CDO
 			ON CDH.BundleNo = CDO.BundleNo)
-		WHERE (CDH.BatchNo = '" & Session("BatchNo") & "') AND (CDH.CutDataCaptured = yes) AND (CDO.SideSeamsDate IS NULL) AND (CDH.Bundlecompleteview = no);"
+		WHERE (CDH.BatchNo = @BatchNo) AND (CDH.CutDataCaptured = yes) AND (CDO.SideSeamsDate IS NULL) AND (CDH.Bundlecompleteview = no) AND (JrsyDiffUnprocessed = no);"
 				Case "Pressing"
 					SQL = "SELECT CDH.BatchNo, CDH.BundleNo, (SM.[Size Abbreviation]) AS [Size], CDH.JrsysToCut, (CSIM.CMTSpecialInstructionDetail) AS [CMT Special Instructions]
         FROM ((((([CMT - CMTDetailsHeader] AS CDH
@@ -71,7 +71,7 @@ Public Class CMTBundles
 			ON KO.CMTSpecialInstructionID = CSIM.SpecialInstructionID)
 		INNER JOIN [CMT - CMTDetailsOperations] AS CDO
 			ON CDH.BundleNo = CDO.BundleNo)
-		WHERE (CDH.BatchNo = '" & Session("BatchNo") & "') AND (CDH.CutDataCaptured = yes) AND (CDO.PressDate IS NULL) AND (CDH.Bundlecompleteview = no);"
+		WHERE (CDH.BatchNo = @BatchNo) AND (CDH.CutDataCaptured = yes) AND (CDO.PressDate IS NULL) AND (CDH.Bundlecompleteview = no) AND (JrsyDiffUnprocessed = no);"
 				Case "Dispatch"
 					SQL = "SELECT CDH.BatchNo, CDH.BundleNo, (SM.[Size Abbreviation]) AS [Size], CDH.JrsysToCut, (CSIM.CMTSpecialInstructionDetail) AS [CMT Special Instructions]
         FROM ((((([CMT - CMTDetailsHeader] AS CDH
@@ -85,10 +85,9 @@ Public Class CMTBundles
 			ON KO.CMTSpecialInstructionID = CSIM.SpecialInstructionID)
 		INNER JOIN [CMT - CMTDetailsOperations] AS CDO
 			ON CDH.BundleNo = CDO.BundleNo)
-		WHERE (CDH.BatchNo = '" & Session("BatchNo") & "') AND (CDH.CutDataCaptured = yes) AND (CDO.DispatchDate IS NULL) AND (CDH.Bundlecompleteview = no);"
+		WHERE (CDH.BatchNo = @BatchNo) AND (CDH.CutDataCaptured = yes) AND (CDO.DispatchDate IS NULL) AND (CDH.Bundlecompleteview = no) AND (JrsyDiffUnprocessed = no);"
 			End Select
-
-
+			cmd.Parameters.AddWithValue("@BatchNo", Session("BatchNo"))
 			con.Open()
 			cmd.Connection = con
 			cmd.CommandText = SQL
@@ -123,7 +122,7 @@ Public Class CMTBundles
 			ON KO.CMTSpecialInstructionID = CSIM.SpecialInstructionID)
 		INNER JOIN [CMT - CMTDetailsOperations] AS CDO
 			ON CDH.BundleNo = CDO.BundleNo)
-		WHERE (CDH.BatchNo = '" & Session("BatchNo") & "') AND (CDH.CutDataCaptured = yes);"
+		WHERE (CDH.BatchNo = @BatchNo) AND (CDH.CutDataCaptured = yes);"
 				Case "AttachVN"
 					SQL = "SELECT CDH.BatchNo, CDH.BundleNo, (SM.[Size Abbreviation]) AS [Size], CDH.JrsysToCut, (CSIM.CMTSpecialInstructionDetail) AS [CMT Special Instructions], CDO.AttachVDate
         FROM ((((([CMT - CMTDetailsHeader] AS CDH
@@ -137,7 +136,7 @@ Public Class CMTBundles
 			ON KO.CMTSpecialInstructionID = CSIM.SpecialInstructionID)
 		INNER JOIN [CMT - CMTDetailsOperations] AS CDO
 			ON CDH.BundleNo = CDO.BundleNo)
-		WHERE (CDH.BatchNo = '" & Session("BatchNo") & "') AND (CDH.CutDataCaptured = yes) AND (CDO.AttachVDate IS NOT NULL);"
+		WHERE (CDH.BatchNo = @BatchNo) AND (CDH.CutDataCaptured = yes) AND (CDO.AttachVDate IS NOT NULL);"
 				Case "Side Seams"
 					SQL = "SELECT CDH.BatchNo, CDH.BundleNo, (SM.[Size Abbreviation]) AS [Size], CDH.JrsysToCut, (CSIM.CMTSpecialInstructionDetail) AS [CMT Special Instructions], CDO.AttachVDate
         FROM ((((([CMT - CMTDetailsHeader] AS CDH
@@ -151,7 +150,7 @@ Public Class CMTBundles
 			ON KO.CMTSpecialInstructionID = CSIM.SpecialInstructionID)
 		INNER JOIN [CMT - CMTDetailsOperations] AS CDO
 			ON CDH.BundleNo = CDO.BundleNo)
-		WHERE (CDH.BatchNo = '" & Session("BatchNo") & "') AND (CDH.CutDataCaptured = yes) AND (CDO.SideSeamsDate IS NOT NULL);"
+		WHERE (CDH.BatchNo = @BatchNo) AND (CDH.CutDataCaptured = yes) AND (CDO.SideSeamsDate IS NOT NULL);"
 				Case "Pressing"
 					SQL = "SELECT CDH.BatchNo, CDH.BundleNo, (SM.[Size Abbreviation]) AS [Size], CDH.JrsysToCut, (CSIM.CMTSpecialInstructionDetail) AS [CMT Special Instructions], CDO.PressDate
         FROM ((((([CMT - CMTDetailsHeader] AS CDH
@@ -165,7 +164,7 @@ Public Class CMTBundles
 			ON KO.CMTSpecialInstructionID = CSIM.SpecialInstructionID)
 		INNER JOIN [CMT - CMTDetailsOperations] AS CDO
 			ON CDH.BundleNo = CDO.BundleNo)
-		WHERE (CDH.BatchNo = '" & Session("BatchNo") & "') AND (CDH.CutDataCaptured = yes) AND (CDO.PressDate IS NOT NULL);"
+		WHERE (CDH.BatchNo = @BatchNo) AND (CDH.CutDataCaptured = yes) AND (CDO.PressDate IS NOT NULL);"
 				Case "Dispatch"
 					SQL = "SELECT CDH.BatchNo, CDH.BundleNo, (SM.[Size Abbreviation]) AS [Size], CDH.JrsysToCut, (CSIM.CMTSpecialInstructionDetail) AS [CMT Special Instructions], CDO.DispatchDate
         FROM ((((([CMT - CMTDetailsHeader] AS CDH
@@ -179,10 +178,9 @@ Public Class CMTBundles
 			ON KO.CMTSpecialInstructionID = CSIM.SpecialInstructionID)
 		INNER JOIN [CMT - CMTDetailsOperations] AS CDO
 			ON CDH.BundleNo = CDO.BundleNo)
-		WHERE (CDH.BatchNo = '" & Session("BatchNo") & "') AND (CDH.CutDataCaptured = yes) AND (CDO.DispatchDate IS NOT NULL);"
+		WHERE (CDH.BatchNo = @BatchNo) AND (CDH.CutDataCaptured = yes) AND (CDO.DispatchDate IS NOT NULL);"
 			End Select
-
-
+			cmd.Parameters.AddWithValue("@BatchNo", Session("BatchNo"))
 			con.Open()
 			cmd.Connection = con
 			cmd.CommandText = SQL

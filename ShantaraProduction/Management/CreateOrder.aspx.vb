@@ -8,6 +8,9 @@ Public Class CreateOrder
 	Private cnString As String = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4"
 
 	Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+		If Session("Auth_Level") <> 1 Then
+			Response.Redirect("~/Account/Lockout.aspx")
+		End If
 		getCustomer()
 		getProduct()
 		getSize()

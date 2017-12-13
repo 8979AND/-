@@ -1,6 +1,9 @@
 ﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/Site.Master" CodeBehind="KnittDataCapture.aspx.vb" Inherits="ShantaraProduction.KnittDataCapture" MaintainScrollPositionOnPostback="true" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 	<div class="container-fluid">
+		<br />
+		<br />
+		<br />
 		<h1>Knitt Data Capture</h1>
 		<br />
 		<h3>><asp:Label ID="lblBundleNo" runat="server" Text="BundleNo: "></asp:Label></h3>

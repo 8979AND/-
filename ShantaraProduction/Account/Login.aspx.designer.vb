@@ -32,13 +32,13 @@ Partial Public Class Login
     Protected WithEvents FailureText As Global.System.Web.UI.WebControls.Literal
     
     '''<summary>
-    '''Email control.
+    '''ddlUsername control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents Email As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents ddlUsername As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
     '''Password control.
@@ -50,11 +50,11 @@ Partial Public Class Login
     Protected WithEvents Password As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
-    '''RubiXLogo control.
+    '''ShantaraLogo control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents RubiXLogo As Global.System.Web.UI.WebControls.Image
+    Protected WithEvents ShantaraLogo As Global.System.Web.UI.WebControls.Image
 End Class

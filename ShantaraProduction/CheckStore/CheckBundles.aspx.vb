@@ -27,8 +27,8 @@ Public Class BundleOverview
 			ON ko.ProductID = epc.ProductID)
 		INNER JOIN [KN -Special Instructions Master] AS SIM
 			ON ko.SpecialInstructionID = SIM.SpecialInstructionID)
-		WHERE (kdh.BatchNo = '" & Session("BatchNo") & "') AND (kdh.KnittComplete = yes) AND (kdh.Checkcomplete = no);"
-
+		WHERE (kdh.BatchNo = @BatchNo) AND (kdh.KnittComplete = yes) AND (kdh.Checkcomplete = no);"
+			cmd.Parameters.AddWithValue("@BatchNo", Session("BatchNo"))
 			con.Open()
 			cmd.Connection = con
 			cmd.CommandText = SQL
@@ -48,7 +48,6 @@ Public Class BundleOverview
 		Using con As New OleDbConnection(cnString)
 			Dim cmd As New OleDbCommand()
 			grdvBundlesChecked.Visible = True
-			Session("BatchNo") = Request.QueryString("ID").ToString()
 			SQL = "SELECT kdh.BatchNo, kdh.BundleNo, (sm.[Size Abbreviation]) AS [Size], (cm.ComponentName) AS [Component], kdh.PanelsToMake
         FROM ((((([KN - KnittingDetailsHeader] AS kdh
 		INNER JOIN [KN - KnittingOrder] AS ko
@@ -61,8 +60,8 @@ Public Class BundleOverview
 			ON ko.ProductID = epc.ProductID)
 		INNER JOIN [KN -Special Instructions Master] AS SIM
 			ON ko.SpecialInstructionID = SIM.SpecialInstructionID)
-		WHERE (kdh.BatchNo = '" & Session("BatchNo") & "') AND (kdh.KnittComplete = yes) AND (kdh.Checkcomplete = yes);"
-
+		WHERE (kdh.BatchNo = @BatchNo) AND (kdh.KnittComplete = yes) AND (kdh.Checkcomplete = yes);"
+			cmd.Parameters.AddWithValue("@BatchNo", Session("BatchNo"))
 			con.Open()
 			cmd.Connection = con
 			cmd.CommandText = SQL

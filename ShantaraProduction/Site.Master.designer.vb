@@ -50,13 +50,13 @@ Partial Public Class SiteMaster
     Protected WithEvents CMT As Global.System.Web.UI.HtmlControls.HtmlAnchor
     
     '''<summary>
-    '''Corder control.
+    '''Yarn control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents Corder As Global.System.Web.UI.HtmlControls.HtmlAnchor
+    Protected WithEvents Yarn As Global.System.Web.UI.HtmlControls.HtmlAnchor
     
     '''<summary>
     '''AYS control.
@@ -68,13 +68,22 @@ Partial Public Class SiteMaster
     Protected WithEvents AYS As Global.System.Web.UI.HtmlControls.HtmlAnchor
     
     '''<summary>
-    '''UserOverview control.
+    '''RY control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents UserOverview As Global.System.Web.UI.HtmlControls.HtmlAnchor
+    Protected WithEvents RY As Global.System.Web.UI.HtmlControls.HtmlAnchor
+    
+    '''<summary>
+    '''Corder control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Corder As Global.System.Web.UI.HtmlControls.HtmlAnchor
     
     '''<summary>
     '''Tickets control.

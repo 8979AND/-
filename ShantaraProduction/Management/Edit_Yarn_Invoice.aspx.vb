@@ -64,7 +64,7 @@ Public Class Edit_Yarn_Invoice
 
 	Private Sub InvoiceDyelotUpdate()
 		YarnID = CInt(Request.QueryString("ID").ToString())
-		Dim cmdstring As String = "UPDATE [YN - Yarn Master] SET YarnDyelot='" & txteYdyelot.Text & "',YarnColourID=" & ddleYcolour.SelectedValue & ",YarnPurchaceWeight='" & txteYweight.Text & "',YarnPurchaseCartons=" & txteYcartons.Text & ",CurrentWeight='" & txteYweight.Text & "',CurrentCartons=" & txteYcartons.Text & " WHERE YarnID=" & YarnID
+		Dim cmdstring As String = "UPDATE [YN - Yarn Master] SET YarnDyelot='" & txteYdyelot.Text & "',YarnColourID=" & ddleYcolour.SelectedValue & ",YarnPurchaceWeight=" & txteYweight.Text & ",YarnPurchaseCartons=" & txteYcartons.Text & ",CurrentWeight=" & txteYweight.Text & ",CurrentCartons=" & txteYcartons.Text & " WHERE YarnID=" & YarnID
 		Using con As New OleDbConnection(cnString)
 			Dim cmd As New OleDbCommand(cmdstring)
 			cmd.CommandType = CommandType.Text

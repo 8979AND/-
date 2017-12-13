@@ -223,7 +223,7 @@ Public Class Adjust_Yarn_Stock
 		'Do Not Delete
 	End Sub
 	Private Sub selectwc()
-		WeightDiff = Replace(txteYweight.Text, ".", ",")
+		WeightDiff = CStr(Replace(txteYweight.Text, ".", ","))
 
 		'Double.TryParse(txteYweight.Text, Session("WeightDiff"))
 		'adds weight and carton difference 

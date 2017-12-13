@@ -56,6 +56,9 @@
     <Reference Include="AspNet.ScriptManager.jQuery, Version=1.12.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\AspNet.ScriptManager.jQuery.1.12.4\lib\net45\AspNet.ScriptManager.jQuery.dll</HintPath>
     </Reference>
+    <Reference Include="GemBox.Spreadsheet, Version=41.3.30.1128, Culture=neutral, PublicKeyToken=b1b72c69714d4847, processorArchitecture=MSIL">
+      <HintPath>..\packages\GemBox.Spreadsheet.41.3.30.1128\lib\net30\GemBox.Spreadsheet.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.5\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
@@ -221,6 +224,7 @@
   <ItemGroup>
     <Content Include="About.aspx" />
     <Content Include="Account\AddPhoneNumber.aspx" />
+    <Content Include="Account\logout.aspx" />
     <Content Include="Admincontrol\SalesOrder.aspx" />
     <Content Include="CheckStore\CheckBundles.aspx" />
     <Content Include="CheckStore\CheckDataCapture.aspx" />
@@ -287,6 +291,8 @@
     <Content Include="Knitt\ProductionOrderIssue.aspx" />
     <Content Include="Knitt\TicketOverview.aspx" />
     <Content Include="Management\Adjust_Yarn_Stock.aspx" />
+    <Content Include="Management\ApproveJrsyDiff.aspx" />
+    <Content Include="Management\CreateInvoice.aspx" />
     <Content Include="Management\CreateOrder.aspx" />
     <Content Include="Management\Dashboard.aspx" />
     <Content Include="Management\Edit_Yarn_Invoice.aspx" />
@@ -426,6 +432,13 @@
     <Compile Include="Account\AddPhoneNumber.aspx.vb">
       <DependentUpon>AddPhoneNumber.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\logout.aspx.designer.vb">
+      <DependentUpon>logout.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\logout.aspx.vb">
+      <DependentUpon>logout.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="Admincontrol\SalesOrder.aspx.designer.vb">
       <DependentUpon>SalesOrder.aspx</DependentUpon>
@@ -694,6 +707,20 @@
       <DependentUpon>Adjust_Yarn_Stock.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
+    <Compile Include="Management\ApproveJrsyDiff.aspx.designer.vb">
+      <DependentUpon>ApproveJrsyDiff.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Management\ApproveJrsyDiff.aspx.vb">
+      <DependentUpon>ApproveJrsyDiff.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Management\CreateInvoice.aspx.designer.vb">
+      <DependentUpon>CreateInvoice.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Management\CreateInvoice.aspx.vb">
+      <DependentUpon>CreateInvoice.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="Management\CreateOrder.aspx.designer.vb">
       <DependentUpon>CreateOrder.aspx</DependentUpon>
     </Compile>
@@ -812,6 +839,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Exported\" />
+    <Folder Include="Images\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

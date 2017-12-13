@@ -2,6 +2,8 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 	<div class="container-fluid">
 		<br />
+		<br />
+		<br />
 		<h1>Select Operation</h1>
 		<br />
 		<div class="row">
@@ -21,7 +23,7 @@
 				</asp:LinkButton>
 			</div>
 		</div>
-			<br />
+		<br />
 		<div class="row">
 			<div class="col-sm-4">
 				<asp:LinkButton runat="server" ID="btnPressing" CssClass="btn btn-default btn-lg">

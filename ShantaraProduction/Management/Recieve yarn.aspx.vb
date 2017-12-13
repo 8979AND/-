@@ -5,6 +5,9 @@ Public Class Recieve_yarn
 	Private cnString As String = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4"
 
 	Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+		If Session("Auth_Level") <> 1 Then
+			Response.Redirect("~/Account/Lockout.aspx")
+		End If
 		If Not IsPostBack Then
 			getSupplier()
 			getYtype()
@@ -231,14 +234,18 @@ Public Class Recieve_yarn
 		Dim donothing As String
 	End Sub
 
-	Protected Sub btnyarninvcaptur_Click(sender As Object, e As EventArgs) Handles btnyarninvcaptur.Click
-		InvoiceDBAuditTrail()
+	Protected Sub btnyarninvCheck_Click(sender As Object, e As EventArgs) Handles btnyarninvCheck.Click
 		grdvInvoiceSummaryPopulate()
-		btnyarninvcaptur.Enabled = False
+		btncaptureinv.Visible = True
+
 	End Sub
 
 	Protected Sub Back(sender As Object, e As EventArgs) Handles btnBack.Click
 
+	End Sub
+
+	Protected Sub btncaptureinv_Click(sender As Object, e As EventArgs) Handles btncaptureinv.Click
+		InvoiceDBAuditTrail()
 	End Sub
 End Class
 

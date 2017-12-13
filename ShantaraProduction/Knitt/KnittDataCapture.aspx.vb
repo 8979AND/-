@@ -547,4 +547,8 @@ Public Class KnittDataCapture
 	Protected Sub btnBack_Click(sender As Object, e As EventArgs) Handles btnBack.Click
 		Response.Redirect("~/Knitt/DisplayBatchBundles.aspx?ID=" & Session("BatchNo"))
 	End Sub
+
+	Protected Sub txtMachineNo_TextChanged(sender As Object, e As EventArgs) Handles txtMachineNo.TextChanged
+
+	End Sub
 End Class

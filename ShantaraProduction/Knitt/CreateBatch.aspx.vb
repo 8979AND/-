@@ -257,7 +257,6 @@ ORDER BY D15.CurrentWeight;"
 				MsgBox("batchNo not working")
 			End If
 		End Using
-		'MsgBox("newbatch")
 	End Sub
 
 	Private Sub updatebatchno()

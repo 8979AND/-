@@ -1,8 +1,9 @@
 ﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/Site.Master" CodeBehind="CMTDataCapture.aspx.vb" Inherits="ShantaraProduction.CMTDataCapture" MaintainScrollPositionOnPostback="true" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 	<div class="container-fluid">
+<br />
 		<br />
-		<h1>CMT Data Capture</h1>
+		<br />		<h1>CMT Data Capture</h1>
 		<br />
 		<h3>><asp:Label ID="lblBundleNo" runat="server" Text="BundleNo: "></asp:Label></h3>
 		<br />
@@ -68,8 +69,36 @@
                     Capture Bundle
 			</asp:LinkButton>
 		</div>
-		
-
+		<br />
+		<div class="row">
+			<asp:Label ID="lblerrJDmsg" runat="server" ForeColor="Red" Visible="False"></asp:Label>
+			<asp:RadioButtonList ID="RBLJD" runat="server" AutoPostBack="true" Visible="False" AppendDataBoundItems="True">
+				<asp:ListItem Text="Mistake" Value="1"></asp:ListItem>
+				<asp:ListItem Text="Valid Reason" Value="2"></asp:ListItem>
+			</asp:RadioButtonList>
+		</div>
+		<div class="row">
+			<div class="col-sm-4">
+				<asp:Label ID="lblerrJrsyadj" runat="server" ForeColor="Red" Visible="False"></asp:Label>
+				<asp:Label ID="lblJrsyadj" runat="server" Visible="False"></asp:Label>
+				<asp:DropDownList ID="ddlReason" CssClass="form-control" Style="height: 34px; width: 100%; max-width: none" runat="server" AutoPostBack="true"
+					AppendDataBoundItems="True" Visible="False">
+					<asp:ListItem Text="--Select Reason--" Value=""></asp:ListItem>
+				</asp:DropDownList>
+			</div>
+			<div class="col-sm-4">
+				<asp:Label ID="lblerrother" runat="server" Text="" ForeColor="Red" Visible="False"></asp:Label>
+				<asp:Label ID="lblother" runat="server" Font-Bold="True" Visible="False"></asp:Label>
+				<asp:TextBox runat="server" ID="txtotherR" CssClass="form-control" Style="height: 34px; width: 100%; max-width: none" TextMode="SingleLine" Visible="False" />
+			</div>
+		</div>
+		<br />
+		<div class="row">
+			<asp:LinkButton runat="server" ID="btnjrsyadj" CssClass="btn btn-default btn-lg" Visible="False">
+                    <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
+                    Capture Bundle
+			</asp:LinkButton>
+		</div>
 	</div>
 
 </asp:Content>

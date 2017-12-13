@@ -51,59 +51,72 @@
         </asp:ScriptManager>
 
        
-        <div class="navbar navbar-fixed-top" id="MainMenu" runat="server">
-            <a class="navbar-brand navbar-left"  runat="server" href="~/">Shantara</a>
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" style="border: 1px solid #ff0000;" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class ="sr-only">Toggle navigation</span>
-                        <span class="icon-bar" style="background-color: #428bca;"></span>
-                        <span class="icon-bar" style="background-color: #428bca;"></span>
-                        <span class="icon-bar" style="background-color: #428bca;"></span>
-                    </button>
-                    
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li><a runat="server" style="background-color: #ff4d4d" id="KNITT" visible="true"
-                            href="~/Knitt/DisplayBatches">Knitt Display</a></li>
-                        <li><a runat="server" style="background-color: #ff8080" id="CHECKSTORE" visible="true" 
-							href="~/CheckStore/CheckOverview">Check Store</a></li>
-                        <li><a runat="server" style="background-color: #ffb3b3" id="CMT" visible="true"
-                            href="~/CMT/CMTJob">CMT</a></li>
-                        <li><a runat="server" style="background-color: #ffb31a" id="Corder" visible="true"
-                            href="~/Management/CreateOrder">Create Order</a></li>
-                        <li><a runat="server" style="background-color: #b3ffb3; text-emphasis-color:darkmagenta" id="AYS" visible="true"
-                            href="~/Management/Adjust_Yarn_Stock">Adjust Yarn Stock</a></li>
-                        <li><a runat="server" id="UserOverview" visible="false"
-                            href="~/Customers/UserOverview">Customers</a></li>
-                        <li><a runat="server" id="Tickets" visible="false"
-                            href="~/knitt/TicketOverview">Tickets</a></li>
+		<div class="navbar navbar-fixed-top" id="MainMenu" runat="server">
+			<div class="navbar-form">
+				<div class="navbar-default">
+					<a class="navbar-brand navbar-left" runat="server" href="~/">Shantara</a>
+					<div class="container">
+						<div class="navbar-header">
+							<button type="button" class="navbar-toggle" style="border: 3px solid #ff0000;" data-toggle="collapse" data-target=".navbar-collapse">
+								<span class="sr-only">Toggle navigation</span>
+								<span class="icon-bar" style="background-color: #428bca;"></span>
+								<span class="icon-bar" style="background-color: #428bca;"></span>
+								<span class="icon-bar" style="background-color: #428bca;"></span>
+							</button>
+						</div>
+						<div class="navbar-collapse collapse">
+							<ul class="nav navbar-nav">
+								<li class="dropdown"><a class="dropdown-toggle" id="DataC" data-toggle="dropdown" href="#">Data Capture <span class="caret"></span></a>
+									<ul class="dropdown-menu" role="menu">
+										<li><a runat="server" style="background-color: #ff4d4d; color: black;" id="KNITT" visible="true"
+									href="~/Knitt/DisplayBatches">Knitt Display</a></li>
+										<li><a runat="server" style="background-color: #ff8080; color: black;" id="CHECKSTORE" visible="true"
+									href="~/CheckStore/CheckOverview">Check Store</a></li>
+										<li><a runat="server" style="background-color: #ffb3b3; color: black;" id="CMT" visible="true"
+									href="~/CMT/CMTJob">CMT</a></li>
+									</ul>
+								</li>
+								<li class="dropdown"><a class="dropdown-toggle" runat="server" id="Yarn" data-toggle="dropdown" href="#">Yarn<span class="caret"></span></a>
+									<ul class="dropdown-menu" role="menu">  
+										<li><a runat="server" style="background-color: #248f24; color:#b3ffb3;" id="AYS" visible="true"
+									href="~/Management/Adjust_Yarn_Stock">Adjust Yarn Stock</a></li>
+										<li><a runat="server" style="background-color: #b3ffb3; color: #248f24;" id="RY" visible="true"
+									href="~/Management/Recieve yarn">Receive Yarn</a></li>
+									</ul>
+								</li>
+								<li><a runat="server" style="background-color: #ffb31a" id="Corder" visible="true"
+									href="~/Management/CreateOrder">Create Order</a></li>
+								<li><a runat="server" id="Tickets" visible="false"
+									href="~/knitt/TicketOverview">Tickets</a></li>
 
-                        <%--<li><a runat="server" href="~/">Home</a></li>
+								<%--<li><a runat="server" href="~/">Home</a></li>
                         <li><a runat="server" href="~/About">About</a></li>
                         <li><a runat="server" href="~/Contact">Contact</a></li>--%>
-                    </ul>
-                    <asp:LoginView runat="server" ID="LoginView1" ViewStateMode="Disabled">
-                        <AnonymousTemplate>
-                            <ul class="nav navbar-nav navbar-right">
-                                <%--<li><a runat="server" href="~/Account/Register">Register</a></li>--%>
-                                <%--<li><a runat="server" href="~/Account/Login">Log in</a></li>--%>
-                                <li><a runat="server" href="~/Account/Login"><span class="glyphicon glyphicon-log-in"></span> Log in</a></li>
-                            </ul>
-                        </AnonymousTemplate>
-                        <LoggedInTemplate>
-                            <ul class="nav navbar-nav navbar-right">
-                                <li><a runat="server" href="~/Account/Manage" title="Manage your account">Hello, <%: Session("Username") %> !</a></li>
-                                <li>
-                                    <asp:LoginStatus runat="server" LogoutAction="Redirect" LogoutText="Log off" LogoutPageUrl="~/" OnLoggingOut="Unnamed_LoggingOut" />
-                                </li>
-                            </ul>
-                        </LoggedInTemplate>
-                    </asp:LoginView>
-                </div>
-            </div>
-        </div>
+							</ul>
+							<asp:LoginView runat="server" ID="LoginView1" ViewStateMode="Disabled">
+								<AnonymousTemplate>
+									<ul class="nav navbar-nav navbar-right">
+										<%--<li><a runat="server" href="~/Account/Register">Register</a></li>--%>
+										<%--<li><a runat="server" href="~/Account/Login">Log in</a></li>--%>
+										<li><a runat="server" href="~/Account/Login"><span class="glyphicon glyphicon-log-in"></span>Log in</a></li>
+										<li><a runat="server" href="~/Account/logout"><span class="glyphicon glyphicon-log-out"></span>Log out</a></li>
+
+									</ul>
+								</AnonymousTemplate>
+								<LoggedInTemplate>
+									<ul class="nav navbar-nav navbar-right">
+										<li><a runat="server" href="~/Account/Manage" title="Manage your account">Hello, <%: Session("Username") %> !</a></li>
+										<li>
+											<asp:LoginStatus runat="server" LogoutAction="Redirect" LogoutText="Log off" LogoutPageUrl="~/" OnLoggingOut="Unnamed_LoggingOut" />
+										</li>
+									</ul>
+								</LoggedInTemplate>
+							</asp:LoginView>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
         
         <div class="container body-content">
             <asp:ContentPlaceHolder ID="MainContent" runat="server">

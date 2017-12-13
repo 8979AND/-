@@ -171,9 +171,10 @@ Public Class CMTOverveiw
 
 
 	Private Sub getCMTStaffDetails()
-		Dim cmdstring = "SELECT EmployeeID, (EmployeeFirstName + ' ' + EmployeeLastName) AS [FullName], JobDescription FROM [GN - EmployeeDetails] WHERE EmployeeID = " & ddlCMTStaff.SelectedValue
+		Dim cmdstring = "SELECT EmployeeID, (EmployeeFirstName + ' ' + EmployeeLastName) AS [FullName], JobDescription FROM [GN - EmployeeDetails] WHERE EmployeeID = @EmployeeID"
 		Using con As New OleDbConnection(cnString)
 			Dim cmd As New OleDbCommand(cmdstring)
+			cmd.Parameters.AddWithValue("@EmployeeID", ddlCMTStaff.SelectedValue)
 			Dim reader As OleDbDataReader
 			cmd.CommandType = CommandType.Text
 			cmd.Connection = con
