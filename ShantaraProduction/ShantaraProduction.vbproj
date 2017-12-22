@@ -296,6 +296,7 @@
     <Content Include="Management\CreateOrder.aspx" />
     <Content Include="Management\Dashboard.aspx" />
     <Content Include="Management\Edit_Yarn_Invoice.aspx" />
+    <Content Include="Management\JrsyDiffReport.aspx" />
     <Content Include="Management\ManageTickets.aspx" />
     <Content Include="Management\Recieve yarn.aspx" />
     <Content Include="Management\Reports.aspx" />
@@ -740,6 +741,13 @@
     </Compile>
     <Compile Include="Management\Edit_Yarn_Invoice.aspx.vb">
       <DependentUpon>Edit_Yarn_Invoice.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Management\JrsyDiffReport.aspx.designer.vb">
+      <DependentUpon>JrsyDiffReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Management\JrsyDiffReport.aspx.vb">
+      <DependentUpon>JrsyDiffReport.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="Management\ManageTickets.aspx.designer.vb">

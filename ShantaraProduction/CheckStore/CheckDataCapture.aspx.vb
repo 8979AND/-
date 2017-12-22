@@ -10,6 +10,7 @@ Public Class CheckDataCapture
 	End Sub
 
 	Private Sub GetCheckDatadb()
+
 		Session("BundleNo") = Request.QueryString("ID").ToString()
 		Dim cmdstring = "SELECT KDH.BatchNo, 
 								KDH.PanelsToMake, 
@@ -64,7 +65,8 @@ Public Class CheckDataCapture
 					Else
 						txtProdDescr.Text = reader("ProdDescription")
 					End If
-
+					txtpanelsknittCaptureD.Text = reader("PanelsMadeDay")
+					txtpanelsknittCaptureN.Text = reader("PanelsMadeNight")
 					txtPToMake.Text = reader("PanelsToMake")
 					txtSize.Text = reader("Size")
 					txtComponent.Text = reader("ComponentName")
@@ -202,24 +204,40 @@ Public Class CheckDataCapture
 		End Using
 	End Sub
 
-	Private Sub cdcUpdateheaderrecord()
-		Dim cmdstring As String
-		cmdstring = " UPDATE [KN - KnittingDetailsHeader]
+    Private Sub cdcUpdateheaderrecord()
+        Dim cmdstring As String
+        cmdstring = " UPDATE [KN - KnittingDetailsHeader]
 					  SET Checker =" & ddlChecker.SelectedValue &
-						", DateChecked ='" & DateTime.Now &
-						"', Checkcomplete = yes 
+                        ", DateChecked ='" & DateTime.Now &
+                        "', Checkcomplete = yes 
 						  , BundleComplete = yes 
 						 WHERE BundleNo = @BundleNo"
+        Using con As New OleDbConnection(cnString)
+            Dim cmd As New OleDbCommand(cmdstring)
+            cmd.Parameters.AddWithValue("@BundleNo", Session("BundleNo"))
+            cmd.CommandType = CommandType.Text
+            cmd.Connection = con
+            cmd.Connection.Open()
+            cmd.ExecuteNonQuery()
+        End Using
+    End Sub
+
+    Public Sub UpdatePanelsMade()
+        Dim newpmday As Integer
+        Dim newpmnight As Integer
+        newpmday = CInt(txtextraD.Text) + CInt(txtpanelsknittCaptureD.Text)
+        newpmnight = CInt(txtextraN.Text) + CInt(txtpanelsknittCaptureN.Text)
+		Dim cmdstring As String = "UPDATE [KN - KnittingDetailsHeader] SET PanelsMadeDay = " & newpmday & ", PanelsMadeNight = " & newpmnight & " WHERE BundleNo = '" & Session("BundleNo") & "'"
 		Using con As New OleDbConnection(cnString)
-			Dim cmd As New OleDbCommand(cmdstring)
-			cmd.Parameters.AddWithValue("@BundleNo", Session("BundleNo"))
-			cmd.CommandType = CommandType.Text
-			cmd.Connection = con
-			cmd.Connection.Open()
-			cmd.ExecuteNonQuery()
-		End Using
-	End Sub
-	Public Sub UpdateCheckbatchComplete()
+            Dim cmd As New OleDbCommand(cmdstring)
+            cmd.CommandType = CommandType.Text
+            cmd.Connection = con
+            cmd.Connection.Open()
+            cmd.ExecuteNonQuery()
+        End Using
+    End Sub
+
+    Public Sub UpdateCheckbatchComplete()
 		Dim cmdstring As String = "UPDATE [KN - ProductionOrderHeader] SET CheckBatchComplete = yes WHERE BatchNo =  @BatchNo"
 		Using con As New OleDbConnection(cnString)
 			Dim cmd As New OleDbCommand(cmdstring)
@@ -310,8 +328,9 @@ Public Class CheckDataCapture
 								cdcInsertfaultrecord()
 							End If
 							cdccheckweightexists()
-							cdcUpdateheaderrecord()
-							CheckbatchCompleteCheck()
+                            cdcUpdateheaderrecord()
+                            UpdatePanelsMade()
+                            CheckbatchCompleteCheck()
 						Else
 							lblerrother.Visible = True
 							lblerrother.Text = "waste weight can't be bigger than bundle weight"

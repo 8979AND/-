@@ -74,6 +74,7 @@ Public Class BundleOverview
 		End Using
 	End Sub
 
-
-
+	Protected Sub Back(sender As Object, e As EventArgs) Handles btnBack.Click
+		Response.Redirect("~/CheckStore/CheckOverview.aspx")
+	End Sub
 End Class

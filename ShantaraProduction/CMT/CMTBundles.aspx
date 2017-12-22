@@ -1,9 +1,10 @@
 ﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/Site.Master" CodeBehind="CMTBundles.aspx.vb" Inherits="ShantaraProduction.CMTBundles" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 	<div class="container-fluid">
-<br />
 		<br />
-		<br />		<h1>CMT - Bundles</h1>
+		<br />
+		<br />
+		<h1>CMT - Bundles</h1>
 		<table class="table" style="width: 100%">
 			<tr>
 				<td>
@@ -12,7 +13,7 @@
 						<asp:GridView ID="grdvBundlesForCMT" runat="server" Visible="False" CellPadding="5" ForeColor="#333333" GridLines="None" HorizontalAlign="Center" CellSpacing="1" PageSize="15">
 							<AlternatingRowStyle BackColor="White" />
 							<Columns>
-								<asp:HyperLinkField Text="Select"									
+								<asp:HyperLinkField Text="Select"
 									DataNavigateUrlFields="BundleNo"
 									DataNavigateUrlFormatString="~/CMT/CMTDataCapture.aspx?ID={0}" />
 							</Columns>
@@ -49,5 +50,16 @@
 				</td>
 			</tr>
 		</table>
+		<div class="row">
+			<div class="col-sm-4">
+			</div>
+			<div class="col-sm-4">
+			</div>
+			<div class="col-sm-4">
+				<asp:LinkButton runat="server" ID="btnBack" OnClick="Back" Text="Back" CssClass="btn btn-default btn-lg">
+                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Back
+				</asp:LinkButton>
+			</div>
+		</div>
 	</div>
 </asp:Content>

@@ -154,7 +154,7 @@
 			</div>
 			<div class="col-sm-4">
 		<asp:LinkButton runat="server" ID="btnBack" CssClass="btn btn-default btn-lg">
-                    <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
                     Back
 				</asp:LinkButton>
 			</div>

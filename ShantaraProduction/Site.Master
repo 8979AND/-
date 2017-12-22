@@ -69,25 +69,32 @@
 								<li class="dropdown"><a class="dropdown-toggle" id="DataC" data-toggle="dropdown" href="#">Data Capture <span class="caret"></span></a>
 									<ul class="dropdown-menu" role="menu">
 										<li><a runat="server" style="background-color: #ff4d4d; color: black;" id="KNITT" visible="true"
-									href="~/Knitt/DisplayBatches">Knitt Display</a></li>
+											href="~/Knitt/DisplayBatches">Knitt Display</a></li>
 										<li><a runat="server" style="background-color: #ff8080; color: black;" id="CHECKSTORE" visible="true"
-									href="~/CheckStore/CheckOverview">Check Store</a></li>
+											href="~/CheckStore/CheckOverview">Check Store</a></li>
 										<li><a runat="server" style="background-color: #ffb3b3; color: black;" id="CMT" visible="true"
-									href="~/CMT/CMTJob">CMT</a></li>
+											href="~/CMT/CMTJob">CMT</a></li>
 									</ul>
 								</li>
 								<li class="dropdown"><a class="dropdown-toggle" runat="server" id="Yarn" data-toggle="dropdown" href="#">Yarn<span class="caret"></span></a>
-									<ul class="dropdown-menu" role="menu">  
-										<li><a runat="server" style="background-color: #248f24; color:#b3ffb3;" id="AYS" visible="true"
-									href="~/Management/Adjust_Yarn_Stock">Adjust Yarn Stock</a></li>
+									<ul class="dropdown-menu" role="menu">
+										<li><a runat="server" style="background-color: #248f24; color: #b3ffb3;" id="AYS" visible="true"
+											href="~/Management/Adjust_Yarn_Stock">Adjust Yarn Stock</a></li>
 										<li><a runat="server" style="background-color: #b3ffb3; color: #248f24;" id="RY" visible="true"
-									href="~/Management/Recieve yarn">Receive Yarn</a></li>
+											href="~/Management/Recieve yarn">Receive Yarn</a></li>
+									</ul>
+								</li>
+								<li class="dropdown"><a class="dropdown-toggle" runat="server" id="JD" data-toggle="dropdown" href="#">Jersey Difference<span class="caret"></span></a>
+									<ul class="dropdown-menu" role="menu">
+										<li><a runat="server" id="ApprJrsyDiff" visible="false"
+											href="~/Management/ApproveJrsyDiff">Approve Jersey Difference</a></li>
+										<li><a runat="server" id="JDReport" visible="false"
+											href="~/Management/JrsyDiffReport">Jersey Difference Report</a></li>
 									</ul>
 								</li>
 								<li><a runat="server" style="background-color: #ffb31a" id="Corder" visible="true"
 									href="~/Management/CreateOrder">Create Order</a></li>
-								<li><a runat="server" id="Tickets" visible="false"
-									href="~/knitt/TicketOverview">Tickets</a></li>
+
 
 								<%--<li><a runat="server" href="~/">Home</a></li>
                         <li><a runat="server" href="~/About">About</a></li>

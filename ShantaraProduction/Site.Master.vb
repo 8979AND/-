@@ -50,20 +50,26 @@ Public Class SiteMaster
 			KNITT.Visible = True
 			CMT.Visible = True
 			CHECKSTORE.Visible = True
+			ApprJrsyDiff.Visible = True
 			Corder.Visible = True
 			Yarn.Visible = True
+			JD.Visible = True
+			JDReport.Visible = True
 		ElseIf Session("Auth_Level") = 2 Then
 			KNITT.Visible = True
 			CMT.Visible = True
 			CHECKSTORE.Visible = True
+			ApprJrsyDiff.Visible = True
 			Corder.Visible = False
 			Yarn.Visible = False
+			JDReport.Visible = False
 		Else
 			KNITT.Visible = True
 			CMT.Visible = True
 			CHECKSTORE.Visible = True
 			Corder.Visible = False
 			Yarn.Visible = False
+			JD.Visible = False
 
 		End If
 

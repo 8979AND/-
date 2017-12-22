@@ -130,6 +130,24 @@
 			</div>
 		</div>
 		<br />
+        <div class="row">
+            <div class="col-sm-4">
+				<label for="txtpanelsknittCaptureD">Panels Knitt captured Day</label>
+				<asp:TextBox runat="server" ID="txtpanelsknittCaptureD" CssClass="form-control" Style="height: 34px; width: 100%; max-width: none" Enabled="False" >0</asp:TextBox>
+			</div>
+            <div class="col-sm-4">
+				<label for="txtpanelsknittCaptureN">Panels Knitt captured Night</label>
+				<asp:TextBox runat="server" ID="txtpanelsknittCaptureN" CssClass="form-control" Style="height: 34px; width: 100%; max-width: none" Enabled="False" >0</asp:TextBox>
+			</div>
+            <div class="col-sm-4">
+				<label for="txtextraD">Extra day(if they didn't capture extra)</label>
+				<asp:TextBox runat="server" ID="txtextraD" CssClass="form-control" Style="height: 34px; width: 100%; max-width: none" Enabled="True" TextMode="Number" >0</asp:TextBox>
+			</div>
+            <div class="col-sm-4">
+				<label for="txtextraN">Extra Night(if they didn't capture extra)</label>
+				<asp:TextBox runat="server" ID="txtextraN" CssClass="form-control" Style="height: 34px; width: 100%; max-width: none" TextMode="Number">0</asp:TextBox>
+			</div>
+        </div>
 		<br />
 		<div class="row">
 			<div class="col-sm-4">

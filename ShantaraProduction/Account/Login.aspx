@@ -61,7 +61,7 @@
 		</div>
 		<div class="col-md-4">
 			<a runat="server" href="~/">
-				<asp:Image ID="ShantaraLogo" runat="server" ImageUrl="~/Images/ShantaraLogo.jpg" BorderStyle="Solid" />
+				<asp:Image ID="ShantaraLogo" runat="server" ImageUrl="~/Images/Shantara_Logo.jpg" BorderStyle="Solid" />
 			</a>
 		</div>
 	</div>

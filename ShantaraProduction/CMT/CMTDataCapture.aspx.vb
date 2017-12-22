@@ -73,7 +73,7 @@ Public Class CMTDataCapture
 					txtYarnColour.Text = reader("YarnColour")
 				End While
 			Else
-				MsgBox("problem with displaying info from database into boxes")
+				lblBundleNo.Text = "problem with bundle" & Session("BundleNo") & ". Please make a note"
 			End If
 			If Session("JDescription") = "Cutting" Then
 				txtAJCutD.Visible = False
@@ -360,7 +360,7 @@ Public Class CMTDataCapture
 	End Sub
 
 	Private Sub UpdateJDiffLastNumberUsed()
-		Dim cmdstring As String = "UPDATE [JerseyDiffTypeDef] SET LastNumberUsed = " & JDLNU & " WHERE JDiffTypeID = JDiffTypeID;"
+		Dim cmdstring As String = "UPDATE [JerseyDiffTypeDef] SET LastNumberUsed = " & JDLNU & " WHERE JDiffTypeID = @JDiffTypeID;"
 		Using con As New OleDbConnection(cnString)
 			'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
 			Dim cmd As New OleDbCommand(cmdstring)
@@ -478,8 +478,25 @@ Public Class CMTDataCapture
 		End If
 	End Sub
 
+	Private Sub UpdateJrsyDiffunprocessed()
+		Dim cmdstring As String
+		cmdstring = "UPDATE [CMT - CMTDetailsHeader]
+							 SET [JrsyDiffUnprocessed] = yes
+							 WHERE BundleNo = '" & Session("BundleNo") & "'"
+		Using con As New OleDbConnection(cnString)
+			Dim cmd As New OleDbCommand(cmdstring)
+			'cmd.Parameters.AddWithValue("@BundleNo", Session("BundleNo"))
+			cmd.CommandType = CommandType.Text
+			cmd.Connection = con
+			cmd.Connection.Open()
+			cmd.ExecuteNonQuery()
+		End Using
+	End Sub
+
 	Protected Sub ddlReason_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlReason.SelectedIndexChanged
 		btnjrsyadj.Visible = True
+		UpdateJrsyDiffunprocessed()
+
 		If ddlReason.SelectedValue = 5 Then
 			txtotherR.Visible = True
 			lblother.Visible = True
@@ -512,7 +529,6 @@ Public Class CMTDataCapture
 			UpdatewhereJdesc()
 			CMTbundleCompleteviewCheck()
 		End If
-
 
 	End Sub
 

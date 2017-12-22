@@ -163,6 +163,15 @@ Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
 </member>
+<member name="F:ShantaraProduction.BundleOverview._btnBack">
+<summary>
+btnBack control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
 <member name="F:ShantaraProduction.CheckDataCapture._lblBundleNo">
 <summary>
 lblBundleNo control.
@@ -415,6 +424,42 @@ Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
 </member>
+<member name="F:ShantaraProduction.CheckDataCapture._txtpanelsknittCaptureD">
+<summary>
+txtpanelsknittCaptureD control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:ShantaraProduction.CheckDataCapture._txtpanelsknittCaptureN">
+<summary>
+txtpanelsknittCaptureN control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:ShantaraProduction.CheckDataCapture._txtextraD">
+<summary>
+txtextraD control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:ShantaraProduction.CheckDataCapture._txtextraN">
+<summary>
+txtextraN control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
 <member name="F:ShantaraProduction.CheckDataCapture._lblerrBweight">
 <summary>
 lblerrBweight control.
@@ -580,6 +625,15 @@ To modify move field declaration from designer file to code-behind file.
 <member name="F:ShantaraProduction.CMTBundles._grdvBundlesCMTDone">
 <summary>
 grdvBundlesCMTDone control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:ShantaraProduction.CMTBundles._btnBack">
+<summary>
+btnBack control.
 </summary>
 <remarks>
 Auto-generated field.
@@ -1387,6 +1441,15 @@ Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
 </member>
+<member name="F:ShantaraProduction._Default._ShantaraLogo">
+<summary>
+ShantaraLogo control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
 <member name="F:ShantaraProduction.CreateBatch._ddlBProduct">
 <summary>
 ddlBProduct control.
@@ -1678,6 +1741,15 @@ To modify move field declaration from designer file to code-behind file.
 <member name="F:ShantaraProduction.DisplayBatchs._grdvprodnBundlesChecked">
 <summary>
 grdvprodnBundlesChecked control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:ShantaraProduction.DisplayBatchs._btnBack">
+<summary>
+btnBack control.
 </summary>
 <remarks>
 Auto-generated field.
@@ -2575,6 +2647,87 @@ Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
 </member>
+<member name="F:ShantaraProduction.JrsyDiffReport._rblJDPeriod">
+<summary>
+rblJDPeriod control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:ShantaraProduction.JrsyDiffReport._lbltotJD">
+<summary>
+lbltotJD control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:ShantaraProduction.JrsyDiffReport._txtTotJD">
+<summary>
+txtTotJD control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:ShantaraProduction.JrsyDiffReport._lblFrom">
+<summary>
+lblFrom control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:ShantaraProduction.JrsyDiffReport._txtfrom">
+<summary>
+txtfrom control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:ShantaraProduction.JrsyDiffReport._lblto">
+<summary>
+lblto control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:ShantaraProduction.JrsyDiffReport._txtto">
+<summary>
+txtto control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:ShantaraProduction.JrsyDiffReport._BtnCustomperiod">
+<summary>
+BtnCustomperiod control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:ShantaraProduction.JrsyDiffReport._grdvJDReport">
+<summary>
+grdvJDReport control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
 <member name="F:ShantaraProduction.Recieve_yarn._ddlSupplier">
 <summary>
 ddlSupplier control.
@@ -2809,18 +2962,36 @@ Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
 </member>
-<member name="F:ShantaraProduction.SiteMaster._Corder">
+<member name="F:ShantaraProduction.SiteMaster._JD">
 <summary>
-Corder control.
+JD control.
 </summary>
 <remarks>
 Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
 </member>
-<member name="F:ShantaraProduction.SiteMaster._Tickets">
+<member name="F:ShantaraProduction.SiteMaster._ApprJrsyDiff">
 <summary>
-Tickets control.
+ApprJrsyDiff control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:ShantaraProduction.SiteMaster._JDReport">
+<summary>
+JDReport control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:ShantaraProduction.SiteMaster._Corder">
+<summary>
+Corder control.
 </summary>
 <remarks>
 Auto-generated field.

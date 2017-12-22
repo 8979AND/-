@@ -73,7 +73,7 @@ Public Class ProductionOrderIssue
 		pnls2prod = PnlsToproduce
 		Dim cmdstring As String
 		'For Each i As GridViewRow In grdvProdOrderDetails.Rows
-		Do Until pnls2prod < 5
+		Do Until pnls2prod = 0
 			If bundlenum < 10 Then
 				bundleNo = txtbatchno.Text & "-K0" & bundlenum
 			Else
@@ -92,20 +92,25 @@ Public Class ProductionOrderIssue
 				End Using
 				Exit Do
 			Else
-				If pnls2prod < 5 Then
-					PanelsToMake = pnls2prod + MaxBundleSz
-					cmdstring = " INSERT INTO [KN - KnittingDetailsHeader] (BatchNo, BundleNo, ComponentID, SizeID, PanelsToMake, QtyPerPanel, KnittingOrderID) VALUES('" & txtbatchno.Text & "', '" & bundleNo & "', " & compID & ", " & sizeID & ", " & PanelsToMake & ", " & QtyPerPanel & ", " & KnittingOrderID & ");"
-					Using con As New OleDbConnection(cnString)
-						Dim cmd As New OleDbCommand(cmdstring)
-						cmd.CommandType = CommandType.Text
-						cmd.Connection = con
-						cmd.Connection.Open()
-						cmd.ExecuteNonQuery()
-					End Using
-					Exit Do
-				End If
 				PanelsToMake = MaxBundleSz
 				pnls2prod = pnls2prod - MaxBundleSz
+
+				If pnls2prod < 10 Then
+					PanelsToMake = pnls2prod + MaxBundleSz
+					pnls2prod = 0
+
+					cmdstring = " INSERT INTO [KN - KnittingDetailsHeader] (BatchNo, BundleNo, ComponentID, SizeID, PanelsToMake, QtyPerPanel, KnittingOrderID) VALUES('" & txtbatchno.Text & "', '" & bundleNo & "', " & compID & ", " & sizeID & ", " & PanelsToMake & ", " & QtyPerPanel & ", " & KnittingOrderID & ");"
+					'					Using con As New OleDbConnection(cnString)
+					'					Dim cmd As New OleDbCommand(cmdstring)
+					'					cmd.CommandType = CommandType.Text
+					'					cmd.Connection = con
+					'					cmd.Connection.Open()
+					'					cmd.ExecuteNonQuery()
+					'					End Using
+					'					Exit Do
+				End If
+
+
 				cmdstring = " INSERT INTO [KN - KnittingDetailsHeader] (BatchNo, BundleNo, ComponentID, SizeID, PanelsToMake, QtyPerPanel, KnittingOrderID) VALUES('" & txtbatchno.Text & "', '" & bundleNo & "', " & compID & ", " & sizeID & ", " & PanelsToMake & ", " & QtyPerPanel & ", " & KnittingOrderID & ");"
 				Using con As New OleDbConnection(cnString)
 					Dim cmd As New OleDbCommand(cmdstring)
@@ -123,112 +128,6 @@ Public Class ProductionOrderIssue
 
 	End Sub
 
-	Private Sub knittingdetailsheader()
-		For i = 0 To grdvProdOrderDetails.Rows.Count - 1
-			bundlenum = 1
-			componentName = grdvProdOrderDetails.Rows(i).Cells(7).Text
-			knittOrderID = grdvProdOrderDetails.Rows(i).Cells(5).Text
-			componentID = grdvProdOrderDetails.Rows(i).Cells(4).Text
-			sizeID = grdvProdOrderDetails.Rows(i).Cells(6).Text
-			'If grdvProdOrderDetails.Rows(i).Cells(15).Text = "&nbsp;" Then
-			'	qtyppnl = 1
-			'Else
-			qtyppnl = grdvProdOrderDetails.Rows(i).Cells(15).Text
-			'End If
-			Select Case componentName
-				Case "Sleeve", "Front", "Body", "Back"
-					MxBndleSz = 36
-					PnlsToProduce = grdvProdOrderDetails.Rows(i).Cells(16).Text
-					BuildKnittingRecords(MxBndleSz, componentID, sizeID, PnlsToProduce, qtyppnl, knittOrderID, bundleNo)
-				Case "FrontRib34-42"
-					MxBndleSz = 150
-					'PnlsToProduce = 0
-					'While componentName = "FrontRib34-42"
-					PnlsToProduce += grdvProdOrderDetails.Rows(i).Cells(16).Text
-					'End While
-					BuildKnittingRecords(MxBndleSz, componentID, sizeID, PnlsToProduce, qtyppnl, knittOrderID, bundleNo)
-				Case "FrontRib44-50"
-					MxBndleSz = 150
-					'PnlsToProduce = 0
-					'While componentName = "FrontRib44-50"
-					PnlsToProduce += grdvProdOrderDetails.Rows(i).Cells(16).Text
-					'End While
-				Case "Collar22-32"
-					MxBndleSz = 200
-					'PnlsToProduce = 0
-					'While componentName = "Collar22-32"
-					PnlsToProduce += grdvProdOrderDetails.Rows(i).Cells(16).Text
-					'End While
-					Select Case PnlsToProduce
-						Case 50 To 100
-							PnlsToProduce = PnlsToProduce + 1
-						Case 101 To 250
-							PnlsToProduce = PnlsToProduce + 2
-						Case Is > 250
-							PnlsToProduce = PnlsToProduce + 3
-					End Select
-					BuildKnittingRecords(MxBndleSz, componentID, sizeID, PnlsToProduce, qtyppnl, knittOrderID, bundleNo)
-				Case "Collar34-46"
-					MxBndleSz = 200
-					'PnlsToProduce = 0
-					'While componentName = "Collar34-46"
-					PnlsToProduce += grdvProdOrderDetails.Rows(i).Cells(16).Text
-					'End While
-					Select Case PnlsToProduce
-						Case 50 To 100
-							PnlsToProduce = PnlsToProduce + 1
-						Case 101 To 250
-							PnlsToProduce = PnlsToProduce + 2
-						Case Is > 250
-							PnlsToProduce = PnlsToProduce + 3
-					End Select
-					BuildKnittingRecords(MxBndleSz, componentID, sizeID, PnlsToProduce, qtyppnl, knittOrderID, bundleNo)
-				Case "CollarS-4XL"
-					MxBndleSz = 200
-					'PnlsToProduce = 0
-					'While componentName = "CollarS-4XL"
-					PnlsToProduce += grdvProdOrderDetails.Rows(i).Cells(16).Text
-					'End While
-					Select Case PnlsToProduce
-						Case 50 To 100
-							PnlsToProduce = PnlsToProduce + 1
-						Case 101 To 250
-							PnlsToProduce = PnlsToProduce + 2
-						Case Is > 250
-							PnlsToProduce = PnlsToProduce + 3
-					End Select
-				Case "Armhole22-46"
-					MxBndleSz = 150
-					'PnlsToProduce = 0
-					'While componentName = "Armhole22-46"
-					PnlsToProduce += grdvProdOrderDetails.Rows(i).Cells(16).Text
-					'End While
-					BuildKnittingRecords(MxBndleSz, componentID, sizeID, PnlsToProduce, qtyppnl, knittOrderID, bundleNo)
-				Case "ArmholeS-XL"
-					MxBndleSz = 150
-					'PnlsToProduce = 0
-					'While componentName = "ArmholeS-XL"
-					PnlsToProduce += grdvProdOrderDetails.Rows(i).Cells(16).Text
-					'End While
-					BuildKnittingRecords(MxBndleSz, componentID, sizeID, PnlsToProduce, qtyppnl, knittOrderID, bundleNo)
-				Case "Armhole2XL-4XL"
-					MxBndleSz = 150
-					'PnlsToProduce = 0
-					'While componentName = "Armhole2XL-4XL"
-					PnlsToProduce += grdvProdOrderDetails.Rows(i).Cells(16).Text
-					'End While
-					BuildKnittingRecords(MxBndleSz, componentID, sizeID, PnlsToProduce, qtyppnl, knittOrderID, bundleNo)
-				Case "Stolling"
-					MxBndleSz = 30
-					PnlsToProduce += (grdvProdOrderDetails.Rows(i).Cells(10).Text * (grdvProdOrderDetails.Rows(i).Cells(20).Text / 100))
-				Case "Pocket"
-					MxBndleSz = 100
-					PocketsToMake += (grdvProdOrderDetails.Rows(i).Cells(10).Text / grdvProdOrderDetails.Rows(i).Cells(15).Text)
-					PnlsToProduce = Round(PocketsToMake + 0.4, 0)
-					BuildKnittingRecords(MxBndleSz, componentID, sizeID, PnlsToProduce, qtyppnl, knittOrderID, bundleNo)
-			End Select
-		Next
-	End Sub
 	Private Sub grdvProdOrderDetailsPopulate()
 		Dim Adapter As New OleDbDataAdapter
 		Dim Data As New DataTable
@@ -292,16 +191,15 @@ Public Class ProductionOrderIssue
 	End Sub
 	Protected Sub btnPrintTickets_Click(sender As Object, e As EventArgs) Handles btnPrintTickets.Click
 		bundlenum = 1
-		Updatemachineallocation()
+		'Updatemachineallocation()
 		grdvProdOrderDetailsPopulate()
-		UpdateOrdQtyBal()
-		'knittingdetailsheader()
-		knittingdetailsheaderdataset()
+		'UpdateOrdQtyBal()
+		'knittingdetailsheaderdataset()
 		'knittdatareader()
+		BuildCMTRecords()
 	End Sub
 
 	Protected Sub Back(sender As Object, e As EventArgs) Handles btnBack.Click
-
 	End Sub
 
 	Private Sub knittingdetailsheaderdataset()
@@ -351,9 +249,9 @@ Public Class ProductionOrderIssue
 			cmd.CommandText = SQL
 			Adapter.SelectCommand = cmd
 			Adapter.Fill(dt)
-			' dr As Integer
-			For dr As Integer = 0 To dt.Rows.Count - 1
-				'Do While dr < dt.Rows.Count - 1
+			Dim dr As Integer = 0
+			'For dr As Integer = 0 To dt.Rows.Count - 1
+			Do While dr < dt.Rows.Count
 				componentName = dt(dr)(6)
 				knittOrderID = dt(dr)(4)
 				componentID = dt(dr)(3)
@@ -380,14 +278,21 @@ Public Class ProductionOrderIssue
 					Case "Collar22-32"
 						MxBndleSz = 200
 						PnlsToProduce = 0
-						knittOrderID = dt(dr)(4)
-						Do Until componentName <> "Collar22-32" Or dr = dt.Rows.Count - 1 Or knittOrderID <> dt(dr)(4)
-							dr += 1
+						Dim tempknittOrderID = knittOrderID
+						Do While componentName = "Collar22-32" And dr < dt.Rows.Count And knittOrderID = tempknittOrderID
+
+
 							'If componentName <> "Collar22-32" Or dr = dt.Rows.Count - 1 Then
 							'	Exit Do
 							'End If
 							PnlsToProduce += dt(dr)(11)
+							dr += 1
+							If dr < dt.Rows.Count Then
+								componentName = dt(dr)(6)
+								tempknittOrderID = dt(dr)(4)
+							End If
 						Loop
+						dr = dr - 1
 						Select Case PnlsToProduce
 							Case 50 To 100
 								PnlsToProduce = PnlsToProduce + 1
@@ -457,179 +362,8 @@ Public Class ProductionOrderIssue
 						BuildKnittingRecords(MxBndleSz, componentID, sizeID, PnlsToProduce, qtyppnl, knittOrderID, bundlenum)
 				End Select
 				dr += 1
-				'Loop
-			Next
-		End Using
-	End Sub
-
-	Private Sub knittdatareader() 'still need to test
-		Dim cmdstring As String = "SELECT DISTINCTROW POH.BatchNo, 
-								  POH.ProductID, 
-								  POH.TicketsPrinted,
-								  POD.ProductionQty, 
-								  PMA.ComponentID, 
-								  POD.KnittingOrderID, 
-								  POD.SizeID, 
-								  CM.ComponentName,
-								  CM.MaxKnitBundleSize,
-								  CM.SplitAcrossSizes,
-								  [ProductionQty]* [NoOfComponents] As CompTot,
-								  SSCDD.PanelDependency,
-								  PCD.KnitCombination,
-								  PMA.MachineNumber,
-								  KMD.ForceOneCompPerPnl,
-								  IIf([ForceOneCompPerPnl] = True, 1, IIf([PanelDependency] = 'None', 0, IIf([PanelDependency] = 'Width', Fix(([MaxKnitWidth] - [SettlingAllowance]) / [ComponentWidth]), Fix(([MaxKnitWidth] - [SettlingAllowance]) / [ComponentLength])))) As CompPerPnl,
-								  Round((([CompTot] / [CompPerPnl]) + 0.4), 0) As TotPnls, 
-								  EPC.NoCMTReq, 
-								  EPC.StyleID,  
-								  SSCDD.NoOfComponents,
-								  SSCDD.ComponentLength
-			FROM([KN - Knitting Machine Data] AS KMD
-			INNER Join(((([KN - ProductionOrderHeader] AS POH
-			INNER Join [FG - End Product Codes] AS EPC
-				On POH.ProductID = EPC.ProductID) 
-			INNER Join([KN - ProductionOrderDetails] AS POD
-			INNER Join([KN - ProductionMachineAllocation] AS PMA 
-			INNER Join [FG - Style Size Comp Def Details] AS SSCDD
-				On PMA.ComponentID = SSCDD.ComponentID) 
-				On POD.SizeID = SSCDD.SizeID) 
-				On (POH.BatchNo = POD.BatchNo) 
-					And (POH.BatchNo = PMA.BatchNo) 
-					And (EPC.StyleID = SSCDD.StyleID)) 
-			INNER Join [FG - Pattern Component Details] AS PCD
-				On EPC.PatternID = PCD.PatternID) 
-			INNER Join [FG - Component Master] AS CM
-				On (CM.ComponentID = SSCDD.ComponentID) 
-					And (PMA.ComponentID = CM.ComponentID)) 
-				On KMD.MachineNumber = PMA.MachineNumber) 
-			INNER Join [KN - ProductionYarnAllocation] AS PYA
-				On POH.BatchNo = PYA.BatchNo
-			WHERE POH.BatchNo = '" & txtbatchno.Text & "'
-			ORDER BY POH.BatchNo, PMA.ComponentID, POD.KnittingOrderID, POD.SizeID;"
-		Using con As New OleDbConnection(cnString)
-			Dim cmd As New OleDbCommand(cmdstring)
-			Dim reader As OleDbDataReader
-			Dim componentName As String
-			Dim PnlsToProduce As Integer
-			Dim MxBndleSz As Integer
-			Dim knittOrderID As Integer
-			Dim PocketsToMake As Integer
-			Dim componentID As Integer
-			Dim qtyppnl As Integer
-			Dim sizeID As Integer
-			cmd.CommandType = CommandType.Text
-			cmd.Connection = con
-			cmd.Connection.Open()
-			cmd.ExecuteNonQuery()
-
-			reader = cmd.ExecuteReader(CommandBehavior.CloseConnection)
-			bundleNo = 1
-			If reader.HasRows = True Then
-				While reader.Read
-					componentName = reader("ComponentName")
-					MxBndleSz = reader("MaxKnitBundleSize")
-					knittOrderID = reader("KnittingOrderID")
-					componentID = Val(reader("ComponentID"))
-					sizeID = reader("sizeID")
-					If reader.IsDBNull(15) Then
-						qtyppnl = 1
-					Else
-						qtyppnl = Val(reader("CompPerPnl"))
-					End If
-					Select Case componentName
-						Case "Sleeve"
-							PnlsToProduce = Val(reader("TotPnls"))
-							BuildKnittingRecords(MxBndleSz, componentID, sizeID, PnlsToProduce, qtyppnl, knittOrderID, bundleNo)
-						Case "Front"
-							PnlsToProduce = Val(reader("TotPnls"))
-							BuildKnittingRecords(MxBndleSz, componentID, sizeID, PnlsToProduce, qtyppnl, knittOrderID, bundleNo)
-						Case "Body"
-							PnlsToProduce = Val(reader("TotPnls"))
-							BuildKnittingRecords(MxBndleSz, componentID, sizeID, PnlsToProduce, qtyppnl, knittOrderID, bundleNo)
-						Case "Back"
-							PnlsToProduce = Val(reader("TotPnls"))
-							BuildKnittingRecords(MxBndleSz, componentID, sizeID, PnlsToProduce, qtyppnl, knittOrderID, bundleNo)
-						Case "FrontRib34-42"
-							'PnlsToProduce = 0
-							'While componentName = "FrontRib34-42"
-							PnlsToProduce += reader("TotPnls")
-							'End While
-							BuildKnittingRecords(MxBndleSz, componentID, sizeID, PnlsToProduce, qtyppnl, knittOrderID, bundleNo)
-						Case "FrontRib44-50"
-							'PnlsToProduce = 0
-							'While componentName = "FrontRib44-50"
-							PnlsToProduce += reader("TotPnls")
-					'End While
-						Case "Collar22-32"
-							'PnlsToProduce = 0
-							'While componentName = "Collar22-32"
-							PnlsToProduce += reader("TotPnls")
-							'End While
-							Select Case PnlsToProduce
-								Case 50 To 100
-									PnlsToProduce = PnlsToProduce + 1
-								Case 101 To 250
-									PnlsToProduce = PnlsToProduce + 2
-								Case Is > 250
-									PnlsToProduce = PnlsToProduce + 3
-							End Select
-							BuildKnittingRecords(MxBndleSz, componentID, sizeID, PnlsToProduce, qtyppnl, knittOrderID, bundleNo)
-						Case "Collar34-46"
-							'PnlsToProduce = 0
-							'While componentName = "Collar34-46"
-							PnlsToProduce += Val(reader("TotPnls"))
-							'End While
-							Select Case PnlsToProduce
-								Case 50 To 100
-									PnlsToProduce = PnlsToProduce + 1
-								Case 101 To 250
-									PnlsToProduce = PnlsToProduce + 2
-								Case Is > 250
-									PnlsToProduce = PnlsToProduce + 3
-							End Select
-							BuildKnittingRecords(MxBndleSz, componentID, sizeID, PnlsToProduce, qtyppnl, knittOrderID, bundleNo)
-						Case "CollarS-4XL"
-							'PnlsToProduce = 0
-							'While componentName = "CollarS-4XL"
-							PnlsToProduce += Val(reader("TotPnls"))
-							'End While
-							Select Case PnlsToProduce
-								Case 50 To 100
-									PnlsToProduce = PnlsToProduce + 1
-								Case 101 To 250
-									PnlsToProduce = PnlsToProduce + 2
-								Case Is > 250
-									PnlsToProduce = PnlsToProduce + 3
-							End Select
-						Case "Armhole22-46"
-							'PnlsToProduce = 0
-							'While componentName = "Armhole22-46"
-							PnlsToProduce += Val(reader("TotPnls"))
-							'End While
-							BuildKnittingRecords(MxBndleSz, componentID, sizeID, PnlsToProduce, qtyppnl, knittOrderID, bundleNo)
-						Case "ArmholeS-XL"
-							'PnlsToProduce = 0
-							'While componentName = "ArmholeS-XL"
-							PnlsToProduce += Val(reader("TotPnls"))
-							'End While
-							BuildKnittingRecords(MxBndleSz, componentID, sizeID, PnlsToProduce, qtyppnl, knittOrderID, bundleNo)
-						Case "Armhole2XL-4XL"
-							'PnlsToProduce = 0
-							'While componentName = "Armhole2XL-4XL"
-							PnlsToProduce += Val(reader("TotPnls"))
-							'End While
-							BuildKnittingRecords(MxBndleSz, componentID, sizeID, PnlsToProduce, qtyppnl, knittOrderID, bundleNo)
-						Case "Stolling"
-							PnlsToProduce += Val((reader("CompTot") * reader("ComponentLength")))
-						Case "Pocket"
-							PocketsToMake += Val((reader("CompTot") / reader("CompPerPnl")))
-							PnlsToProduce = Round(PocketsToMake + 0.4, 0)
-							BuildKnittingRecords(MxBndleSz, componentID, sizeID, PnlsToProduce, qtyppnl, knittOrderID, bundleNo)
-					End Select
-				End While
-			Else
-
-			End If
+			Loop
+			'Next
 		End Using
 	End Sub
 
@@ -791,64 +525,66 @@ Public Class ProductionOrderIssue
 			CMTBndlNum = 1
 			For dr As Integer = 0 To dt.Rows.Count - 1
 				JrsysToMake = dt(dr)(3)
-				Do
+				Do Until JrsysToMake = 0
 					BatchNo = txtbatchno.Text
 					sizeID = dt(dr)(1)
 					knittingOrdID = dt(dr)(2)
 					If CMTBndlNum < 10 Then
-						CMTBundleNo = txtbatchno.Text & "-C0" & CMTBndlNum
-						CMTBundleNo = txtbatchno.Text & "-C0" & CMTBndlNum
+						cmtBundleNo = txtbatchno.Text & "-C0" & CMTBndlNum
+						'cmtBundleNo = txtbatchno.Text & "-C0" & CMTBndlNum
 					Else
-						CMTBundleNo = txtbatchno.Text & "-C" & CMTBndlNum
-						CMTBundleNo = txtbatchno.Text & "-C" & CMTBndlNum
+						cmtBundleNo = txtbatchno.Text & "-C" & CMTBndlNum
+						'cmtBundleNo = txtbatchno.Text & "-C" & CMTBndlNum
 					End If
+					CMTBndlNum += 1
 					If JrsysToMake < MaxJrsyBndlSz Then
 						JrsysToCut = JrsysToMake
 						cmdstring = " INSERT INTO [CMT - CMTDetailsHeader] (BatchNo, BundleNo, SizeID, JrsysToCut, KnittingOrderID) VALUES('" & txtbatchno.Text & "', '" & cmtBundleNo & "', " & sizeID & ", " & JrsysToCut & ", " & knittingOrdID & ");"
 						Using conn As New OleDbConnection(cnString)
 							Dim cmdd As New OleDbCommand(cmdstring)
 							cmdd.CommandType = CommandType.Text
-							cmdd.Connection = con
+							cmdd.Connection = conn
 							cmdd.Connection.Open()
 							cmdd.ExecuteNonQuery()
 						End Using
 						cmdstring = " INSERT INTO [CMT - CMTDetailsOperations] (BundleNo) VALUES('" & cmtBundleNo & "');"
-						Using conn As New OleDbConnection(cnString)
+						Using connn As New OleDbConnection(cnString)
 							Dim cmdd As New OleDbCommand(cmdstring)
 							cmdd.CommandType = CommandType.Text
-							cmdd.Connection = con
+							cmdd.Connection = connn
 							cmdd.Connection.Open()
 							cmdd.ExecuteNonQuery()
 						End Using
 						Exit Do
 					Else
-						If JrsysToMake < 10 Then
-							JrsysToCut = JrsysToMake + MaxJrsyBndlSz
-							cmdstring = " INSERT INTO [CMT - CMTDetailsHeader] (BatchNo, BundleNo, SizeID, JrsysToCut, KnittingOrderID) VALUES('" & txtbatchno.Text & "', '" & cmtBundleNo & "', " & sizeID & ", " & JrsysToCut & ", " & knittingOrdID & ");"
-							Using conn As New OleDbConnection(cnString)
-								Dim cmdd As New OleDbCommand(cmdstring)
-								cmdd.CommandType = CommandType.Text
-								cmdd.Connection = con
-								cmdd.Connection.Open()
-								cmdd.ExecuteNonQuery()
-							End Using
-							cmdstring = " INSERT INTO [CMT - CMTDetailsOperations] (BundleNo) VALUES('" & cmtBundleNo & "');"
-							Using conn As New OleDbConnection(cnString)
-								Dim cmdd As New OleDbCommand(cmdstring)
-								cmdd.CommandType = CommandType.Text
-								cmdd.Connection = con
-								cmdd.Connection.Open()
-								cmdd.ExecuteNonQuery()
-							End Using
-							Exit Do
-						End If
 						JrsysToCut = MaxJrsyBndlSz
 						JrsysToMake = JrsysToMake - MaxJrsyBndlSz
+						If JrsysToMake < 10 Then
+							JrsysToCut = JrsysToMake + MaxJrsyBndlSz
+							JrsysToMake = 0
+							'cmdstring = " INSERT INTO [CMT - CMTDetailsHeader] (BatchNo, BundleNo, SizeID, JrsysToCut, KnittingOrderID) VALUES('" & txtbatchno.Text & "', '" & cmtBundleNo & "', " & sizeID & ", " & JrsysToCut & ", " & knittingOrdID & ");"
+							'Using conn As New OleDbConnection(cnString)
+							'	Dim cmdd As New OleDbCommand(cmdstring)
+							'	cmdd.CommandType = CommandType.Text
+							'	cmdd.Connection = con
+							'	cmdd.Connection.Open()
+							'	cmdd.ExecuteNonQuery()
+							'End Using
+							'cmdstring = " INSERT INTO [CMT - CMTDetailsOperations] (BundleNo) VALUES('" & cmtBundleNo & "');"
+							'Using conn As New OleDbConnection(cnString)
+							'	Dim cmdd As New OleDbCommand(cmdstring)
+							'	cmdd.CommandType = CommandType.Text
+							'	cmdd.Connection = con
+							'	cmdd.Connection.Open()
+							'	cmdd.ExecuteNonQuery()
+							'End Using
+							'Exit Do
+						End If
 						cmdstring = " INSERT INTO [CMT - CMTDetailsHeader] (BatchNo, BundleNo, SizeID, JrsysToCut, KnittingOrderID) VALUES('" & txtbatchno.Text & "', '" & cmtBundleNo & "', " & sizeID & ", " & JrsysToCut & ", " & knittingOrdID & ");"
 						Using conn As New OleDbConnection(cnString)
 							Dim cmdd As New OleDbCommand(cmdstring)
 							cmdd.CommandType = CommandType.Text
-							cmdd.Connection = con
+							cmdd.Connection = conn
 							cmdd.Connection.Open()
 							cmdd.ExecuteNonQuery()
 						End Using
@@ -856,14 +592,14 @@ Public Class ProductionOrderIssue
 						Using conn As New OleDbConnection(cnString)
 							Dim cmdd As New OleDbCommand(cmdstring)
 							cmdd.CommandType = CommandType.Text
-							cmdd.Connection = con
+							cmdd.Connection = conn
 							cmdd.Connection.Open()
 							cmdd.ExecuteNonQuery()
 						End Using
 					End If
-					CMTBndlNum = CMTBndlNum + 1
-				Loop Until JrsysToMake < 10
-				CMTBndlNum = CMTBndlNum + 1
+					'CMTBndlNum = CMTBndlNum + 1
+				Loop
+				'CMTBndlNum = CMTBndlNum + 1
 			Next
 		End Using
 	End Sub

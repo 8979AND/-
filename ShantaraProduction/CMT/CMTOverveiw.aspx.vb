@@ -204,7 +204,7 @@ Public Class CMTOverveiw
 			grdvCMTbatches.Visible = True
 			Select Case Session("JDescription")
 				Case "Cutting"
-					SQL = "SELECT CDH.BatchNo, EM.EntityName, EPC.ProductCode, SUM(CDH.JrsysToCut) AS [Total Jerseys To Cut], CSIM.CMTSpecialInstructionDetail
+					SQL = "SELECT CDH.BatchNo, EM.EntityName, EPC.ProductCode, SUM(CDH.JrsysToCut) AS [Total Jerseys To Cut], CSIM.CMTSpecialInstructionDetail, KO.OrderDate, KO.ReqByDate
         FROM (((((([CMT - CMTDetailsHeader] AS CDH 
 		INNER JOIN [KN - KnittingOrder] AS KO
 			On CDH.KnittingOrderID = KO.KnittingOrderID)
@@ -219,10 +219,10 @@ Public Class CMTOverveiw
 		INNER JOIN [CMT - CMTDetailsOperations] AS CDO
 			ON CDH.BundleNo = CDO.BundleNo)
 		WHERE (POH.BatchComplete = yes) AND (CDH.CutDataCaptured = no) AND (CDO.CutDate IS NULL) AND (CDH.Bundlecompleteview = no) 
-		GROUP BY CDH.BatchNo, EM.EntityName, EPC.ProductCode, CSIM.CMTSpecialInstructionDetail
+		GROUP BY CDH.BatchNo, EM.EntityName, EPC.ProductCode, CSIM.CMTSpecialInstructionDetail, KO.OrderDate, KO.ReqByDate
 		ORDER BY CDH.BatchNo, EM.EntityName;"
 				Case "AttachVN"
-					SQL = "SELECT CDH.BatchNo, EM.EntityName, EPC.ProductCode, SUM(CDH.JrsysToCut) AS [Total Jerseys To Cut], CSIM.CMTSpecialInstructionDetail
+					SQL = "SELECT CDH.BatchNo, EM.EntityName, EPC.ProductCode, SUM(CDH.JrsysToCut) AS [Total Jerseys To Cut], CSIM.CMTSpecialInstructionDetail, KO.OrderDate, KO.ReqByDate
         FROM (((((([CMT - CMTDetailsHeader] AS CDH 
 		INNER JOIN [KN - KnittingOrder] AS KO
 			On CDH.KnittingOrderID = KO.KnittingOrderID)
@@ -237,10 +237,10 @@ Public Class CMTOverveiw
 		INNER JOIN [CMT - CMTDetailsOperations] AS CDO
 			ON CDH.BundleNo = CDO.BundleNo)
 		WHERE (POH.BatchComplete = yes) AND (CDH.CutDataCaptured = yes) AND (CDO.AttachVDate IS NULL) AND (CDH.Bundlecompleteview = no) 
-		GROUP BY CDH.BatchNo, EM.EntityName, EPC.ProductCode, CSIM.CMTSpecialInstructionDetail
+		GROUP BY CDH.BatchNo, EM.EntityName, EPC.ProductCode, CSIM.CMTSpecialInstructionDetail, KO.OrderDate, KO.ReqByDate
 		ORDER BY CDH.BatchNo, EM.EntityName;"
 				Case "Side Seams"
-					SQL = "SELECT CDH.BatchNo, EM.EntityName, EPC.ProductCode, SUM(CDH.JrsysToCut) AS [Total Jerseys To Cut], CSIM.CMTSpecialInstructionDetail
+					SQL = "SELECT CDH.BatchNo, EM.EntityName, EPC.ProductCode, SUM(CDH.JrsysToCut) AS [Total Jerseys To Cut], CSIM.CMTSpecialInstructionDetail, KO.OrderDate, KO.ReqByDate
         FROM (((((([CMT - CMTDetailsHeader] AS CDH 
 		INNER JOIN [KN - KnittingOrder] AS KO
 			On CDH.KnittingOrderID = KO.KnittingOrderID)
@@ -255,10 +255,10 @@ Public Class CMTOverveiw
 		INNER JOIN [CMT - CMTDetailsOperations] AS CDO
 			ON CDH.BundleNo = CDO.BundleNo)
 		WHERE (POH.BatchComplete = yes) AND (CDH.CutDataCaptured = yes) AND (CDO.SideSeamsDate IS NULL) AND (CDH.Bundlecompleteview = no) 
-		GROUP BY CDH.BatchNo, EM.EntityName, EPC.ProductCode, CSIM.CMTSpecialInstructionDetail
+		GROUP BY CDH.BatchNo, EM.EntityName, EPC.ProductCode, CSIM.CMTSpecialInstructionDetail, KO.OrderDate, KO.ReqByDate
 		ORDER BY CDH.BatchNo, EM.EntityName;"
 				Case "Pressing"
-					SQL = "SELECT CDH.BatchNo, EM.EntityName, EPC.ProductCode, SUM(CDH.JrsysToCut) AS [Total Jerseys To Cut], CSIM.CMTSpecialInstructionDetail
+					SQL = "SELECT CDH.BatchNo, EM.EntityName, EPC.ProductCode, SUM(CDH.JrsysToCut) AS [Total Jerseys To Cut], CSIM.CMTSpecialInstructionDetail, KO.OrderDate, KO.ReqByDate
         FROM (((((([CMT - CMTDetailsHeader] AS CDH 
 		INNER JOIN [KN - KnittingOrder] AS KO
 			On CDH.KnittingOrderID = KO.KnittingOrderID)
@@ -273,10 +273,10 @@ Public Class CMTOverveiw
 		INNER JOIN [CMT - CMTDetailsOperations] AS CDO
 			ON CDH.BundleNo = CDO.BundleNo)
 		WHERE (POH.BatchComplete = yes) AND (CDH.CutDataCaptured = yes) AND (CDO.PressDate IS NULL) AND (CDH.Bundlecompleteview = no) 
-		GROUP BY CDH.BatchNo, EM.EntityName, EPC.ProductCode, CSIM.CMTSpecialInstructionDetail
+		GROUP BY CDH.BatchNo, EM.EntityName, EPC.ProductCode, CSIM.CMTSpecialInstructionDetail, KO.OrderDate, KO.ReqByDate
 		ORDER BY CDH.BatchNo, EM.EntityName;"
 				Case "Dispatch"
-					SQL = "SELECT CDH.BatchNo, EM.EntityName, EPC.ProductCode, SUM(CDH.JrsysToCut) AS [Total Jerseys To Cut], CSIM.CMTSpecialInstructionDetail
+					SQL = "SELECT CDH.BatchNo, EM.EntityName, EPC.ProductCode, SUM(CDH.JrsysToCut) AS [Total Jerseys To Cut], CSIM.CMTSpecialInstructionDetail, KO.OrderDate, KO.ReqByDate
         FROM (((((([CMT - CMTDetailsHeader] AS CDH 
 		INNER JOIN [KN - KnittingOrder] AS KO
 			On CDH.KnittingOrderID = KO.KnittingOrderID)
@@ -291,7 +291,7 @@ Public Class CMTOverveiw
 		INNER JOIN [CMT - CMTDetailsOperations] AS CDO
 			ON CDH.BundleNo = CDO.BundleNo)
 		WHERE (POH.BatchComplete = yes) AND (CDH.CutDataCaptured = yes) AND (CDO.DispatchDate IS NULL) AND (CDH.Bundlecompleteview = no) 
-		GROUP BY CDH.BatchNo, EM.EntityName, EPC.ProductCode, CSIM.CMTSpecialInstructionDetail
+		GROUP BY CDH.BatchNo, EM.EntityName, EPC.ProductCode, CSIM.CMTSpecialInstructionDetail, KO.OrderDate, KO.ReqByDate
 		ORDER BY CDH.BatchNo, EM.EntityName;"
 			End Select
 

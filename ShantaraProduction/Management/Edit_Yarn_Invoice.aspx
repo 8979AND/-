@@ -38,14 +38,12 @@
 				</asp:LinkButton>
 			</div>
 			<div class="col-sm-4">
-
 			</div>
 			<div class="col-sm-4">
 				<asp:LinkButton runat="server" ID="btnBack" OnClick="Back" Text="Back" CssClass="btn btn-default btn-lg">
                     <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Back
 				</asp:LinkButton>
 			</div>
-			
 		</div>
 
 	</div>

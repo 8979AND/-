@@ -266,6 +266,42 @@ Partial Public Class CheckDataCapture
     Protected WithEvents txtFOthers As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
+    '''txtpanelsknittCaptureD control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtpanelsknittCaptureD As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''txtpanelsknittCaptureN control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtpanelsknittCaptureN As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''txtextraD control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtextraD As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''txtextraN control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtextraN As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
     '''lblerrBweight control.
     '''</summary>
     '''<remarks>

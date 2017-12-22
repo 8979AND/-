@@ -12,7 +12,7 @@
 		<asp:Label runat="server" AssociatedControlID="grdvJDiff" Visible="True" ID="lblBatch4Inv" CssClass="h2">Production Orders</asp:Label>
 		<asp:Label ID="lblerrJDiff" runat="server" Text="" ForeColor="Red"></asp:Label>
 		<div id="DisplaygrdvJDiff" style="width: 675px; overflow: auto; height: 300px;" runat="server">
-			<asp:GridView ID="grdvJDiff" runat="server" AutoGenerateColumns="False" CellPadding="5" ForeColor="#333333" GridLines="Vertical" HorizontalAlign="Center" CellSpacing="30" PageSize="5">
+			<asp:GridView ID="grdvJDiff" OnSelectedIndexChanged="grdvJDiff_SelectedIndexChanged" runat="server" AutoPostBack="true"  AutoGenerateColumns="False" CellPadding="5" ForeColor="#333333" GridLines="Vertical" HorizontalAlign="Center" CellSpacing="30" PageSize="5">
 				<AlternatingRowStyle BackColor="White" />
 				<Columns>
 					<asp:BoundField DataField="BundleNo" HeaderText="BundleNo" />
@@ -21,18 +21,17 @@
 					<asp:BoundField DataField="JrsysToCut" HeaderText="Jerseys to cut" />
 					<asp:TemplateField HeaderText="Reason" ItemStyle-Width="30">
 						<ItemTemplate>
-							<asp:DropDownList ID="ddlreason" CssClass="form-control" Style="height: 34px; width: 100%; max-width: 150px" runat="server" AutoPostBack="true"
-								AppendDataBoundItems="True" DataSourceID="ReasonDataSource" DataTextField="Description" DataValueField="ReasonID">
-								<asp:ListItem Text="--Select Reason--" Value=""></asp:ListItem>
+							<asp:DropDownList ID="ddlreason" CssClass="form-control" Style="height: 34px; width: 100%; max-width: 150px" runat="server" AutoPostBack="true" 
+								AppendDataBoundItems="True" DataSourceID="ReasonDataSource" DataTextField="Description" DataValueField="ReasonID" SelectedValue=<%# Eval("ReasonID") %>>
 							</asp:DropDownList>
 						</ItemTemplate>
-						<ItemStyle Width="45px"></ItemStyle>
+						<ItemStyle Width="180px"></ItemStyle>
 					</asp:TemplateField>
 					<asp:TemplateField HeaderText="Other" ItemStyle-Width="30">
 						<ItemTemplate>
 							<asp:TextBox runat="server" ID="txtOther" CssClass="form-control" Style="height: 34px; width: 100%; max-width: none" Enabled="True" AutoPostBack="True" Text='<%# Eval("ReasonOther") %>' />
 						</ItemTemplate>
-						<ItemStyle Width="30px"></ItemStyle>
+						<ItemStyle Width="150px"></ItemStyle>
 					</asp:TemplateField>
 					<asp:TemplateField HeaderText="Actual Jerseys Cut" ItemStyle-Width="30">
 						<ItemTemplate>
@@ -40,15 +39,7 @@
 						</ItemTemplate>
 						<ItemStyle Width="30px"></ItemStyle>
 					</asp:TemplateField>
-					<asp:TemplateField HeaderText="Other" ItemStyle-Width="30">
-						<ItemTemplate>
-							<asp:LinkButton runat="server" ID="btnAccept" CssClass="btn btn-default btn-lg">
-                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Accept/changed
-							</asp:LinkButton>
-						</ItemTemplate>
-						<ItemStyle Width="30px"></ItemStyle>
-					</asp:TemplateField>
-
+					<asp:ButtonField Text="Accept/change" CommandName="Select" ItemStyle-Width="150" />
 					<%--<asp:BoundField DataField="ProductID" HeaderText="ProductID" ItemStyle-Width="150" />--%>
 					<asp:TemplateField HeaderText="Cost"></asp:TemplateField>
 				</Columns>

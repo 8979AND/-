@@ -77,6 +77,33 @@ Partial Public Class SiteMaster
     Protected WithEvents RY As Global.System.Web.UI.HtmlControls.HtmlAnchor
     
     '''<summary>
+    '''JD control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents JD As Global.System.Web.UI.HtmlControls.HtmlAnchor
+    
+    '''<summary>
+    '''ApprJrsyDiff control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ApprJrsyDiff As Global.System.Web.UI.HtmlControls.HtmlAnchor
+    
+    '''<summary>
+    '''JDReport control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents JDReport As Global.System.Web.UI.HtmlControls.HtmlAnchor
+    
+    '''<summary>
     '''Corder control.
     '''</summary>
     '''<remarks>
@@ -84,15 +111,6 @@ Partial Public Class SiteMaster
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents Corder As Global.System.Web.UI.HtmlControls.HtmlAnchor
-    
-    '''<summary>
-    '''Tickets control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents Tickets As Global.System.Web.UI.HtmlControls.HtmlAnchor
     
     '''<summary>
     '''LoginView1 control.

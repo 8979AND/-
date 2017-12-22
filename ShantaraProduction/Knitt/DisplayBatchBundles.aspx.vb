@@ -80,4 +80,7 @@ Public Class DisplayBatchs
 		End Using
 	End Sub
 
+	Protected Sub Back(sender As Object, e As EventArgs) Handles btnBack.Click
+		Response.Redirect("~/Knitt/DisplayBatches.aspx")
+	End Sub
 End Class

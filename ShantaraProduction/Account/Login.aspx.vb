@@ -25,8 +25,8 @@ Partial Public Class Login
 	End Sub
 	Protected Sub initAdmin()
 		Dim cmdstring As String = "UPDATE [GN - EmployeeDetails]
-								   SET [Password] ='" & Encrypt.GenerateHash("Shantara01") &
-								   "' WHERE EmployeeID = 100;"
+								   SET [Password] ='" & Encrypt.GenerateHash("Test123") &
+								   "' WHERE EmployeeID = 901;"
 		Using con As New OleDbConnection(cnString)
 			'Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("ShantaraDBConnection").ToString())
 			Dim cmd As New OleDbCommand(cmdstring)
@@ -93,9 +93,9 @@ Partial Public Class Login
 						End If
 						Session.Add("Username", reader("Username"))
 						Session.Add("Auth_Level", reader("Auth_LevelID"))
-						'Session.Add("EmployeeLogInID", reader("EmployeeID"))
+					Session.Add("EmployeeLogInID", reader("EmployeeID"))
 
-						If Session("Auth_Level") = 1 Then
+					If Session("Auth_Level") = 1 Then
 							Response.Redirect("~/Management/Adjust_Yarn_Stock.aspx")
 						ElseIf Session("Auth_Level") = 2 Then
 							Response.Redirect("~/CMT/CMTJob.aspx")

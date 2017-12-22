@@ -17,6 +17,9 @@ Public Class Adjust_Yarn_Stock
 	Private cnString As String = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\Shantara Production IT.mdb;OLE DB Services=-4"
 
 	Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+		If Session("Auth_Level") <> 1 Then
+			Response.Redirect("~/Account/Lockout.aspx")
+		End If
 		getColour()
 		getTransactiontype()
 	End Sub
@@ -228,14 +231,14 @@ Public Class Adjust_Yarn_Stock
 		'Double.TryParse(txteYweight.Text, Session("WeightDiff"))
 		'adds weight and carton difference 
 		Select Case ddltranstype.SelectedValue
-			Case 1, 5
+			Case 1, 5, 7
 				'Session("WeightDiff") = CDbl(txteYweight.Text)
 				NewWeight = Session("CurrentWeight") + WeightDiff
 				CartonDiff = txteYcartons.Text
 				NewCartons = Session("CurrentCartons") + CartonDiff
 
 		'minus weight and carton difference 
-			Case 2, 3, 4, 6, 7, 8
+			Case 2, 3, 4, 6, 8
 				WeightDiff = 0 - WeightDiff
 				NewWeight = Session("CurrentWeight") + WeightDiff
 				CartonDiff = 0 - txteYcartons.Text
